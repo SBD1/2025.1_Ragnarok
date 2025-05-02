@@ -24,7 +24,8 @@ const config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'SBD1', // Usually your GitHub org/user name.
   projectName: '2025.1-Ragnarok', // Usually your repo name.
-
+  trailingSlash: false,
+  
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
