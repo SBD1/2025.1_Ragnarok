@@ -198,4 +198,4 @@ O Modelo Entidade-Relacionamento (MER) é uma ferramenta gráfica usada para rep
 | :----: | :--------: | :------------------: | :--------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------: |
 |  1.0   | 29/05/2025 | Criação do Documento |                      [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4)                       | [Ian Costa](https://github.com/iancostag) |
 |  1.1   | 01/05/2025 |  Elaboração do MER   | [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4), [Ian Costa](https://github.com/iancostag) | [Kauã Richard ](https://github.com/rich4rd1) |
-|  1.2   | 02/05/2025 |  Correção do MER   | [Amanda Cruz](https://github.com/mandicrz) | [Ian Costa](https://github.com/iancostag) |
+|  1.2   | 02/05/2025 |  Correção de atributos e entidades | [Amanda Cruz](https://github.com/mandicrz) | [Ian Costa](https://github.com/iancostag) |
