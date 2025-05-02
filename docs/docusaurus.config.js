@@ -13,17 +13,17 @@ const config = {
   title: 'Ragnarok',
   tagline: 'Ragnarok is cool',
   favicon: 'img/favicon.ico',
-
+  deploymentBranch: "gh-pages",
   // Set the production url of your site here
-  url: 'https://sbd1.github.io/2025.1_Ragnarok/',
+  url: 'https://sbd1.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/2025.1_Ragnarok/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'SBD1', // Usually your GitHub org/user name.
-  projectName: 'Ragnarok', // Usually your repo name.
+  projectName: '2025.1-Ragnarok', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
