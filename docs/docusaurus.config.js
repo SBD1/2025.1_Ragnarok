@@ -12,7 +12,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'Ragnarok',
   tagline: 'Ragnarok is cool',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo.png',
   deploymentBranch: "main",
   // Set the production url of your site here
   url: 'https://sbd1.github.io',
@@ -66,7 +66,7 @@ const config = {
         title: 'Ragnarok',
         logo: {
           alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          src: 'img/logo.png',
         },
         items: [
           {

@@ -27,10 +27,6 @@ const sidebars = {
       items: [
         {
           type: 'doc',
-          id: 'entrega_1/modulo_1'
-        },
-        {
-          type: 'doc',
           id: 'entrega_1/MER'
         },
         {

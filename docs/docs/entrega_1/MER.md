@@ -2,8 +2,10 @@
 
 ---
 
-# 1. MER - Modelo Entidade-Relacionamento
 
+# MER - Modelo Entidade-Relacionamento
+
+O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para representar de forma conceitual as entidades de um sistema e as relações entre elas. Ele ajuda a estruturar os dados e a entender como as informações se conectam. Abaixo, apresentamos o **MER** desenvolvido para o jogo *Ragnarok - MUD*.
 
 
 ## **Entidades**
