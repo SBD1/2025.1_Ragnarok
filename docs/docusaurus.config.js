@@ -13,7 +13,7 @@ const config = {
   title: 'Ragnarok',
   tagline: 'Ragnarok is cool',
   favicon: 'img/favicon.ico',
-  deploymentBranch: "gh-pages",
+  deploymentBranch: "main",
   // Set the production url of your site here
   url: 'https://sbd1.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
