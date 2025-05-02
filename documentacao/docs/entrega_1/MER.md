@@ -1,10 +1,10 @@
 ---
-sidebar_position: 2
+
 ---
 
-# **MER** - Modelo Entidade-Relacionamento
+# 1. MER - Modelo Entidade-Relacionamento
 
-O Modelo Entidade-Relacionamento (MER) é uma ferramenta gráfica usada para representar a estrutura de um banco de dados. Ele descreve as entidades do sistema, seus atributos e os relacionamentos entre elas. O MER ajuda a planejar e organizar dados de forma clara, facilitando a criação e gestão de bancos de dados eficientes e bem estruturados.
+
 
 ## **Entidades**
 
@@ -109,91 +109,108 @@ O Modelo Entidade-Relacionamento (MER) é uma ferramenta gráfica usada para rep
 
 - JOGADOR - **cria** - PERSONAGEM
 
-  - Um **JOGADOR** cria vários **PERSONAGEM**s, mas um **PERSONAGEM** é criado apenas por um **JOGADOR**
+  - Um **JOGADOR** cria um ou mais **PERSONAGEM**s (1,n), mas um **PERSONAGEM** é criado apenas por um **JOGADOR** (1,1)
   - Cardinalidade: (1:n)
 
 - PERSONAGEM - **pertence** - CLASSE
 
-  - Um **PERSONAGEM** pertence a uma única **CLASSE**, mas uma **CLASSE** é usada por vários **PERSONAGEM**s
+  - Um **PERSONAGEM** pertence a uma única **CLASSE** (1,1), mas uma **CLASSE** é usada por nenhum ou mais **PERSONAGEM**s (0,n)
   - Cardinalidade: (n:1)
 
 - PERSONAGEM - **possui** - INVENTARIO
 
-  - Um **PERSONAGEM** possui apenas um **INVENTARIO**, e um **INVENTARIO** pertence a apenas um **PERSONAGEM**
+  - Um **PERSONAGEM** possui apenas um **INVENTARIO** (1,1), e um **INVENTARIO** pertence a apenas um **PERSONAGEM** (1,1)
   - Cardinalidade: (1:1)
 
 - PERSONAGEM - **aprende** - HABILIDADE
 
-  - Um **PERSONAGEM** pode aprender várias **HABILIDADE**s, e uma **HABILIDADE** pode ser aprendida por vários **PERSONAGEM**s
+  - Um **PERSONAGEM** pode aprender nenhuma ou mais **HABILIDADE**s (0,n), e uma **HABILIDADE** pode ser aprendida por nenhum ou mais **PERSONAGEM**s (0,n)
   - Cardinalidade: (n:m)
 
 - PERSONAGEM - **recebe** - MISSAO
 
-  - Um **PERSONAGEM** pode receber nenhuma ou uma **MISSAO**s, e uma **MISSAO** pode ser recebida por um ou mais **PERSONAGEM**s
+  - Um **PERSONAGEM** pode receber nenhuma ou uma **MISSAO**s (0,1), e uma **MISSAO** pode ser recebida por nenhum ou mais **PERSONAGEM**s (0,n)
+  - Cardinalidade: (n:1)
+
+- PERSONAGEM - **interage** - NPC
+  - Um **PERSONAGEM** interage com nennum ou apenas um **NPC** (0,1), mas um **NPC** interage com nenhum ou mais **PERSONAGEM**s (0,n)
+  - Cardinalidade: (n:1)
+
+- PERSONAGEM - **reside** - SALA
+
+  - Um **PERSONAGEM** reside em apenas uma **SALA** (1,1), mas uma **SALA** pode residir nenhum ou mais **PERSONAGEM**s (0,n)
   - Cardinalidade: (n:1)
 
 - CLASSE - **possui** - HABILIDADE
 
-  - Uma **CLASSE** possui várias **HABILIDADE**, e uma **HABILIDADE** pertence a várias **CLASSE**s
+  - Uma **CLASSE** possui uma ou mais **HABILIDADE**s (1,n), e uma **HABILIDADE** pertence a uma ou mais **CLASSE**s (1,n)
   - Cardinalidade: (n:m)
+
+- HABILIDADE - **depende** - HABILIDADE
+  - Uma **HABILIDADE** depende de nennuma ou mais **HABILIDADE**s (0,n), e uma **HABILIDADE** é depedência de nenhuma ou mais **HABILIDADE**s (0,n)
+  - Cardinalidade: (0:n)
 
 - INVENTARIO - **armazena** - INSTANCIA_ITEM
 
-  - Um **INVENTARIO** armazena várias **INSTANCIAS_ITEM**s, mas uma **INSTANCIA_ITEM** é armazenada em apenas um **INVENTARIO**
-  - Cardinalidade: (1:n)
-
-- SALA - **contem** - PERSONAGEM
-
-  - Uma **SALA** contém vários **PERSONAGEM**s, mas um **PERSONAGEM** está em apenas uma **SALA** por vez
+  - Um **INVENTARIO** armazena nenhum ou mais **INSTANCIA_ITEM**s (0,n), mas uma **INSTANCIA_ITEM** é armazenada em nenhum ou apenas um **INVENTARIO** (0,1)
   - Cardinalidade: (1:n)
 
 - SALA - **tem** - INSTANCIA_ITEM
 
-  - Uma **SALA** tem vários **INSTANCIA_ITEM**s, mas uma **INSTANCIA_ITEM** está em apenas uma **SALA**
+  - Uma **SALA** tem nenhum ou mais **INSTANCIA_ITEM**s (0,n), mas uma **INSTANCIA_ITEM** está em nenhuma ou apenas uma **SALA** (0,1)
   - Cardinalidade: (1:n)
 
 - SALA - **contem** - NPC
 
-  - Uma **SALA** contém vários **NPC**s, mas um **NPC** está em apenas uma **SALA** por vez
+  - Uma **SALA** contém nenhum ou mais **NPC**s (0,n), mas um **NPC** está em apenas uma **SALA** (1,1)
   - Cardinalidade: (1:n)
 
 - ITEM - **possui** - INSTANCIA_ITEM
 
-  - Um **ITEM** pode possuir várias **INSTANCIA_ITEM**s, mas uma _INSTANCIA_ITEM_ é possuída por um único **ITEM**
+  - Um **ITEM** possui nenhuma ou mais **INSTANCIA_ITEM**s (0,n), mas uma **INSTANCIA_ITEM** é possuída por um único **ITEM** (1,1)
   - Cardinalidade: (1:n)
 
 - NPC_VENDEDOR - **possui** - INSTANCIA_NPC_VENDEDOR
 
-  - Um **NPC_VENDEDOR** possui várias **INSTANCIA_NPC_VENDEDOR**es, mas uma **INSTANCIA_NPC_VENDEDOR** é possuída por um único **NPC_VENDEDOR**
+  - Um **NPC_VENDEDOR** possui nenhuma ou mais **INSTANCIA_NPC_VENDEDOR**es (0,n), mas uma **INSTANCIA_NPC_VENDEDOR** é possuída por um único **NPC_VENDEDOR** (1,1)
   - Cardinalidade: (1:n)
 
 - NPC_VENDEDOR - **possui** - ESTOQUE
 
-  - Um **NPC_VENDEDOR** possui apenas um **ESTOQUE**, e um **ESTOQUE** é possuído por apenas um **NPC_VENDEDOR**
+  - Um **NPC_VENDEDOR** possui apenas um **ESTOQUE** (1,1), e um **ESTOQUE** é possuído por apenas um **NPC_VENDEDOR** (1,1)
   - Cardinalidade: (1:1)
 
 - NPC_COMBATENTE - **possui** - INSTANCIA_NPC_COMBATENTE
 
-  - Um **NPC_COMBATENTE** possui várias **INSTANCIA_NPC_COMBATENTE**s, mas uma **INSTANCIA_NPC_COMBATENTE** é possuída por um único **NPC_COMBATENTE**
+  - Um **NPC_COMBATENTE** possui nenhuma ou mais **INSTANCIA_NPC_COMBATENTE**s (0,n), mas uma **INSTANCIA_NPC_COMBATENTE** é possuída por um único **NPC_COMBATENTE** (1,1)
+  - Cardinalidade: (1:n)
+
+- NPC_COMBATENTE - **garante** - DROP
+  - Um **NPC_COMBATENTE** garante um ou mais **DROP**s (1,n), mas um **DROP** é garantido por apenas um **NPC_COMBATENTE** (1,1)
   - Cardinalidade: (1:n)
 
 - NPC_QUEST - **designa** - MISSAO
 
-  - Um **NPC_QUEST** designa várias **MISSAO**s, mas uma **MISSAO** é desginada por apenas um **NPC_QUEST**
+  - Um **NPC_QUEST** designa uma ou mais **MISSAO**s (1,n), mas uma **MISSAO** é desginada por apenas um **NPC_QUEST** (1,1)
   - Cardinalidade: (1:n)
 
 - MISSAO - **depende** - MISSAO
 
-  - Uma **MISSAO** pode depender de nenhuma ou uma única **MISSAO**
+  - Uma **MISSAO** pode depender de nenhuma ou uma única **MISSAO** (0,1), e uma **MISSAO** é dependência de nenhuma ou uma **MISSAO** (0,1) 
   - Cardinalidade: (0:1)
 
 - MISSAO - **garante** - INSTANCIA_ITEM
 
-  - Uma **MISAO** garante um ou mais **INSTANCIA_ITEM**s, e uma **INSTANCIA_ITEM** é garantida por nenhuma ou mais **MISSAO**s
+  - Uma **MISAO** garante um ou mais **INSTANCIA_ITEM**s (1,n), e uma **INSTANCIA_ITEM** é garantida por nenhuma ou mais **MISSAO**s (0,n)
+  - Cardinalidade: (n:m)
+
+- MISSAO - **requer** - ITEM
+  
+  - Uma **MISSAO** requer nenhum ou mais **ITEM** (0:n), e um **ITEM** é requerido por nenhuma ou mais **MISSAO**s (0:n)
   - Cardinalidade: (n:m)
 
 - ESTOQUE - **possui** - ITEM
-  - Um **ESTOQUE** pode possuir vários **ITEM**s, e um **ITEM** pode ser possuído por vários **ESTOQUE**s
+  - Um **ESTOQUE** possui um ou mais **ITEM**s (1,n), e um **ITEM** é possuído por nenhum ou mais **ESTOQUE**s (0,n)
   - Cardinalidade: (n:m)
 
 ## **Histórico de Versão**
