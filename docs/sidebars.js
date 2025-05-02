@@ -27,19 +27,23 @@ const sidebars = {
       items: [
         {
           type: 'doc',
-          id: 'entrega_1/MER'
+          id: 'entrega_1/MER',
+          label: '1. Modelo Entidade-Relacionamento',
         },
         {
           type: 'doc',
-          id: 'entrega_1/DER'
+          id: 'entrega_1/DER',
+          label: '2. Diagrama Entidade-Relacionamento',
         },
         {
           type: 'doc',
-          id: 'entrega_1/MREL'
+          id: 'entrega_1/MREL',
+          label: '3. Modelo Relacional',
         },
         {
           type: 'doc',
-          id: 'entrega_1/DD'
+          id: 'entrega_1/DD',
+          label: '4. Dicionário de Dados',
         }
       ],
     },
