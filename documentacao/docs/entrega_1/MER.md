@@ -23,7 +23,6 @@ O Modelo Entidade-Relacionamento (MER) é uma ferramenta gráfica usada para rep
     - **CAPA**
     - **ACESSORIO**
   - **DROP**
-    - **COMUM**
     - **ITEM_PRODUCAO**
   - **ARMA**
     - **CURTO_ALCANCE**
@@ -34,13 +33,11 @@ O Modelo Entidade-Relacionamento (MER) é uma ferramenta gráfica usada para rep
     - **COMIDA**
     - **POCAO**
     - **BUFFS**
-    - **STATUS_CURE**
 - **INSTANCIA_ITEM**
 - **NPC**
   - **NPC_COMBATENTE**
   - **INSTANCIA_NPC_COMBATENTE**
   - **NPC_QUEST**
-  - **INSTANCIA_NPC_COMBATENTE**
   - **NPC_VENDEDOR**
   - **INSTANCIA_NPC_VENDEDOR**
 - **MISSAO**
@@ -50,7 +47,7 @@ O Modelo Entidade-Relacionamento (MER) é uma ferramenta gráfica usada para rep
 
 - **JOGADOR**(<ins>`idJogador`</ins>, `usuario`, `email`, `senha`)
 
-- **PERSONAGEM**(<ins>`idPersonagem`</ins>, `nome`, `idSala`,`mana`,`vida`, `vitalidade`, `inteligencia`, `agilidade`, `sorte`, `destreza`, `forca`, `ataque`, `ataqueMagico`, `precisao`, `esquiva`, `defesa`, `defesaMagica`, `critico`, `velocidade`)
+- **PERSONAGEM**(<ins>`idPersonagem`</ins>, `nome`, `idSala`,`mana`,`vida`, `vitalidade`, `inteligencia`, `agilidade`, `sorte`, `destreza`, `forca`, `ataque`, `ataqueMagico`, `precisao`, `esquiva`, `defesa`, `defesaMagica`, `critico`, `velocidade`, `nivel`, `dinheiro`)
 
 - **CLASSE**(<ins>`idClasse`</ins>, `nomeClasse`, `descricao`)
 
@@ -58,52 +55,51 @@ O Modelo Entidade-Relacionamento (MER) é uma ferramenta gráfica usada para rep
 
 - **SALA**(<ins>`idSala`</ins>, `idCima`, `idBaixo`, `idEsquerda`, `idDireita`, `tipoSala`, `nomeSala`, `descricaoSala`)
 
-- **INVENTARIO**(<ins>`idInventario`</ins>, `idPersonagem`, `capacidadeSlots`, `slotsUsados`)
+- **INVENTARIO**(<ins>`idInventario`</ins>, {`idInstanciaItem`},`idPersonagem`, `capacidadeSlots`, `slotsUsados`)
 
 - **ITEM**(<ins>`idItem`</ins>, `nomeItem`, `tipoItem`, `descricao`, `atributosBonus`)
 
-  - **ARMADURA**()
-    - **PEITORAL**()
-    - **CAPACETE**()
-    - **BOTA**()
-    - **ESCUDO**()
-    - **CAPA**()
-    - **ACESSORIO**()
-  - **DROP**()
+  - **ARMA**(`velocidadeAtaque`, `tipoDano`, `danoBase`, `alcance`)
+    - **CURTO_ALCANCE**(`tipoLamina`)
+    - **LONGO_ALCANCE**(`tipoProjetil`, `quantidadeProjetil`)
+    - **MAGICA**(`tipoMagia`, `efeitoMagico`)
 
-    - **COMUM**()
-    - **ITEM_PRODUCAO**()
+  - **DROP**(`taxaDrop`, `idNpcCombatente`)
 
-  - **ARMA**()
-    - **CURTO_ALCANCE**()
-    - **MEDIO_ALCANCE**()
-    - **MAGICA**()
-  - **CONSUMIVEL**()
-    - **PERGAMINHO**()
-    - **COMIDA**()
-    - **POCAO**()
-    - **BUFFS**()
-    - **STATUS_CURE**()
+  - **ARMADURA**(`defesaBase`, `resistenciaElemental`)
+    - **PEITORAL**(`resistenciaStatus`, `bonusVida`, `bonusDefesa`)
+    - **CAPACETE**(`bonusMana`)
+    - **BOTA**(`resistencia`, `bonusDefesa`, `bonusCritico`)
+    - **ESCUDO**(`resistenciaStatus`)
+    - **CAPA**(`resistenciaStatus`, `bonusVida`)
+    - **ACESSORIO**(`bonusMana`, `bonusVida`, `bonusEsquiva`)
 
-- **INSTANCIA_ITEM**(<ins>`idInstanciaItem`</ins>,<ins>`idItem`</ins>,`idItem`, `idSala`, `idInventario`)
+  - **CONSUMIVEL**
+    - **COMIDA**(`bonusAtributo`, `bonusAtributoDuracao`)
+    - **POCAO**(`recuperaVida`, `recuperaMana`)
+    - **PERGAMINHO**(`tipoBuff`, `duracaoBuff`)
+
+- **INSTANCIA_ITEM**(<ins>`idInstanciaItem`</ins>,<ins>`idItem`</ins>, `idSala`, `idInventario`)
 
 - **NPC**(<ins>`idNpc`</ins>, `nome`, `descricao`, `tipoNpc`)
 
-  - **NPC_COMBATENTE**(<ins>`idNpcCombatente`</ins>, `tamanho`, `raca`, `descricao`, `ataque`, `defesa`, `defesaMagica`, `nivel`, `precisao`, `esquiva`)
+  - **NPC_COMBATENTE**(`tamanho`, `raca`, `descricao`, `ataque`, `defesa`, `defesaMagica`, `nivel`, `precisao`, `esquiva`)
 
   - **INSTANCIA_NPC_COMBATENTE**(<ins>`idInstanciaNpcCombatente`</ins>,<ins>`idNpcCombatente`</ins>, `vidaAtual`, `status`, `agressivo`)
 
-  - **NPC_QUEST**(<ins>`idNpcQuest`</ins>)
+  - **NPC_QUEST**(`dialogoFalha`, `dialogoSucesso`)
 
-  - **INSTANCIA_NPC_QUEST**(<ins>`idInstanciaNpcQuest`</ins>, <ins>`idNpcQuest`</ins>)
-
-  - **NPC_VENDEDOR**(<ins>`idNpcVendedor`</ins>)
+  - **NPC_VENDEDOR**(`tipoLoja`)
 
   - **INSTANCIA_NPC_VENDEDOR**(<ins>`idInstanciaNpcVendedor`</ins>, <ins>`idNpcVendedor`</ins>)
 
-- **MISSAO**(<ins>`idMissao`</ins>, `idNpcQuest`, `requisitoLevel`, `xpBase`, `xpClasse`, `descricao`, `requisitoMissao`, `objetivo`)
+- **MISSAO**(<ins>`idMissao`</ins>, `idNpcQuest`, {`idInstanciaItem`}, {`idItem`}, `requisitoLevel`, `xpBase`, `xpClasse`, `descricao`, `objetivo`, `dinheiroMissao`)
 
-- **ESTOQUE**(<ins>`idEstoque`</ins>, `idInstNpcVendedor`)
+- **ESTOQUE**(<ins>`idEstoque`</ins>, `idNpcVendedor`)
+
+### Atributos de Relacionamentos 
+
+- **possui**_ESTOQUE_ITEM(<ins>`idEstoque`</ins>, <ins>`idItem`</ins>, `custoItem`)
 
 ## **Relacionamentos**
 
@@ -202,3 +198,4 @@ O Modelo Entidade-Relacionamento (MER) é uma ferramenta gráfica usada para rep
 | :----: | :--------: | :------------------: | :--------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------: |
 |  1.0   | 29/05/2025 | Criação do Documento |                      [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4)                       | [Ian Costa](https://github.com/iancostag) |
 |  1.1   | 01/05/2025 |  Elaboração do MER   | [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4), [Ian Costa](https://github.com/iancostag) | [Kauã Richard ](https://github.com/rich4rd1) |
+|  1.2   | 02/05/2025 |  Correção do MER   | [Amanda Cruz](https://github.com/mandicrz) | [Ian Costa](https://github.com/iancostag) |
