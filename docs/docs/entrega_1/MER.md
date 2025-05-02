@@ -62,15 +62,15 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 - **ITEM**(<ins>`idItem`</ins>, `nomeItem`, `tipoItem`, `descricao`, `atributosBonus`)
 
   - **ARMA**(<ins>`idArma`</ins>,`velocidadeAtaque`, `tipoDano`, `danoBase`, `alcance`)
-    - **CURTO_ALCANCE**(<ins>`idCurtoAlcance`</ins>, `idArma`, `tipoLamina`)
+    - **CURTO_ALCANCE**(<ins>`idCurtoAlcance`</ins>, `idArma`, `categoriaArma`)
     - **LONGO_ALCANCE**(<ins>`idLongoAlcance`</ins>, `idArma`, `tipoProjetil`, `quantidadeProjetil`)
     - **MAGICA**(<ins>`idMagica`</ins>, `idArma`, `tipoMagia`, `efeitoMagico`)
 
   - **DROP**(<ins>`idItem`</ins>,`taxaDrop`, `idNpcCombatente`)
 
-  - **ARMADURA**(<ins>`idItem`</ins>,`defesaBase`, `resistenciaElemental`)
+  - **ARMADURA**(<ins>`idItem`</ins>,`tipoArmadura`, `defesa`, `defesaMagica`)
     - **PEITORAL**(<ins>`idPeitoral`</ins>, `idArmadura`, `resistenciaStatus`, `bonusVida`, `bonusDefesa`)
-    - **CAPACETE**(<ins>`idCapacete`</ins>, `bonusMana`)
+    - **CAPACETE**(<ins>`idCapacete`</ins>, `idArmadura`, `bonusMana`)
     - **BOTA**(<ins>`idBota`</ins>, `idArmadura`, `resistencia`, `bonusDefesa`, `bonusCritico`)
     - **ESCUDO**(<ins>`idEscudo`</ins>, `idArmadura`, `resistenciaStatus`)
     - **CAPA**(<ins>`idCapa`</ins>, `idArmadura`,  `resistenciaStatus`, `bonusVida`)
