@@ -61,37 +61,37 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 
 - **ITEM**(<ins>`idItem`</ins>, `nomeItem`, `tipoItem`, `descricao`, `atributosBonus`)
 
-  - **ARMA**(`velocidadeAtaque`, `tipoDano`, `danoBase`, `alcance`)
-    - **CURTO_ALCANCE**(`tipoLamina`)
-    - **LONGO_ALCANCE**(`tipoProjetil`, `quantidadeProjetil`)
-    - **MAGICA**(`tipoMagia`, `efeitoMagico`)
+  - **ARMA**(<ins>`idArma`</ins>,`velocidadeAtaque`, `tipoDano`, `danoBase`, `alcance`)
+    - **CURTO_ALCANCE**(<ins>`idCurtoAlcance`</ins>, `idArma`, `tipoLamina`)
+    - **LONGO_ALCANCE**(<ins>`idLongoAlcance`</ins>, `idArma`, `tipoProjetil`, `quantidadeProjetil`)
+    - **MAGICA**(<ins>`idMagica`</ins>, `idArma`, `tipoMagia`, `efeitoMagico`)
 
-  - **DROP**(`taxaDrop`, `idNpcCombatente`)
+  - **DROP**(<ins>`idItem`</ins>,`taxaDrop`, `idNpcCombatente`)
 
-  - **ARMADURA**(`defesaBase`, `resistenciaElemental`)
-    - **PEITORAL**(`resistenciaStatus`, `bonusVida`, `bonusDefesa`)
-    - **CAPACETE**(`bonusMana`)
-    - **BOTA**(`resistencia`, `bonusDefesa`, `bonusCritico`)
-    - **ESCUDO**(`resistenciaStatus`)
-    - **CAPA**(`resistenciaStatus`, `bonusVida`)
-    - **ACESSORIO**(`bonusMana`, `bonusVida`, `bonusEsquiva`)
+  - **ARMADURA**(<ins>`idItem`</ins>,`defesaBase`, `resistenciaElemental`)
+    - **PEITORAL**(<ins>`idPeitoral`</ins>, `idArmadura`, `resistenciaStatus`, `bonusVida`, `bonusDefesa`)
+    - **CAPACETE**(<ins>`idCapacete`</ins>, `bonusMana`)
+    - **BOTA**(<ins>`idBota`</ins>, `idArmadura`, `resistencia`, `bonusDefesa`, `bonusCritico`)
+    - **ESCUDO**(<ins>`idEscudo`</ins>, `idArmadura`, `resistenciaStatus`)
+    - **CAPA**(<ins>`idCapa`</ins>, `idArmadura`,  `resistenciaStatus`, `bonusVida`)
+    - **ACESSORIO**(<ins>`idAcessorio`</ins>, `idArmadura`, `bonusMana`, `bonusVida`, `bonusEsquiva`)
 
-  - **CONSUMIVEL**
-    - **COMIDA**(`bonusAtributo`, `bonusAtributoDuracao`)
-    - **POCAO**(`recuperaVida`, `recuperaMana`)
-    - **PERGAMINHO**(`tipoBuff`, `duracaoBuff`)
+  - **CONSUMIVEL**(<ins>`idItem`</ins>, `tipoConsumivel`)
+    - **COMIDA**(<ins>`idComida`</ins>, `idConsumivel`,`bonusAtributo`, `bonusAtributoDuracao`)
+    - **POCAO**(<ins>`idPocao`</ins>, `idConsumivel`, `recuperaVida`, `recuperaMana`)
+    - **PERGAMINHO**(<ins>`idPergaminho`</ins>, `idConsumivel`,  `tipoBuff`, `duracaoBuff`)
 
 - **INSTANCIA_ITEM**(<ins>`idInstanciaItem`</ins>,<ins>`idItem`</ins>, `idSala`, `idInventario`)
 
 - **NPC**(<ins>`idNpc`</ins>, `nome`, `descricao`, `tipoNpc`)
 
-  - **NPC_COMBATENTE**(`tamanho`, `raca`, `descricao`, `ataque`, `defesa`, `defesaMagica`, `nivel`, `precisao`, `esquiva`)
+  - **NPC_COMBATENTE**(<ins>`idNpcCombatente`</ins>, `idNpc`, `tamanho`, `raca`, `descricao`, `ataque`, `defesa`, `defesaMagica`, `nivel`, `precisao`, `esquiva`)
 
   - **INSTANCIA_NPC_COMBATENTE**(<ins>`idInstanciaNpcCombatente`</ins>,<ins>`idNpcCombatente`</ins>, `vidaAtual`, `status`, `agressivo`)
 
-  - **NPC_QUEST**(`dialogoFalha`, `dialogoSucesso`)
+  - **NPC_QUEST**(<ins>`idNpcQuest`</ins>, `idNpc`, `dialogoFalha`, `dialogoSucesso`)
 
-  - **NPC_VENDEDOR**(`tipoLoja`)
+  - **NPC_VENDEDOR**(<ins>`idNpcVendedor`</ins>, `idNpc`, `tipoLoja`)
 
   - **INSTANCIA_NPC_VENDEDOR**(<ins>`idInstanciaNpcVendedor`</ins>, <ins>`idNpcVendedor`</ins>)
 
@@ -211,7 +211,7 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
   - Um **ESTOQUE** possui um ou mais **ITEM**s (1,n), e um **ITEM** é possuído por nenhum ou mais **ESTOQUE**s (0,n)
   - Cardinalidade: (n:m)
 
-## **Histórico de Versão**
+## Histórico de Versão
 
 | Versão |    Data    |      Descrição       |                                                             Autor(es)                                                              |                Revisor(es)                |
 | :----: | :--------: | :------------------: | :--------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------: |
