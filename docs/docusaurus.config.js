@@ -13,7 +13,7 @@ const config = {
   title: 'Ragnarok',
   tagline: 'Jogo MUD inspirado em Ragnarok',
   favicon: 'img/logo.svg',
-  deploymentBranch: "main",
+  deploymentBranch: "gh-pages",
   // Set the production url of your site here
   url: 'https://SBD1.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
@@ -46,8 +46,6 @@ const config = {
           sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/SBD1/2025.1_Ragnarok/tree/main/',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -89,7 +87,7 @@ const config = {
             items: [
               {
                 label: 'Documentação',
-                to: '/',
+                to: '/docs/intro',
               },
             ],
           },
