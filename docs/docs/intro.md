@@ -3,9 +3,8 @@
 ---
 
 # 2025.1-Ragnarok
-Desenvolvimento do projeto Ragnarok, da disciplina de Sistemas de Banco de Dados 1.
 
-<div align="center"> <img src="img/classes-overall.png" height="230" width="auto"/> </div>
+![FotoRagnarok](../static/img/classes-overall.png)
 
 ## Jogo
 
@@ -41,9 +40,17 @@ Passo a passo para jogar ***Ragnarok* - MUD** :
 
 ## Apresentações
 
+| Módulo | Link da gravação | Data |
+| :----: | :--------------: | :--: |
+|   1    | [Apresentação 1](./entrega_1/apresentacao_1.md) | 02/05/2025 |
+
 ## Entregas
 
 - **Módulo 1**
+    - [Modelo Entidade-Relacionamento](../docs/entrega_1/MER.md)
+    - [Diagrama Entidade-Relacionamento](../docs/entrega_1/DER.md)
+    - [Dicionário de Dados](../docs/entrega_1/DD.md)
+    - [Modelo Relacional](../docs/entrega_1/MREL.md)
 
 - **Módulo 2**
 

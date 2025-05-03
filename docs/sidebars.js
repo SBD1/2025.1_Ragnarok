@@ -44,8 +44,19 @@ const sidebars = {
           type: 'doc',
           id: 'entrega_1/DD',
           label: '4. Dicionário de Dados',
-        }
+        },
       ],
+    },
+    {
+      type: 'category',
+      label: 'Apresentações',
+      items: [
+        {
+          type: 'doc',
+          id: 'entrega_1/apresentacao_1',
+          label: 'Módulo 1 - Apresentação'
+        }
+      ]
     },
   ],
 };
