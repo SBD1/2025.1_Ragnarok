@@ -14,7 +14,7 @@ O DER criado para o nosso jogo *Ragnarok - MUD* é representado abaixo pela Figu
 
 <center>
 
-![Diagrama de Entidade Relacionamento](../../static/img/der-ragnarok.png)
+![Diagrama de Entidade Relacionamento](../../static/img/ragnarok.drawio.png)
 
 </center>
 
