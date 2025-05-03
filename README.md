@@ -37,11 +37,6 @@ Passo a passo para jogar ***Ragnarok* - MUD** :
 
 ## Apresentações
 
-## Entregas
-
-- **Módulo 1**
-    ## Apresentações
-
 | Módulo | Link da gravação | Data |
 | :----: | :--------------: | :--: |
 |   1    | [Apresentação 1](https://youtu.be/0g3IyhfRMTM?si=ifjVauHRSVdq8QY1) | 02/05/2025 |
