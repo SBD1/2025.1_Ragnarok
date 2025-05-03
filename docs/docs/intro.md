@@ -42,7 +42,7 @@ Passo a passo para jogar ***Ragnarok* - MUD** :
 
 | Módulo | Link da gravação | Data |
 | :----: | :--------------: | :--: |
-|   1    | [Apresentação 1](https://www.colocaraqui.com) | 02/05/2025 |
+|   1    | [Apresentação 1](https://youtu.be/0g3IyhfRMTM?si=ifjVauHRSVdq8QY1) | 02/05/2025 |
 
 ## Entregas
 
