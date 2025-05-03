@@ -44,7 +44,7 @@ Passo a passo para jogar ***Ragnarok* - MUD** :
 ## Entregas
 
 - **Módulo 1**
-    - [Diagrama Entidade-Relacionamento](./docs/docs/entrega/DER.md)
+    - [Diagrama Entidade-Relacionamento](./docs/docs/entrega_1/DER.md)
     - [Dicionário de Dados](./docs/docs/entrega_1/DD.md)
     - [Modelo Entidade-Relacionamento](./docs/docs/entrega_1/MER.md)
     - [Modelo Relacional](./docs/docs/entrega_1/MREL.md)
