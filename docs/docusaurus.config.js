@@ -11,7 +11,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Ragnarok',
-  tagline: 'Ragnarok is cool',
+  tagline: 'Jogo MUD inspirado em Ragnarok',
   favicon: 'img/logo.svg',
   deploymentBranch: "main",
   // Set the production url of your site here

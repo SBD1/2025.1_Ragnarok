@@ -5,28 +5,28 @@ import styles from './styles.module.css';
 const FeatureList = [
   {
     title: 'Sobre o jogo',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    Svg: require('@site/static/img/logo.svg').default,
     description: (
       <>
-        aqui 1
+      Em Ragnarok MUD, você é transportado para o vasto e místico mundo de Rune-Midgard, um universo repleto de aventuras, magia, monstros e batalhas épicas.
       </>
     ),
   },
   {
     title: 'Jogabilidade',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    Svg: require('@site/static/img/gaming.svg').default,
     description: (
       <>
-        aqui 2
+        Você assume o papel de um aventureiro que desperta em uma terra dividida por guerras entre reinos, ameaçada por criaturas ancestrais e movida pela eterna busca por poder, conhecimento e redenção.
       </>
     ),
   },
   {
-    title: 'RPG',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'MUD',
+    Svg: require('@site/static/img/terminal.svg').default,
     description: (
       <>
-        RPG
+        MUD (Multi-User Dungeon) é um tipo de jogo online interativo e colaborativo onde os jogadores exploram um ambiente virtual, geralmente de fantasia, em tempo real. É uma mistura de jogo de aventura e combate onde a comunicação entre os jogadores e a exploração do mundo acontecem através de comandos de texto.
       </>
     ),
   },
