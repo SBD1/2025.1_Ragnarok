@@ -40,7 +40,20 @@ Passo a passo para jogar ***Ragnarok* - MUD** :
 ## Entregas
 
 - **Módulo 1**
+    ## Apresentações
 
+| Módulo | Link da gravação | Data |
+| :----: | :--------------: | :--: |
+|   1    | [Apresentação 1]() | 02/05/2025 |
+
+## Entregas
+
+- **Módulo 1**
+    - [Diagrama Entidade-Relacionamento](./docs/docs/entrega/DER.md)
+    - [Dicionário de Dados](./docs/docs/entrega_1/DD.md)
+    - [Modelo Entidade-Relacionamento](./docs/docs/entrega_1/MER.md)
+    - [Modelo Relacional](./docs/docs/entrega_1/MREL.md)
+    
 - **Módulo 2**
 
 - **Módulo 3**

@@ -49,19 +49,19 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 
 - **JOGADOR**(<ins>`idJogador`</ins>, `usuario`, `email`, `senha`)
 
-- **PERSONAGEM**(<ins>`idPersonagem`</ins>, `nome`, `idSala`,`mana`,`vida`, `vitalidade`, `inteligencia`, `agilidade`, `sorte`, `destreza`, `forca`, `ataque`, `ataqueMagico`, `precisao`, `esquiva`, `defesa`, `defesaMagica`, `critico`, `velocidade`, `nivel`, `dinheiro`)
+- **PERSONAGEM**(<ins>`idPersonagem`</ins>, `idClasse`,`{idHabilidade}`, `idMissao`,`idSala`,`nome`,`mana`,`vida`, `vitalidade`, `inteligencia`, `agilidade`, `sorte`, `destreza`, `forca`, `ataque`, `ataqueMagico`, `precisao`, `esquiva`, `defesa`, `defesaMagica`, `critico`, `velocidade`, `nivel`, `dinheiro`)
 
 - **CLASSE**(<ins>`idClasse`</ins>, `nomeClasse`, `descricao`)
 
 - **HABILIDADE**(<ins>`idHabilidade`</ins>, `nomeHabilidade`, `descricao`, `custoMana`, `nivelRequerido`)
 
-- **SALA**(<ins>`idSala`</ins>, `idCima`, `idBaixo`, `idEsquerda`, `idDireita`, `tipoSala`, `nomeSala`, `descricaoSala`)
+- **SALA**(<ins>`idSala`</ins>, `{idInstanciaItem}`, `{idNpc}`,`idCima`, `idBaixo`, `idEsquerda`, `idDireita`, `tipoSala`, `nomeSala`, `descricaoSala`)
 
-- **INVENTARIO**(<ins>`idInventario`</ins>, {`idInstanciaItem`},`idPersonagem`, `capacidadeSlots`, `slotsUsados`)
+- **INVENTARIO**(<ins>`idInventario`</ins>, `{idInstanciaItem}`,`idPersonagem`, `capacidadeSlots`, `slotsUsados`)
 
 - **ITEM**(<ins>`idItem`</ins>, `nomeItem`, `tipoItem`, `descricao`, `atributosBonus`)
 
-  - **ARMA**(<ins>`idArma`</ins>,`velocidadeAtaque`, `tipoDano`, `danoBase`, `alcance`)
+  - **ARMA**(<ins>`idItem`</ins>,`velocidadeAtaque`, `tipoDano`, `danoBase`, `alcance`)
     - **CURTO_ALCANCE**(<ins>`idCurtoAlcance`</ins>, `idArma`, `categoriaArma`)
     - **LONGO_ALCANCE**(<ins>`idLongoAlcance`</ins>, `idArma`, `tipoProjetil`, `quantidadeProjetil`)
     - **MAGICA**(<ins>`idMagica`</ins>, `idArma`, `tipoMagia`, `efeitoMagico`)
@@ -83,7 +83,7 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 
 - **INSTANCIA_ITEM**(<ins>`idInstanciaItem`</ins>,<ins>`idItem`</ins>, `idSala`, `idInventario`)
 
-- **NPC**(<ins>`idNpc`</ins>, `nome`, `descricao`, `tipoNpc`)
+- **NPC**(<ins>`idNpc`</ins>, `idSala`, `nome`, `descricao`, `tipoNpc`)
 
   - **NPC_COMBATENTE**(<ins>`idNpcCombatente`</ins>, `idNpc`, `tamanho`, `raca`, `descricao`, `ataque`, `defesa`, `defesaMagica`, `nivel`, `precisao`, `esquiva`)
 
@@ -91,11 +91,11 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 
   - **NPC_QUEST**(<ins>`idNpcQuest`</ins>, `idNpc`, `dialogoFalha`, `dialogoSucesso`)
 
-  - **NPC_VENDEDOR**(<ins>`idNpcVendedor`</ins>, `idNpc`, `tipoLoja`)
+  - **NPC_VENDEDOR**(<ins>`idNpcVendedor`</ins>, `idNpc`, `idEstoque`,`tipoLoja`)
 
   - **INSTANCIA_NPC_VENDEDOR**(<ins>`idInstanciaNpcVendedor`</ins>, <ins>`idNpcVendedor`</ins>)
 
-- **MISSAO**(<ins>`idMissao`</ins>, `idNpcQuest`, {`idInstanciaItem`}, {`idItem`}, `requisitoLevel`, `xpBase`, `xpClasse`, `descricao`, `objetivo`, `dinheiroMissao`)
+- **MISSAO**(<ins>`idMissao`</ins>, `idNpcQuest`, `{idInstanciaItem`, `{idItem}`, `requisitoLevel`, `xpBase`, `xpClasse`, `descricao`, `objetivo`, `dinheiroMissao`)
 
 - **ESTOQUE**(<ins>`idEstoque`</ins>, `idNpcVendedor`)
 
