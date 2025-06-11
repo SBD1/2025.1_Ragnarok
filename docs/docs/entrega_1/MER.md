@@ -52,10 +52,10 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 <!-- remoção da chave multivalorada idHabilidade, adição de idJogador -->
 - **CLASSE**(<ins>`idClasse`</ins>, `nomeClasse`, `descricao`)
 
-- **HABILIDADE**(<ins>`idHabilidade`</ins>,`nomeHabilidade`, `descricao`, `custoMana`, `nivelRequerido`)
+- **HABILIDADE**(<ins>`idHabilidade`</ins>, `nomeHabilidade`, `descricao`, `custoMana`, `nivelRequerido`)
 
-- **SALA**(<ins>`idSala`</ins>,`idCima`, `idBaixo`, `idEsquerda`, `idDireita`, `tipoSala`, `nomeSala`, `descricaoSala`)
-<!-- remoção de chaves multi. idInstanciaItem e idNpc -->
+- **SALA**(<ins>`idSala`</ins>,`idCima`, `idBaixo`, `idEsquerda`, `idDireita`, `nomeSala`, `descricaoSala`)
+<!-- remoção de chaves multi. idInstanciaItem e idNpc e tipoSala -->
 
 - **INVENTARIO**(<ins>`idInventario`</ins>,`idPersonagem`, `capacidadeSlots`, `slotsUsados`)
 <!-- remoção da chave multivalorada idInstanciaItem -->
@@ -94,7 +94,7 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 
   - **NPC_QUEST**(<ins>`idNpc`</ins>)
  
-  - **NPC_VENDEDOR**(<ins>`idNpc`</ins>, `idEstoque`,`tipoLoja`)
+  - **NPC_VENDEDOR**(<ins>`idNpc`</ins>, `idEstoque`, `tipoLoja`)
   <!-- remoção de Instancia_Npc_Vendedor -->
 
   - **NPC_COMBATENTE**(<ins>`idNPC`</ins>, `tamanho`, `raca`, `descricao`, `ataque`, `defesa`, `defesaMagica`, `nivel`, `precisao`, `esquiva`)
@@ -107,7 +107,9 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 
 ### Atributos de Relacionamentos 
 
-- **possui**_ESTOQUE_ITEM(<ins>`idEstoque`</ins>, <ins>`idItem`</ins>)
+- **possui**_ESTOQUE_ITEM(`idEstoque`, `idItem`)
+- **garante**_MISSAO_INSTANCIA_ITEM(`idMissao`, `idInstanciaItem`)
+- **aprende**_HABILIDADE_PERSONAGEM(`idPersonagem`, `idHabilidade`)
 
 ## **Relacionamentos**
 
