@@ -12,3 +12,10 @@
   frameBorder="0"
   allowFullScreen
 ></iframe>
+
+## Histórico de Versão
+
+|  Versão  |     Data     | Descrição | Autor(es) | Revisor(es) |
+| :------: | :----------: | :-----------: | :---------: | :---------: |
+| `1.0` | 02/05/2025 | Criação de documento e primeira versão do MREL | [Ian Costa](https://github.com/DaniloNavesS) | [Cauã Araujo](https://github.com/caua08) |
+

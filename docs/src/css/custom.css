@@ -29,3 +29,18 @@
   --ifm-color-primary-lightest: #FAD0D7; /* Rosa bem claro */
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Estilo para o cabeçalho da tabela */
+table th {
+  background-color: var(--ifm-color-primary-dark); /* Cor escura para o cabeçalho */
+  color: white;
+}
+
+[data-theme='dark'] table th {
+  background-color: var(--ifm-color-primary); /* Cor de fundo mais vibrante para o cabeçalho */
+}

@@ -258,3 +258,10 @@
 | idEstoque         | int  | 	Referência ao estoque onde o item está armazenado.           | 1 - 100              | Não                      | Sim. Chave primária               |          -         |
 | idItem         | int  | 	Referência ao item armazenado.           | 1 - 100              | Não                      | Sim. Chave estrangeira               |          -         |
 | custoItem         | int  | 	Custo do item no estoque em unidades monetárias.           | 1 - 1000              | Não                      | Não               |          -         |
+
+## Histórico de Versão
+
+|  Versão  |     Data     | Descrição | Autor(es) | Revisor(es) |
+| :------: | :----------: | :-----------: | :---------: | :---------: |
+| `1.0` | 02/05/2025 | Criação de documento e primeira versão do DD | [Cauã Araujo](https://github.com/caua08) | [Ian Costa](https://github.com/DaniloNavesS) |
+
