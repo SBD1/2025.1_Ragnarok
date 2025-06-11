@@ -63,12 +63,11 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 - **ITEM**(<ins>`idItem`</ins>,  `idNpcCombatente`, `nomeItem`, `tipoItem`, `descricao`, `atributosBonus`, `custoItem`)
 <!-- removi taxa drop e adicionei a fk idNpcCombatente-->
 
-  <!-- - **ARMA**(<ins>`idItem`</ins>,`velocidadeAtaque`, `danoBase`,`bonusDano`, `categoriaArma`)
-    - **LONGO_ALCANCE**(<ins>`idLongoAlcance`</ins>, `tipoProjetil`, `quantidadeProjetil`)
-    - **MAGICA**(<ins>`idMagica`</ins>, `idArma`, `tipoMagia`, `tipoDano`) -->
+  - **ARMA**(<ins>`idItem`</ins>,`velocidadeAtaque`, `danoBase`,`bonusDano`, `categoriaArma`)
+    - **LONGO_ALCANCE**(<ins>`idArma`</ins>, `tipoProjetil`, `quantidadeProjetil`)
+    - **MAGICA**(<ins>`idArma`</ins>, `idArma`, `tipoMagia`, `tipoDano`) 
     
-  - **ARMA**(<ins>`idItem`</ins>,`velocidadeAtaque`, `danoBase`,`bonusDano`, `categoriaArma`, `lTipoProjetil`, `lQtdProjetil`, `mtipoMagia`, `mTipoDano`)
-  <!-- remoção da especialização curto_alcance e adição de categoriaArma em Arma + junção em um atributo só? dúvida -->
+  <!-- remoção da especialização curto_alcance e adição de categoriaArma em Arma -->
 
   <!-- remoção da especialização drop -->
 
@@ -93,14 +92,14 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 - **NPC**(<ins>`idNpc`</ins>, `idSala`, `nome`, `descricao`, `dialogo`, `tipoNpc`)
 <!-- adicionei dialogo em Npc, atributo tipoNpc e retirei de Npc_Quest -->
 
-  - **NPC_QUEST**(<ins>`idNpcQuest`</ins>, `idNpc`)
-
-  - **NPC_VENDEDOR**(<ins>`idNpcVendedor`</ins>, `idNpc`, `idEstoque`,`tipoLoja`)
+  - **NPC_QUEST**(<ins>`idNpc`</ins>)
+ 
+  - **NPC_VENDEDOR**(<ins>`idNpc`</ins>, `idEstoque`,`tipoLoja`)
   <!-- remoção de Instancia_Npc_Vendedor -->
 
-  - **NPC_COMBATENTE**(<ins>`idNpcCombatente`</ins>, `idNpc`, `tamanho`, `raca`, `descricao`, `ataque`, `defesa`, `defesaMagica`, `nivel`, `precisao`, `esquiva`)
+  - **NPC_COMBATENTE**(<ins>`idNPC`</ins>, `tamanho`, `raca`, `descricao`, `ataque`, `defesa`, `defesaMagica`, `nivel`, `precisao`, `esquiva`)
 
-  - **INSTANCIA_NPC_COMBATENTE**(<ins>`idInstanciaNpcCombatente`</ins>,<ins>`idNpcCombatente`</ins>, `vidaAtual`, `status`, `agressivo`)
+  - **INSTANCIA_NPC_COMBATENTE**(<ins>`idNpcCombatente`</ins>, <ins>`idNpc`</ins>, `vidaAtual`, `status`, `agressivo`)
 
 - **MISSAO**(<ins>`idMissao`</ins>, `idNpcQuest`, `idItem`, `requisitoLevel`, `xpBase`, `xpClasse`, `descricao`, `objetivo`, `dinheiroMissao`)
 
