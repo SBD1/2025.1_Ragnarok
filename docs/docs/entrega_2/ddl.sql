@@ -1,0 +1,187 @@
+CREATE DATABASE IF NOT EXISTS ragnarok;
+USE ragnarok;
+
+CREATE TABLE JOGADOR (
+	id INT,
+	usuario VARCHAR(20) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    senha VARCHAR(10) NOT NULL,
+    
+    CONSTRAINT JOGADOR_PK PRIMARY KEY (id),
+    CONSTRAINT JOGADOR_UK UNIQUE KEY (email)
+);
+
+CREATE TABLE SALA (
+	id INT,
+    id_direita INT,
+    id_esquerda INT,
+    id_baixo INT,
+    id_cima INT, 
+    nome VARCHAR (30),
+    descricao VARCHAR (30) NOT NULL, 
+    
+	CONSTRAINT SALA_PK PRIMARY KEY (id),
+    CONSTRAINT SALA_FK FOREIGN KEY (id_direita, id_esquerda, id_baixo, id_cima)
+		REFERENCES SALA (id)
+);
+
+CREATE TABLE NPC (
+	id INT,
+    id_sala INT, 
+	nome VARCHAR (20) NOT NULL,
+    descricao VARCHAR (30), 
+    dialogo VARCHAR (1000),
+    
+	CONSTRAINT NPC_PK PRIMARY KEY (id),
+    CONSTRAINT NPC_SALA_FK FOREIGN KEY (id_sala)
+		REFERENCES SALA (id)
+);
+
+
+CREATE TABLE NPC_QUEST (
+	id INT,
+    
+    CONSTRAINT NPC_QUEST_PK PRIMARY KEY (id),
+    CONSTRAINT NPC_QUEST_FK FOREIGN KEY (id)
+		REFERENCES NPC (id)
+);
+
+CREATE TABLE NPC_COMBATENTE (
+	id INT,
+    tamanho VARCHAR(15) NOT NULL,
+    raca VARCHAR (15) NOT NULL,
+    descricao VARCHAR (300) NOT NULL,
+    ataque INT NOT NULL, 
+    defesa INT NOT NULL,
+    defesa_magica INT NOT NULL,
+    nivel INT NOT NULL DEFAULT 1,
+    precisao INT NOT NULL,
+    esquiva INT NOT NULL,
+    
+    CONSTRAINT NPC_VENDEDOR_PK PRIMARY KEY (id),
+    CONSTRAINT NPC_VENDEDOR_FK FOREIGN KEY (id)
+		REFERENCES NPC (id)
+);
+
+CREATE TABLE INSTANCIA_NPC_COMBATENTE (
+	id INT,
+    id_npc_comb INT,
+    vida_atual INT NOT NULL DEFAULT 100,
+    status_npc VARCHAR (15) NOT NULL,
+    agressivo BOOLEAN NOT NULL,
+    
+    CONSTRAINT NPC_INSTANCIA_COMB_PK PRIMARY KEY (id),
+    CONSTRAINT NPC_INSTANCIA_COMB_FK FOREIGN KEY (id_npc_comb)
+		REFERENCES NPC (id)
+);
+
+CREATE TABLE ITEM (
+    id INT,
+    id_npc_combatente INT, 
+    nome VARCHAR (20) NOT NULL,
+    tipo VARCHAR (15) NOT NULL,
+    descricao VARCHAR (150) NOT NULL,
+    atributos_bonus INT, 
+    custo DECIMAL NOT NULL,
+
+    CONSTRAINT ITEM_PK PRIMARY KEY (id),
+    CONSTRAINT ITEM_NPC_COMBATENTE_FK FOREIGN KEY (id_npc_combatente)
+        REFERENCES NPC_COMBATENTE (id),
+	CONSTRAINT ITEM_UK UNIQUE KEY (nome),
+    CONSTRAINT TIPO_CK CHECK (tipo IN ('CONSUMIVEL', 'ARMADURA', 'ARMA'))
+);
+
+CREATE TABLE ESTOQUE (
+	id INT,
+    
+    CONSTRAINT ESTOQUE_PK PRIMARY KEY (id)
+);
+
+CREATE TABLE NPC_VENDEDOR (
+	id INT,
+    id_estoque INT,
+    
+    CONSTRAINT NPC_VENDEDOR_PK PRIMARY KEY (id),
+    CONSTRAINT NPC_VENDEDOR_FK FOREIGN KEY (id_estoque)
+		REFERENCES ESTOQUE (id)
+);
+
+CREATE TABLE vende_ESTOQUE_ITEM (
+	id_estoque INT,
+    id_item INT,
+    
+    CONSTRAINT VENDE_PK PRIMARY KEY (id_estoque, id_item),
+    CONSTRAINT VENDE_ESTOQUE_FK FOREIGN KEY (id_estoque)
+		REFERENCES ESTOQUE (id_estoque),
+	CONSTRAINT VENDE_ITEM_FK FOREIGN KEY (id_item)
+		REFERENCES ITEM (id)
+);
+
+CREATE TABLE MISSAO (
+	id INT,
+    id_npc INT, 
+    requisito_level INT DEFAULT 1,
+    xp_base INT NOT NULL, 
+    xp_classe INT NOT NULL,
+    descricao VARCHAR (500),
+    objetivo VARCHAR (100),
+    dinheiro DECIMAL NOT NULL,
+    
+	CONSTRAINT MISSAO_PK PRIMARY KEY (id),
+    CONSTRAINT MISSAO_NPC_FK FOREIGN KEY (id_npc)
+		REFERENCES NPC (id)
+);
+
+
+CREATE TABLE PERSONAGEM (
+	id INT,
+    id_jogador INT,
+    id_classe INT,
+    id_sala INT,
+    id_missao INT, 
+    nome VARCHAR(20) NOT NULL,
+    mana INT DEFAULT 10,
+    vida INT DEFAULT 300,
+    vitalidade INT NOT NULL,
+    inteligencia INT NOT NULL,
+    agilidade INT NOT NULL,
+    sorte INT NOT NULL,
+    destreza INT NOT NULL,
+    forca INT NOT NULL,
+    ataque INT NOT NULL,
+    ataque_magico INT NOT NULL,
+    precisao INT NOT NULL,
+    esquiva INT NOT NULL,
+    defesa INT NOT NULL,
+    defesa_magica INT NOT NULL,
+    critico INT NOT NULL,
+    velocidade INT NOT NULL,
+    nivel INT DEFAULT 1,
+    dinheiro INT DEFAULT 100,
+    
+    CONSTRAINT PERSONAGEM_PK PRIMARY KEY (id),
+    CONSTRAINT PERSONAGEM_JOGADOR_FK FOREIGN KEY (id_jogador)
+		REFERENCES JOGADOR (id),
+    CONSTRAINT PERSONAGEM_CLASSE_FK FOREIGN KEY (id_classe)
+		REFERENCES CLASSE (id),
+	CONSTRAINT PERSONAGEM_SALA_FK FOREIGN KEY (id_sala)
+		REFERENCES SALA (id),
+	CONSTRAINT PERSONAGEM_MISSAO_FK FOREIGN KEY (id_sala)
+		REFERENCES MISSAO (id)
+);
+
+CREATE TABLE INSTANCIA_ITEM (
+	id INT,
+	id_item INT, 
+    id_sala INT,
+    id_inventario INT,
+    
+    CONSTRAINT INSTANCIA_ITEM_PK PRIMARY KEY (id, id_item),
+    CONSTRAINT INSTANCIA_ITEM_ITEM_FK FOREIGN KEY (id_item)
+		REFERENCES ITEM (id),
+	CONSTRAINT INSTANCIA_ITEM_SALA_FK FOREIGN KEY (id_sala)
+		REFERENCES SALA (id),
+	CONSTRAINT INSTANCIA_ITEM_INVENTARIO_FK FOREIGN KEY (id_inventario)
+		REFERENCES INVENTARIO (id)
+);
+
