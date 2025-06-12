@@ -1,3 +1,4 @@
+
 CREATE TABLE JOGADOR (
     id_jogador SERIAL PRIMARY KEY,
     usuario VARCHAR(20) NOT NULL,
@@ -20,7 +21,7 @@ CREATE TABLE SALA (
     id_baixo INT,
     id_cima INT,
     nome_sala VARCHAR(30),
-    descricao_sala VARCHAR(100) NOT NULL,
+    descricao_sala TEXT NOT NULL,
 
     FOREIGN KEY (id_direita) REFERENCES SALA(id_sala),
     FOREIGN KEY (id_esquerda) REFERENCES SALA(id_sala),
@@ -32,7 +33,7 @@ CREATE TABLE NPC (
     id_npc SERIAL PRIMARY KEY,
     id_sala INT,
     nome VARCHAR(20) NOT NULL,
-    descricao VARCHAR(30),
+    descricao TEXT,
     dialogo VARCHAR(1000),
 
     FOREIGN KEY (id_sala) REFERENCES SALA(id_sala)
@@ -48,7 +49,7 @@ CREATE TABLE NPC_COMBATENTE (
     id_npc_combatente INT PRIMARY KEY,
     tamanho VARCHAR(15) NOT NULL,
     raca VARCHAR(15) NOT NULL,
-    descricao VARCHAR(300) NOT NULL,
+    descricao TEXT NOT NULL,
     ataque INT NOT NULL,
     defesa INT NOT NULL,
     defesa_magica INT NOT NULL,
@@ -74,7 +75,7 @@ CREATE TABLE ITEM (
     id_npc_combatente INT,
     nome VARCHAR(20) NOT NULL,
     tipo VARCHAR(15) NOT NULL,
-    descricao VARCHAR(150) NOT NULL,
+    descricao TEXT NOT NULL,
     atributos_bonus INT,
     custo DECIMAL NOT NULL,
 
@@ -110,7 +111,7 @@ CREATE TABLE MISSAO (
     requisito_level INT DEFAULT 1,
     xp_base INT NOT NULL,
     xp_classe INT NOT NULL,
-    descricao VARCHAR(500),
+    descricao TEXT),
     objetivo VARCHAR(100),
     dinheiro DECIMAL NOT NULL,
 
@@ -266,7 +267,7 @@ CREATE TABLE BOTA (
 CREATE TABLE ACESSORIO (
     id_armadura INT PRIMARY KEY,
     nome_item VARCHAR(20) NOT NULL,
-    descricao VARCHAR(150) NOT NULL,
+    descricao TEXT NOT NULL,
     custo_item DECIMAL NOT NULL,
     defesa INT NOT NULL,
     defesa_magica INT,
