@@ -5,7 +5,7 @@ CREATE TABLE JOGADOR (
     id_jogador SERIAL PRIMARY KEY,
     usuario VARCHAR(20) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    senha VARCHAR(10) NOT NULL,
+    senha VARCHAR(50) NOT NULL,
 
     CONSTRAINT jogador_uk UNIQUE (email)
 );
@@ -48,7 +48,7 @@ CREATE TABLE NPC_QUEST (
 );
 
 CREATE TABLE NPC_COMBATENTE (
-    id_npc_combatente SERIAL PRIMARY KEY,
+    id_npc_combatente INT PRIMARY KEY,
     tamanho VARCHAR(15) NOT NULL,
     raca VARCHAR(15) NOT NULL,
     descricao VARCHAR(300) NOT NULL,
@@ -123,7 +123,6 @@ CREATE TABLE MISSAO (
 CREATE TABLE PERSONAGEM (
     id_personagem SERIAL PRIMARY KEY,
     id_jogador INT,
-    id_classe INT,
     id_sala INT,
     id_missao INT,
     nome VARCHAR(20) NOT NULL,
@@ -152,12 +151,19 @@ CREATE TABLE PERSONAGEM (
     FOREIGN KEY (id_missao) REFERENCES MISSAO(id_missao)
 );
 
+CREATE TABLE INVENTARIO(
+    id_inventario SERIAL PRIMARY KEY,
+    id_personagem INT,
+
+    FOREIGN KEY (id_personagem) REFERENCES PERSONAGEM(id_personagem)
+
+);
 CREATE TABLE INSTANCIA_ITEM (
-    id_instancia INT,
+    id_instancia_item SERIAL ,
     id_item INT,
     id_sala INT,
     id_inventario INT,
-    PRIMARY KEY (id_instancia, id_item),
+    PRIMARY KEY (id_instancia_item, id_item),
 
     FOREIGN KEY (id_item) REFERENCES ITEM(id_item),
     FOREIGN KEY (id_sala) REFERENCES SALA(id_sala),
@@ -181,4 +187,135 @@ CREATE TABLE HABILIDADE (
     dano INT,
     nivel_requerido INT,
     FOREIGN KEY (id_classe) REFERENCES CLASSE(id_classe)
+);
+
+
+CREATE TABLE CONSUMIVEL(
+    id_item INT PRIMARY KEY,
+    tipo_consumivel char(10),
+
+
+    FOREIGN KEY (id_item) REFERENCES ITEM(id_item),
+    CONSTRAINT tipo_consumivel_ck CHECK (tipo_consumivel IN ('POCAO', 'PERGAMINHO', 'COMIDA'))
+);
+
+CREATE TABLE POCAO(
+    id_consumivel INT PRIMARY KEY,
+    tipo_bonus_atributo CHAR(20),
+    bonus_atributo INT,
+    bonus_atributo_duracao INT,
+    nome_item VARCHAR(100),
+    descricao TEXT,
+    custo_iem INT,
+
+    FOREIGN KEY (id_consumivel) REFERENCES CONSUMIVEL(id_item)
+);
+
+CREATE TABLE PERGAMINHO(
+    id_pergaminho INT PRIMARY KEY,
+    tipo_buff VARCHAR(50),
+    duracao_buff INT,
+    nome_item VARCHAR(100),
+    descricao TEXT,
+    custo_item INT,
+
+    FOREIGN KEY (id_pergaminho) REFERENCES CONSUMIVEL(id_item)
+
+);
+
+CREATE TABLE COMIDA(
+    id_comida INT PRIMARY KEY,
+    tipo_bonus_atributo CHAR(20),
+    bonus_atributo INT,
+    bonus_atributo_duracao INT,
+    nome_item VARCHAR(100),
+    descricao TEXT,
+    custo_item INT,
+
+    FOREIGN KEY (id_comida) REFERENCES CONSUMIVEL(id_item)
+);
+
+CREATE TABLE ARMADURA (
+    id_item INT PRIMARY KEY,
+    tipo_armadura VARCHAR(20) NOT NULL,
+    
+    FOREIGN KEY (id_item) REFERENCES ITEM(id_item),
+    CONSTRAINT tipo_armadura_ck CHECK (tipo_armadura IN ('CAPACETE', 'BOTA', 'ACESSORIO', 'CAPA', 'ESCUDO', 'PEITORAL'))
+);
+
+CREATE TABLE CAPACETE (
+    id_armadura INT PRIMARY KEY,
+    nome_item VARCHAR(20) NOT NULL,
+    descricao TEXT NOT NULL,
+    custo_item INT NOT NULL,
+    defesa INT NOT NULL,
+    defesa_magica INT ,
+    bonus_vida INT ,
+    
+    FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
+);
+
+CREATE TABLE BOTA (
+    id_armadura INT PRIMARY KEY,
+    nome_item VARCHAR(20) NOT NULL,
+    descricao TEXT NOT NULL,
+    custo_item INT NOT NULL,
+    defesa INT NOT NULL,
+    defesa_magica INT,
+    bonus_velocidade INT ,
+    
+    FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
+);
+
+CREATE TABLE ACESSORIO (
+    id_armadura INT PRIMARY KEY,
+    nome_item VARCHAR(20) NOT NULL,
+    descricao VARCHAR(150) NOT NULL,
+    custo_item DECIMAL NOT NULL,
+    defesa INT NOT NULL,
+    defesa_magica INT,
+    bonus_vida INT ,
+    bonus_esquiva INT ,
+    bonus_mana INT ,
+    
+    FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
+);
+
+CREATE TABLE CAPA (
+    id_armadura INT PRIMARY KEY,
+    nome_item VARCHAR(20) NOT NULL,
+    descricao TEXT NOT NULL,
+    custo_item DECIMAL NOT NULL,
+    defesa INT NOT NULL,
+    defesa_magica INT ,
+    bonus_critico INT ,
+    bonus_vida INT ,
+    
+    FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
+);
+
+CREATE TABLE ESCUDO (
+    id_armadura INT PRIMARY KEY,
+    nome_item VARCHAR(20) NOT NULL,
+    descricao TEXT NOT NULL,
+    custo_item DECIMAL NOT NULL,
+    defesa INT NOT NULL,
+    defesa_magica INT ,
+    bonus_vida INT ,
+    bonus_defesa INT ,
+    
+    FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
+);
+
+CREATE TABLE PEITORAL (
+    id_armadura INT PRIMARY KEY,
+    nome_item VARCHAR(20) NOT NULL,
+    descricao TEXT,
+    custo_item INT NOT NULL,
+    defesa INT NOT NULL,
+    defesa_magica INT ,
+    bonus_vida INT ,
+    bonus_defesa INT ,
+    
+    FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
 );
