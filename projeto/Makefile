@@ -7,7 +7,7 @@ DB_SERVICE_NAME := db
 DB_VOLUME_NAME := db_data
 
 DB_USER := igris
-DB_NAME := igris
+DB_NAME := ragnarok
 
 .PHONY: all up down restart logs build rebuild-up ps clean-volumes shell-db psql-db run-app help
 
