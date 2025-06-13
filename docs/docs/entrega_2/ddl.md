@@ -107,7 +107,7 @@ CREATE TABLE NPC (
 
 ### Tabela `NPC_QUEST`
 
-A tabela `NPC_QUEST` refere-se ao personagem não jogável do sistema que tem a função de passar missões.
+A tabela `NPC_QUEST` refere-se ao personagem não jogável do tipo requisitante de missões.
 
 ```sql
 CREATE TABLE NPC_QUEST (
@@ -119,11 +119,11 @@ CREATE TABLE NPC_QUEST (
 ```
 
 - Colunas:
-    - `id_npc`: Identificador único que refencia o pai (chave estrangeira referenciando `NPC`). 
+    - `id_npc`: Identificador único do NPC quest que refencia o NPC (chave primária e chave estrangeira referenciando `NPC`). 
 
 ### Tabela `NPC_COMBATENTE`
 
-A tabela `NPC_COMBATENTE` refere-se ao personagem não jogável combatente do sistema.
+A tabela `NPC_COMBATENTE` refere-se ao personagem não jogável do tipo combatente do sistema.
 
 ```sql
 CREATE TABLE NPC_COMBATENTE (
@@ -144,9 +144,20 @@ CREATE TABLE NPC_COMBATENTE (
 ```
 
 - Colunas:
-    - `id_npc`: Identificador único que refencia o pai (chave estrangeira referenciando `NPC`). 
+    - `id_npc_combatente`: Identificador único do NPC combatente que refencia o NPC (chave primária e chave estrangeira referenciando `NPC`). 
+    - `tamanho`: Tamanho do NPC combatente.
+    - `raca`: Raça do NPC combatente.
+    - `descricao`: Descrição do NPC combatente.
+    - `ataque`: Dano do ataque do NPC combatente.
+    - `defesa`: Quantidade de defesa física do NPC combatente.
+    - `defesa_magica`: Quantidade de defesa mágica do NPC combatente.
+    - `nivel`: Nível do NPC combatente.
+    - `precisao`: Taxa da precisão do NPC combatente.
+    - `esquiva`: Taxa de esquivamento do NPC combatente.
 
 ### Tabela `INSTANCIA_NPC_COMBATENTE`
+
+A tabela `INSTANCIA_NPC_COMBATENTE` refere-se a uma instância específica de um personagem não jogável combatente do sistema.
 
 ```sql
 CREATE TABLE INSTANCIA_NPC_COMBATENTE (
@@ -161,7 +172,16 @@ CREATE TABLE INSTANCIA_NPC_COMBATENTE (
 );
 ```
 
+- Colunas:
+    - `id_instancia`: Identificador único da instância (chave primária).
+    - `id_npc_combatente`: Identificador do NPC (chave estrangeira referenciando `NPC_COMBATENTE`).
+    - `vida_atual`: Vida atual do NPC combatente.
+    - `status_npc`: Status atual do NPC combatente.
+    - `agressivo`: Valor booleano que identifica a agressividade do NPC combatente.
+
 ### Tabela `ITEM`
+
+A tabela `ITEM` refere-se aos itens genéricos presentes no sistema.
 
 ```sql
 CREATE TABLE ITEM (
@@ -180,7 +200,17 @@ CREATE TABLE ITEM (
 );
 ```
 
-### Tabelas `ESTOQUE` e `NPC_VENDEDOR`
+- Colunas:
+    - id_item: Identificador único do item (chave primária).
+    - id_npc_combatente: Identificador do NPC combatente pode dropar o item (chave estrangeira referenciando `NPC_COMBATENTE`, opcional).
+    - nome: Nome do item (deve ser único).
+    - tipo: Tipo do item (restrição entre `CONSUMIVEL`, `ARMADURA` e `ARMA`).
+    - custo: Custo ou preço do item.
+    - atributos_bonus: Atributos bonus do item.
+
+### Tabela `ESTOQUE`
+
+A tabela `ESTOQUE` refere-se ao estoque possuído por um NPC_VENDEDOR.
 
 ```sql
 CREATE TABLE ESTOQUE (
@@ -188,7 +218,16 @@ CREATE TABLE ESTOQUE (
 
     CONSTRAINT ESTOQUE_PK PRIMARY KEY (id_estoque)
 );
+```
 
+- Colunas:
+    - `id_estoque`: Identificador único do estoque (chave primária).
+
+### Tabela `NPC_VENDEDOR`
+
+A tabela `NPC_VENDEDOR` refere-se a um personagem não jogador do tipo vendedor.
+
+```sql
 CREATE TABLE NPC_VENDEDOR (
     id_npc_vendedor SERIAL,
     id_estoque INT,
@@ -199,7 +238,13 @@ CREATE TABLE NPC_VENDEDOR (
 );
 ```
 
-### Tabela `VENDE_ESTOQUE_ITEM`
+- Colunas:
+    - `id_npc_vendedor`: Identificador único do NPC vendedor que referencia o NPC (chave primária e estrangeira referenciando `NPC`).
+    - `id_estoque`: Identificador do estoque que o NPC vendedor possui (chave estrangeira referenciando `ESTOQUE`).
+
+### Tabela `vende_ESTOQUE_ITEM`
+
+A tabela `vende_ESTOQUE_ITEM` refere-se ao item vendido a partir do estoque.
 
 ```sql
 CREATE TABLE VENDE_ESTOQUE_ITEM (
@@ -211,7 +256,13 @@ CREATE TABLE VENDE_ESTOQUE_ITEM (
 );
 ```
 
+- Colunas:
+    - `id_estoque`: Identificador único que referencia o estoque (chave primária e estrangeira referenciando `ESTOQUE`).
+    - `id_item`: Identificador único que referencia o item (chave primária e estrangeira referenciando `ITEM`).
+
 ### Tabela `MISSAO`
+
+A tabela `MISSAO` refere-se ás missões do sistema.
 
 ```sql
 CREATE TABLE MISSAO (
@@ -229,7 +280,19 @@ CREATE TABLE MISSAO (
 );
 ```
 
+- Colunas:
+    - `id_missao`: Identificador único da missão (chave primária).
+    - `id_npc`: Identificador do NPC quest que repassa a missão (chave estrangeira referenciando `NPC_QUEST`).
+    - `requisito_level`: Requisito de nível para a missão.
+    - `xp_base`: XP dado pela completude da missão.
+    - `xp_classe`: XP dado pela completude da missão de acordo com a classe do personagem.
+    - `descricao`: Descrição da missão.
+    - `objetivo`: Objetivo da missão.
+    - `dinheiro`: Dinheiro dado pela missão.
+
 ### Tabela `PERSONAGEM`
+
+A tabela `PERSONAGEM` refere-se ao personagem criado pelo jogador no sistema.
 
 ```sql
 CREATE TABLE PERSONAGEM (
@@ -264,7 +327,27 @@ CREATE TABLE PERSONAGEM (
 );
 ```
 
+- Colunas: 
+    - `id_personagem`: Identificador único do personagem (chave primária).
+    - `id_jogador`: Referência ao jogador dono do personagem (chave estrangeira referenciando `JOGADOR`).
+    - `id_sala`: Sala atual onde o personagem está localizado (chave estrangeira referenciando `SALA`).
+    - `id_missao`: Missão atualmente atribuída ao personagem (chave estrangeira referenciando `MISSAO`).
+    - `nome`: Nome do personagem.
+    - `mana`: Quantidade atual de mana.
+    - `vida`: Quantidade atual de vida.
+    - `vitalidade, inteligencia, agilidade, sorte, destreza, forca`: Atributos base do personagem.
+    - `ataque, ataque_magico`: Poder ofensivo físico e mágico.
+    - `precisao`
+    - `esquiva`: Capacidade de acertar e evitar ataques.
+    - `defesa, defesa_magica`: Resistência física e mágica.
+    - `critico`: Taxa de acerto crítico.
+    - `velocidade`: Velocidade de ação do personagem.
+    - `nivel`: Nível atual do personagem.
+    - `dinheiro`: Quantia de dinheiro carregada pelo personagem.
+
 ### Tabela `INVENTARIO`
+
+A tabela `INVENTARIO` refere-se ao inventário do jogador.
 
 ```sql
 CREATE TABLE INVENTARIO (
@@ -276,7 +359,13 @@ CREATE TABLE INVENTARIO (
 );
 ```
 
+- Colunas:
+    - `id_inventario`: Identificador único do inventário (chave primária).
+    - `id_personagem`: Identificador do personagem que possui o inventário (chave estrangeira referenciando `PERSONAGEM`).
+
 ### Tabela `INSTANCIA_ITEM`
+
+A tabela `INSTANCIA_ITEM` refere-se a instância específica de um item no sistema.
 
 ```sql
 CREATE TABLE INSTANCIA_ITEM (
@@ -292,7 +381,15 @@ CREATE TABLE INSTANCIA_ITEM (
 );
 ```
 
+- Colunas:
+    - `id_instancia_item`: Identificador único da instância do item (chave primária).
+    - `id_item`: Identificador único que referencia o item genérico (chave primária e estrangeira referenciando `ITEM`).
+    - `id_sala`: Identificador da sala em que o item se encontra (chave estrangeira referenciando `SALA`).
+    - `id_inventario`: Identificador do inventário em que o item se encontra (chave estrangeira referenciando `INVENTARIO`).
+
 ### Tabela `pertence_PERSONAGEM_CLASSE`
+
+- A tabela `pertence_PERSONAGEM_CLASSE` refere-se a classe em que o personagem pertence no sistema.
 
 ```sql
 CREATE TABLE pertence_PERSONAGEM_CLASSE (
@@ -305,7 +402,13 @@ CREATE TABLE pertence_PERSONAGEM_CLASSE (
 );
 ```
 
+- Colunas:
+    - `id_personagem`: Identificador único que referencia o personagem (chave primária e estrangeira referenciando `PERSONAGEM`).
+    - `id_classe`: Identificador único que referencia a classe do personagem (chave primária e estrangeira referenciando `CLASSE`).
+
 ### Tabela `HABILIDADE`
+
+A tabela `HABILIDADE` refere-se as habilidades de uma classe no sistema.
 
 ```sql
 CREATE TABLE HABILIDADE (
@@ -322,7 +425,18 @@ CREATE TABLE HABILIDADE (
 );
 ```
 
+- Colunas:
+    - `id_habilidade`: Identificador único da habilidade (chave primária).
+    - `id_classe`: Identificador da classe a qual a habilidade pertence (chave estrangeira referenciando `CLASSE`).
+    - `nome_habilidade`: Nome da habilidade.
+    - `descricao`: Descrição da habilidade.
+    - `custo_mana`: Custo de mana da habilidade.
+    - `dano`: Dano da habilidade.
+    - `nivel_requerido`: Nível necessário para aprender uma habilidade.
+
 ### Tabela `CONSUMIVEL` e Subtipos
+
+A tabela `Consumível` refere-se aos itens consumíveis do jogo.
 
 ```sql
 CREATE TABLE CONSUMIVEL (
@@ -335,7 +449,13 @@ CREATE TABLE CONSUMIVEL (
 );
 ```
 
+- Colunas: 
+    - `id_item`: Identificador único que referencia o item genérico (chave primária e estrangeira referenciando `ITEM`).
+    - `tipo_consumivel`: Tipo de item consumível (restrição entre `POCAO`, `PERGAMINHO` e `COMIDA`).
+
 ### Tabela `POCAO`
+
+A tabela `POCAO` refere-se aos itens consumíveis do tipo poção.
 
 ```sql
 CREATE TABLE POCAO (
@@ -345,18 +465,27 @@ CREATE TABLE POCAO (
     bonus_atributo_duracao INT,
     nome_item VARCHAR(100),
     descricao TEXT,
-    custo_iem INT,
-
-    CONSTRAINT POCAO_PK PRIMARY KEY (id_consumivel),
-    CONSTRAINT POCAO_CONSUMIVEL_FK FOREIGN KEY (id_consumivel) REFERENCES CONSUMIVEL (id_item)
+    custo_item INT,
+    FOREIGN KEY (id_consumivel) REFERENCES CONSUMIVEL(id_item)
 );
 ```
 
+- Colunas:
+    - `id_consumivel`: Identificador único da pocao que referencia o item consumível (chave primária e estrangeira referenciando `CONSUMIVEL`).
+    - `tipo_bonus_atributo`: Tipo de bônus e atributos que a poção oferece ao personagem.
+    - `bonus_atributo`: Bônus de atributo que a poção oferece.
+    - `bonus_atributo_duracao`: Duração do bônus.
+    - `nome_item`: Nome do item consumível do tipo poção.
+    - `descricao`: Descrição do item consumível do tipo poção.
+    - `custo_item`: Custo do item consumível do tipo poção.
+
 ### Tabela `PERGAMINHO`
+
+A tabela `PERGAMINHO` refere-se aos itens consumíveis do tipo pergaminho.
 
 ```sql
 CREATE TABLE PERGAMINHO (
-    id_pergaminho INT,
+    id_consumivel INT,
     tipo_buff VARCHAR(50),
     duracao_buff INT,
     nome_item VARCHAR(100),
@@ -368,11 +497,22 @@ CREATE TABLE PERGAMINHO (
 );
 ```
 
+- Colunas:
+    - `id_consumivel`: Identificador único do pergaminho que referencia o item consumível (chave primária e estrangeira referenciando `CONSUMIVEL`).
+    - `tipo_bonus_atributo`: Tipo de bônus e atributos que a poção oferece ao personagem.
+    - `bonus_atributo`: Bônus de atributo que a poção oferece.
+    - `bonus_atributo_duracao`: Duração do bônus.
+    - `nome_item`: Nome do item consumível do tipo poção.
+    - `descricao`: Descrição do item consumível do tipo poção.
+    - `custo_item`: Custo do item consumível do tipo poção.
+
 ### Tabela `COMIDA`
+
+A tabela `COMIDA` refere-se aos itens consumíveis do tipo pergaminho.
 
 ```sql
 CREATE TABLE COMIDA (
-    id_comida INT,
+    id_consumivel INT,
     tipo_bonus_atributo CHAR(20),
     bonus_atributo INT,
     bonus_atributo_duracao INT,
@@ -385,7 +525,19 @@ CREATE TABLE COMIDA (
 );
 ```
 
+- Colunas:
+    - `id_consumivel`: Identificador único da comida que referencia o item consumível (chave primária e estrangeira referenciando `CONSUMIVEL`).
+    - `tipo_bonus_atributo`: Tipo de bônus e atributos que a poção oferece ao personagem.
+    - `bonus_atributo`: Bônus de atributo que a poção oferece.
+    - `bonus_atributo_duracao`: Duração do bônus.
+    - `nome_item`: Nome do item consumível do tipo poção.
+    - `descricao`: Descrição do item consumível do tipo poção.
+    - `custo_item`: Custo do item consumível do tipo poção.
+
+
 ### Tabela `ARMADURA` e Subtipos
+
+A tabela `ARMADURA` refere-se aos itens do tipo armadura.
 
 ```sql
 CREATE TABLE ARMADURA (
@@ -398,9 +550,13 @@ CREATE TABLE ARMADURA (
 );
 ```
 
+- Colunas:
+    - `id_item`: Identificador único de armadura que referencia o item (chave primária e chave estrangeira referenciando `ITEM`).
+    - `tipo_armadura`: Tipo de armadura (restrições entre `CAPACETE`, `BOTA`, `ACESSORIO`, `CAPA`, `ESCUDO`).
+
 ### Tabelas `CAPACETE`,  `BOTA`,  `ACESSORIO`,  `CAPA`,  `ESCUDO`,  `PEITORAL`
 
-As estruturas acima seguem padrão semelhante da tabela `CAPACETE`:
+As tabela acima, como `CAPACETE` refere-se aos itens de armadura do tipo CAPACETE. As seguintes possuem um padrão semelhante a ela:
 
 ```sql
 CREATE TABLE CAPACETE (
@@ -415,8 +571,24 @@ CREATE TABLE CAPACETE (
     CONSTRAINT CAPACETE_PK PRIMARY KEY (id_armadura),
     CONSTRAINT CAPACETE_ARMADURA_FK FOREIGN KEY (id_armadura) REFERENCES ARMADURA (id_item)
 );
--- Estrutura semelhante para BOTA, ACESSORIO, CAPA, ESCUDO, PEITORAL
 ```
 
+- Colunas:
+    - `id_armadura`: Identificador único de capacete que referencia a armadura (chave primária e estrangeira referenciando `ARMADURA`).
+    - `nome_item`: Nome da armadura do tipo capacete.
+    - `descricao`: Descrição da armadura do tipo capacete.
+    - `custo_item`: Custo da armadura do tipo capacete.
+    - `defesa`: Defesa física da armadura do tipo capacete.
+    - `defesa_magica`: Defesa mágica da armadura do tipo capacete.
+    - `bonus_vida`: Quantidade de bônus de vida da armadura do tipo capacete.
+
 ---
+
+## Histórico de Versão
+
+|  Versão  |     Data     | Descrição | Autor(es) | Revisor(es) |
+| :------: | :----------: | :-----------: | :---------: | :---------: |
+| `1.0` | 11/06/2025 | Criação do documento e primeira versão do DDL | [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4), [Ian Costa](https://github.com/iancostag), [Kauã Richard](https://github.com/r1ch4rd1) | [Danilo Naves](https://github.com/DaniloNavesS) |
+| `1.1` | 11/06/2025 | Ajustes de formatação e código | [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4), [Ian Costa](https://github.com/iancostag), [Kauã Richard](https://github.com/r1ch4rd1) | [Danilo Naves](https://github.com/DaniloNavesS) |
+
 

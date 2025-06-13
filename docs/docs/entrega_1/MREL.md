@@ -56,5 +56,5 @@ O Modelo Relacional (MREL) é a representação lógica do banco de dados, basea
 |  Versão  |     Data     | Descrição | Autor(es) | Revisor(es) |
 | :------: | :----------: | :-----------: | :---------: | :---------: |
 | `1.0` | 02/05/2025 | Criação de documento e primeira versão do MREL | [Ian Costa](https://github.com/DaniloNavesS) | [Cauã Araujo](https://github.com/caua08) |
-| `2.0` | 11/06/2025 | Segunda versão do MREL | [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4), [Ian Costa](https://github.com/DaniloNavesS) | [Cauã Araujo](https://github.com/caua08) |
+| `2.0` | 11/06/2025 | Segunda versão do MREL | [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4), [Ian Costa](https://github.com/iancostag) | [Cauã Araujo](https://github.com/caua08) |
 
