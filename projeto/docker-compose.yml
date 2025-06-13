@@ -1,15 +1,21 @@
 services:
   db:
-    image: postgres:16
-    container_name: mud_postgres
+    image: postgres:16-alpine
+    container_name: ragnarok-docker
+    environment:
+      POSTGRES_DB: ragnarok
+      POSTGRES_USER: igris
+      POSTGRES_PASSWORD: igris
     ports:
       - "5432:5432"
-    environment:
-      - POSTGRES_DB=mud
-      - POSTGRES_USER=mud_user
-      - POSTGRES_PASSWORD=secret
     volumes:
-      - mud_pgdata:/var/lib/postgresql/data
-
+      - db_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro,z
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      
 volumes:
-  mud_pgdata:
+  db_data:
