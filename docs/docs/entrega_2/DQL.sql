@@ -1,47 +1,47 @@
 -- Seleciona Todos Personagens que pertencem a um jogador
-select p.nome from personagem p 
-inner join jogador j on p.id_jogador = j.id_jogador;
+select P.nome from PERSONAGEM P 
+inner join JOGADOR J on P.id_jogador = J.id_jogador;
 
 -- Lista as Habilidades que um personagem possui, adicioanndo o WHERE id_personagem = x temos do personagem especifico
-select H.nome_habilidade from habilidade H
-inner join classe C on h.id_classe  C.id_classe 
-inner join pertence_personagem_classe pc on pc.id_classe = c.id_classe
-inner join personagem p on pc.id_personagem  = p.id_personagem
-where h.nivel_requerido <= p.nivel;
+select H.nome_habilidade from HABILIDADE H
+inner join CLASSE C on H.id_classe  C.id_classe 
+inner join pertence_PERSONAGEM_CLASSE PC on PC.id_classe = C.id_classe
+inner join PERSONAGEM P on PC.id_personagem  = P.id_personagem
+where H.nivel_requerido <= P.nivel;
 
 -- lista para que salas um personagem pode ir, adicionando o WHERE obtemos pra onde um personagem especifico pode ir
 SELECT 
-    s.nome_sala AS sala_atual,
-    sd.nome_sala AS sala_direita,
-    sb.nome_sala AS sala_baixo,
-    sc.nome_sala AS sala_cima,
-    se.nome_sala AS sala_esquerda
+    S.nome_sala AS sala_atual,
+    SD.nome_sala AS sala_direita,
+    SB.nome_sala AS sala_baixo,
+    SC.nome_sala AS sala_cima,
+    SE.nome_sala AS sala_esquerda
 FROM 
-    sala s
+    SALA S
 INNER JOIN 
-    personagem p ON p.id_sala = s.id_sala
+    PERSONAGEM P ON P.id_sala = S.id_sala
 LEFT JOIN 
-    sala sd ON s.id_direita = sd.id_sala
+    SALA SD ON S.id_direita = SD.id_sala
 LEFT JOIN 
-    sala sb ON s.id_baixo = sb.id_sala
+    SALA SB ON S.id_baixo = SB.id_sala
 LEFT JOIN 
-    sala sc ON s.id_cima = sc.id_sala
+    SALA SC ON S.id_cima = SC.id_sala
 LEFT JOIN 
-    sala se ON s.id_esquerda = se.id_sala;
+    SALA SE ON S.id_esquerda = SE.id_sala;
 -- WHERE id_personagem = :id_personagem especifico mostrar as opções
 
 --Mostrar o objetivo da missão atual do personagem, lembrando que o personagem só pode ter uma missão
-select m.objetivo from missao m
-inner join personagem p on p.id_missao  = m.id_missao
+SELECT M.objetivo FROM MISSAO M
+INNER JOIN PERSONAGEM P ON P.id_missao  = M.id_missao
 
 --Mostrar que NPC dá a missão
-select npc.nome from npc
-inner join missao m on m.id_npc = npc.id_npc
+SELECT NPC_QUEST.nome FROM NPC_QUEST
+INNER JOIN MISSAO M ON M.id_npc = NPC_QUEST.id_npc
 
 --Mostrar para o jogador a descrição Completa da Missão
-select m.descricao as "Descrição", m.objetivo as "Objetivo da Missão", npc.nome as "Requisitante"from Missao m
-inner join npc on npc.id_npc = m.id_npc
-inner join personagem p on p.id_missao  on m.m.id_missao 
+SELECT M.descricao AS "Descrição", M.objetivo AS "Objetivo da Missão", NPC.nome AS "Requisitante" FROM MISSAO m
+INNER JOIN NPC ON NPC.id_npc = M.id_npc
+INNER JOIN PERSONAGEM P ON P.id_missao = M.id_missao 
 
 
 
