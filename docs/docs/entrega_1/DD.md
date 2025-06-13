@@ -4,6 +4,8 @@
 
 # Ragnarok MUD - Dicionário de Dados
 
+O Dicionário de Dados (DD) é um documento que descreve a estrutura do banco de dados do nosso jogo. Nele, estão listadas as tabelas, os campos, os tipos de dados e os relacionamentos entre as informações.
+
 ## Entidade: JOGADOR
 | Variável     | Tipo    | Descrição                    | Valores permitidos   | Permite valores nulos?   | É chave?            | Outras restrições   |
 |:-------------|:--------|:-----------------------------|:---------------------|:-------------------------|:--------------------|:--------------------|
@@ -263,5 +265,6 @@
 
 |  Versão  |     Data     | Descrição | Autor(es) | Revisor(es) |
 | :------: | :----------: | :-----------: | :---------: | :---------: |
-| `1.0` | 02/05/2025 | Criação de documento e primeira versão do DD | [Cauã Araujo](https://github.com/caua08) | [Ian Costa](https://github.com/DaniloNavesS) |
+| `1.0` | 02/05/2025 | Criação de documento e primeira versão do DD | [Cauã Araujo](https://github.com/caua08) | [Ian Costa](https://github.com/iancostag) |
+| `2.0` | 11/06/2025 | Segunda versão do DD | [Cauã Araujo](https://github.com/caua08) | [Amanda Cruz](https://github.com/mandicrz) |
 

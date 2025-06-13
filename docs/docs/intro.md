@@ -53,7 +53,12 @@ Passo a passo para jogar ***Ragnarok* - MUD** :
     - [Modelo Relacional](../docs/entrega_1/MREL.md)
 
 - **Módulo 2**
-
+    - [Modelo Entidade-Relacionamento - ATUALIZADO](../docs/entrega_1/MER.md)
+    - [Diagrama Entidade-Relacionamento - ATUALIZADO](../docs/entrega_1/DER.md)
+    - [Dicionário de Dados - ATUALIZADO](../docs/entrega_1/DD.md)
+    - [Modelo Relacional - ATUALIZADO](../docs/entrega_1/MREL.md)
+    - [Data Definition Language](../docs/entrega_2/ddl.md)
+    
 - **Módulo 3**
 
 ## Equipe

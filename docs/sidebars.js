@@ -49,6 +49,17 @@ const sidebars = {
     },
     {
       type: 'category',
+      label: 'Módulo 2',
+      items: [
+        {
+          type: 'doc',
+          id: 'entrega_2/apresentacao_1',
+          label: 'Módulo 1 - Apresentação'
+        }
+      ]
+    },
+    {
+      type: 'category',
       label: 'Apresentações',
       items: [
         {
