@@ -51,11 +51,13 @@ def execute_query(query, params=None, fetch_one=False, commit=False):
         if commit:
             conn.commit()
 
+        
+        if fetch_one: 
             return cursor.fetchone()
-        elif query.strip().upper().startswith("SELECT"):
+        elif query.strip().upper().startswith("SELECT"): 
             return cursor.fetchall()
-        else:
-            return True
+        else: 
+            return True 
 
     except Error as e:
         if commit:
