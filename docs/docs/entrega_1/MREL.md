@@ -5,7 +5,7 @@
 
 # MREL - Modelo Relacional
 
-O Modelo Relacional (MREL) é a representação lógica do banco de dados, baseada nas tabelas e nos relacionamentos entre elas. Ele mostra como os dados estão organizados e conectados, facilitando a visualização da estrutura do sistema. 
+O Modelo Relacional (MREL) é a representação lógica do banco de dados, baseada nas tabelas e nos relacionamentos entre elas. Ele mostra como os dados estão organizados e conectados, facilitando a visualização da estrutura do nosso sistema. 
 
 ## Versão Atualizada: MREL
 

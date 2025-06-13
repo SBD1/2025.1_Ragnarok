@@ -23,7 +23,7 @@ const sidebars = {
     'intro',
     {
       type: 'category',
-      label: 'Entrega 1',
+      label: 'Módulo 1',
       items: [
         {
           type: 'doc',
@@ -53,9 +53,19 @@ const sidebars = {
       items: [
         {
           type: 'doc',
-          id: 'entrega_2/apresentacao_1',
-          label: 'Módulo 1 - Apresentação'
-        }
+          id: 'entrega_2/ddl',
+          label: '1. Data Definition Language'
+        },
+        {
+          type: 'doc',
+          id: 'entrega_2/dml',
+          label: '2. Data Manipulation Language'
+        },
+        {
+          type: 'doc',
+          id: 'entrega_2/dql',
+          label: '3. Data Query Language'
+        },
       ]
     },
     {
