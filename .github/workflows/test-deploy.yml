@@ -1,5 +1,9 @@
 name: Test deployment
 
+defaults:
+  run:
+    working-directory: ./scripts
+
 on:
   pull_request:
     branches:
