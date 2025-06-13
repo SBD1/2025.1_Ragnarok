@@ -21,10 +21,10 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        working-directory: /docs
+        working-directory: ./docs
         run: npm ci
       - name: Build website
-        working-directory: /docs
+        working-directory: .docs
         run: npm build
 
       - name: Upload Build Artifact
