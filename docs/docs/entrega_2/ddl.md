@@ -14,12 +14,13 @@ A tabela `JOGADOR` refere-se ao usuário cadastrado no sistema.
 
 ```sql
 CREATE TABLE JOGADOR (
-    id_jogador SERIAL PRIMARY KEY,
+    id_jogador SERIAL,
     usuario VARCHAR(20) NOT NULL,
     email VARCHAR(50) NOT NULL,
     senha VARCHAR(50) NOT NULL,
 
-    CONSTRAINT jogador_uk UNIQUE (email)
+    CONSTRAINT JOGADOR_PK PRIMARY KEY (id_jogador),
+    CONSTRAINT JOGADOR_email_UK UNIQUE KEY (email)
 );
 
 ```
@@ -36,9 +37,11 @@ A tabela `CLASSE` refere-se a classe do personagem.
 
 ```sql
 CREATE TABLE CLASSE (
-    id_classe SERIAL PRIMARY KEY,
+    id_classe SERIAL,
     nome_classe VARCHAR(100) NOT NULL,
-    descricao TEXT
+    descricao TEXT,
+
+    CONSTRAINT CLASSE_PK PRIMARY KEY (id_classe)
 );
 ```
 
@@ -53,17 +56,19 @@ A tabela `SALA` refere-se as salas do sistema.
 
 ```sql
 CREATE TABLE SALA (
-    id_sala SERIAL PRIMARY KEY,
+    id_sala SERIAL,
     id_direita INT,
     id_esquerda INT,
     id_baixo INT,
     id_cima INT,
     nome_sala VARCHAR(30),
     descricao_sala TEXT NOT NULL,
-    FOREIGN KEY (id_direita) REFERENCES SALA(id_sala),
-    FOREIGN KEY (id_esquerda) REFERENCES SALA(id_sala),
-    FOREIGN KEY (id_baixo) REFERENCES SALA(id_sala),
-    FOREIGN KEY (id_cima) REFERENCES SALA(id_sala)
+
+    CONSTRAINT SALA_PK PRIMARY KEY (id_sala),
+    CONSTRAINT direita_SALA_FK FOREIGN KEY (id_direita) REFERENCES SALA (id_sala),
+    CONSTRAINT esquerda_SALA_FK FOREIGN KEY (id_esquerda) REFERENCES SALA (id_sala),
+    CONSTRAINT baixo_SALA_FK FOREIGN KEY (id_baixo) REFERENCES SALA (id_sala),
+    CONSTRAINT cima_SALA_FK FOREIGN KEY (id_cima) REFERENCES SALA (id_sala)
 );
 ```
 
@@ -82,12 +87,14 @@ A tabela `NPC` refere-se a um personagem não jogável do sistema.
 
 ```sql
 CREATE TABLE NPC (
-    id_npc SERIAL PRIMARY KEY,
+    id_npc SERIAL,
     id_sala INT,
     nome VARCHAR(20) NOT NULL,
     descricao TEXT,
     dialogo VARCHAR(1000),
-    FOREIGN KEY (id_sala) REFERENCES SALA(id_sala)
+
+    CONSTRAINT NPC_PK PRIMARY KEY (id_npc),
+    CONSTRAINT NPC_SALA_FK FOREIGN KEY (id_sala) REFERENCES SALA (id_sala)
 );
 ```
 
@@ -104,8 +111,10 @@ A tabela `NPC_QUEST` refere-se ao personagem não jogável do sistema que tem a 
 
 ```sql
 CREATE TABLE NPC_QUEST (
-    id_npc INT PRIMARY KEY,
-    FOREIGN KEY (id_npc) REFERENCES NPC(id_npc)
+    id_npc INT,
+
+    CONSTRAINT NPC_QUEST PRIMARY KEY (id_npc),
+    CONSTRAINT NPC_QUEST_NPC_FK FOREIGN KEY (id_npc) REFERENCES NPC (id_npc)
 );
 ```
 
@@ -118,7 +127,7 @@ A tabela `NPC_COMBATENTE` refere-se ao personagem não jogável combatente do si
 
 ```sql
 CREATE TABLE NPC_COMBATENTE (
-    id_npc_combatente INT PRIMARY KEY,
+    id_npc_combatente INT,
     tamanho VARCHAR(15) NOT NULL,
     raca VARCHAR(15) NOT NULL,
     descricao TEXT NOT NULL,
@@ -128,7 +137,9 @@ CREATE TABLE NPC_COMBATENTE (
     nivel INT NOT NULL DEFAULT 1,
     precisao INT NOT NULL,
     esquiva INT NOT NULL,
-    FOREIGN KEY (id_npc_combatente) REFERENCES NPC(id_npc)
+
+    CONSTRAINT NPC_COMBATENTE_PK PRIMARY KEY (id_npc_combatente),
+    CONSTRAINT NPC_COMBATENTE_NPC_FK FOREIGN KEY (id_npc_combatente) REFERENCES NPC (id_npc)
 );
 ```
 
@@ -139,12 +150,14 @@ CREATE TABLE NPC_COMBATENTE (
 
 ```sql
 CREATE TABLE INSTANCIA_NPC_COMBATENTE (
-    id_instancia SERIAL PRIMARY KEY,
+    id_instancia SERIAL,
     id_npc_combatente INT,
     vida_atual INT NOT NULL DEFAULT 100,
     status_npc VARCHAR(15) NOT NULL,
     agressivo BOOLEAN NOT NULL,
-    FOREIGN KEY (id_npc_combatente) REFERENCES NPC_COMBATENTE(id_npc_combatente)
+
+    CONSTRAINT INSTANCIA_NPC_COMBATENTE_PK PRIMARY KEY (id_instancia),
+    CONSTRAINT INSTANCIA_NPC_COMBATENTE_NPC_COMBATENTE_FK FOREIGN KEY (id_npc_combatente) REFERENCES NPC_COMBATENTE (id_npc_combatente)
 );
 ```
 
@@ -152,16 +165,18 @@ CREATE TABLE INSTANCIA_NPC_COMBATENTE (
 
 ```sql
 CREATE TABLE ITEM (
-    id_item SERIAL PRIMARY KEY,
+    id_item SERIAL,
     id_npc_combatente INT,
     nome VARCHAR(20) NOT NULL,
     tipo VARCHAR(15) NOT NULL,
     descricao TEXT NOT NULL,
     atributos_bonus INT,
     custo DECIMAL NOT NULL,
-    FOREIGN KEY (id_npc_combatente) REFERENCES NPC_COMBATENTE(id_npc_combatente),
-    CONSTRAINT item_nome_uk UNIQUE (nome),
-    CONSTRAINT tipo_ck CHECK (tipo IN ('CONSUMIVEL', 'ARMADURA', 'ARMA'))
+
+    CONSTRAINT ITEM_PK PRIMARY KEY (id_item),
+    CONSTRAINT ITEM_NPC_COMBATENTE FOREIGN KEY (id_npc_combatente) REFERENCES NPC_COMBATENTE (id_npc_combatente),
+    CONSTRAINT ITEM_nome_UK UNIQUE KEY (nome),
+    CONSTRAINT ITEM_tipo_CK CHECK (tipo IN ('CONSUMIVEL', 'ARMADURA', 'ARMA'))
 );
 ```
 
@@ -169,14 +184,18 @@ CREATE TABLE ITEM (
 
 ```sql
 CREATE TABLE ESTOQUE (
-    id_estoque SERIAL PRIMARY KEY
+    id_estoque SERIAL,
+
+    CONSTRAINT ESTOQUE_PK PRIMARY KEY (id_estoque)
 );
 
 CREATE TABLE NPC_VENDEDOR (
-    id_npc_vendedor SERIAL PRIMARY KEY,
+    id_npc_vendedor SERIAL,
     id_estoque INT,
-    FOREIGN KEY (id_estoque) REFERENCES ESTOQUE(id_estoque),
-    FOREIGN KEY (id_npc_vendedor) REFERENCES NPC(id_npc)
+
+    CONSTRAINT NPC_VENDEDOR_PK PRIMARY KEY (id_npc_vendedor),
+    CONSTRAINT NPC_VENDEDOR_ESTOQUE_FK FOREIGN KEY (id_estoque) REFERENCES ESTOQUE (id_estoque),
+    CONSTRAINT NPC_VENDEDOR_NPC_FK FOREIGN KEY (id_npc_vendedor) REFERENCES NPC (id_npc)
 );
 ```
 
@@ -186,9 +205,9 @@ CREATE TABLE NPC_VENDEDOR (
 CREATE TABLE VENDE_ESTOQUE_ITEM (
     id_estoque INT,
     id_item INT,
-    PRIMARY KEY (id_estoque, id_item),
-    FOREIGN KEY (id_estoque) REFERENCES ESTOQUE(id_estoque),
-    FOREIGN KEY (id_item) REFERENCES ITEM(id_item)
+    CONSTRAINT vende_ESTOQUE_ITEM_PK PRIMARY KEY (id_estoque, id_item),
+    CONSTRAINT vende_ESTOQUE_ITEM_ESTOQUE_FK FOREIGN KEY (id_estoque) REFERENCES ESTOQUE (id_estoque),
+    CONSTRAINT vende_ESTOQUE_ITEM_ITEM_FK FOREIGN KEY (id_item) REFERENCES ITEM (id_item)
 );
 ```
 
@@ -196,7 +215,7 @@ CREATE TABLE VENDE_ESTOQUE_ITEM (
 
 ```sql
 CREATE TABLE MISSAO (
-    id_missao SERIAL PRIMARY KEY,
+    id_missao SERIAL,
     id_npc INT,
     requisito_level INT DEFAULT 1,
     xp_base INT NOT NULL,
@@ -204,7 +223,9 @@ CREATE TABLE MISSAO (
     descricao TEXT,
     objetivo VARCHAR(100),
     dinheiro DECIMAL NOT NULL,
-    FOREIGN KEY (id_npc) REFERENCES NPC(id_npc)
+
+    CONSTRAINT MISSAO_PK PRIMARY KEY (id_missao),
+    CONSTRAINT MISSAO_NPC_QUEST_FK FOREIGN KEY (id_npc) REFERENCES NPC_QUEST (id_npc)
 );
 ```
 
@@ -212,7 +233,7 @@ CREATE TABLE MISSAO (
 
 ```sql
 CREATE TABLE PERSONAGEM (
-    id_personagem SERIAL PRIMARY KEY,
+    id_personagem SERIAL,
     id_jogador INT,
     id_sala INT,
     id_missao INT,
@@ -235,19 +256,23 @@ CREATE TABLE PERSONAGEM (
     velocidade INT NOT NULL,
     nivel INT DEFAULT 1,
     dinheiro INT DEFAULT 100,
-    FOREIGN KEY (id_jogador) REFERENCES JOGADOR(id_jogador),
-    FOREIGN KEY (id_sala) REFERENCES SALA(id_sala),
-    FOREIGN KEY (id_missao) REFERENCES MISSAO(id_missao)
+
+    CONSTRAINT PERSONAGEM_PK PRIMARY KEY (id_personagem),
+    CONSTRAINT PERSONAGEM_JOGADOR_FK FOREIGN KEY (id_jogador) REFERENCES JOGADOR (id_jogador),
+    CONSTRAINT PERSONAGEM_SALA_FK FOREIGN KEY (id_sala) REFERENCES SALA (id_sala),
+    CONSTRAINT PERSONAGEM_MISSAO_FK FOREIGN KEY (id_missao) REFERENCES MISSAO (id_missao)
 );
 ```
 
 ### Tabela `INVENTARIO`
 
 ```sql
-CREATE TABLE INVENTARIO(
-    id_inventario SERIAL PRIMARY KEY,
+CREATE TABLE INVENTARIO (
+    id_inventario SERIAL,
     id_personagem INT,
-    FOREIGN KEY (id_personagem) REFERENCES PERSONAGEM(id_personagem)
+    
+    CONSTRAINT INVENTARIO_PK PRIMARY KEY (id_inventario),
+    CONSTRAINT INVENTARIO_PERSONAGEM_FK FOREIGN KEY (id_personagem) REFERENCES PERSONAGEM (id_personagem)
 );
 ```
 
@@ -259,22 +284,24 @@ CREATE TABLE INSTANCIA_ITEM (
     id_item INT,
     id_sala INT,
     id_inventario INT,
-    PRIMARY KEY (id_instancia_item, id_item),
-    FOREIGN KEY (id_item) REFERENCES ITEM(id_item),
-    FOREIGN KEY (id_sala) REFERENCES SALA(id_sala),
-    FOREIGN KEY (id_inventario) REFERENCES INVENTARIO(id_inventario)
+
+    CONSTRAINT INSTANCIA_ITEM_PK PRIMARY KEY (id_instancia_item, id_item),
+    CONSTRAINT INSTANCIA_ITEM_ITEM_FK FOREIGN KEY (id_item) REFERENCES ITEM (id_item),
+    CONSTRAINT INSTANCIA_ITEM_SALA_FK FOREIGN KEY (id_sala) REFERENCES SALA (id_sala),
+    CONSTRAINT INSTANCIA_ITEM_INVENTARIO_FK FOREIGN KEY (id_inventario) REFERENCES INVENTARIO (id_inventario)
 );
 ```
 
-### Tabela `PERTENCE_PERSONAGEM_CLASSE`
+### Tabela `pertence_PERSONAGEM_CLASSE`
 
 ```sql
-CREATE TABLE PERTENCE_PERSONAGEM_CLASSE (
+CREATE TABLE pertence_PERSONAGEM_CLASSE (
     id_personagem INT NOT NULL,
     id_classe INT NOT NULL,
-    PRIMARY KEY (id_personagem, id_classe),
-    FOREIGN KEY (id_classe) REFERENCES CLASSE(id_classe),
-    FOREIGN KEY (id_personagem) REFERENCES PERSONAGEM(id_personagem)
+
+    CONSTRAINT pertence_PERSONAGEM_CLASSE_PK PRIMARY KEY (id_personagem, id_classe),
+    CONSTRAINT pertence_PERSONAGEM_CLASSE_CLASSE_FK FOREIGN KEY (id_classe) REFERENCES CLASSE (id_classe),
+    CONSTRAINT pertence_PERSONAGEM_CLASSE_PERSONAGEM_FK FOREIGN KEY (id_personagem) REFERENCES PERSONAGEM (id_personagem)
 );
 ```
 
@@ -282,69 +309,79 @@ CREATE TABLE PERTENCE_PERSONAGEM_CLASSE (
 
 ```sql
 CREATE TABLE HABILIDADE (
-    id_habilidade SERIAL PRIMARY KEY,
+    id_habilidade SERIAL,
     id_classe INT NOT NULL,
     nome_habilidade VARCHAR(100) NOT NULL,
     descricao TEXT,
     custo_mana INT,
     dano INT,
     nivel_requerido INT,
-    FOREIGN KEY (id_classe) REFERENCES CLASSE(id_classe)
+
+    CONSTRAINT HABILIDADE_PK PRIMARY KEY (id_habilidade),
+    CONSTRAINT HABILIDADE_CLASSE_FK FOREIGN KEY (id_classe) REFERENCES CLASSE (id_classe)
 );
 ```
 
 ### Tabela `CONSUMIVEL` e Subtipos
 
 ```sql
-CREATE TABLE CONSUMIVEL(
-    id_item INT PRIMARY KEY,
+CREATE TABLE CONSUMIVEL (
+    id_item INT,
     tipo_consumivel CHAR(10),
-    FOREIGN KEY (id_item) REFERENCES ITEM(id_item),
-    CONSTRAINT tipo_consumivel_ck CHECK (tipo_consumivel IN ('POCAO', 'PERGAMINHO', 'COMIDA'))
+
+    CONSTRAINT CONSUMIVEL_PK PRIMARY KEY (id_item),
+    CONSTRAINT CONSUMIVEL_ITEM_FK FOREIGN KEY (id_item) REFERENCES ITEM (id_item),
+    CONSTRAINT tipo_consumivel_CK CHECK (tipo_consumivel IN ('POCAO', 'PERGAMINHO', 'COMIDA'))
 );
 ```
 
 ### Tabela `POCAO`
 
 ```sql
-CREATE TABLE POCAO(
-    id_consumivel INT PRIMARY KEY,
+CREATE TABLE POCAO (
+    id_consumivel INT,
     tipo_bonus_atributo CHAR(20),
     bonus_atributo INT,
     bonus_atributo_duracao INT,
     nome_item VARCHAR(100),
     descricao TEXT,
     custo_iem INT,
-    FOREIGN KEY (id_consumivel) REFERENCES CONSUMIVEL(id_item)
+
+    CONSTRAINT POCAO_PK PRIMARY KEY (id_consumivel),
+    CONSTRAINT POCAO_CONSUMIVEL_FK FOREIGN KEY (id_consumivel) REFERENCES CONSUMIVEL (id_item)
 );
 ```
 
 ### Tabela `PERGAMINHO`
 
 ```sql
-CREATE TABLE PERGAMINHO(
-    id_pergaminho INT PRIMARY KEY,
+CREATE TABLE PERGAMINHO (
+    id_pergaminho INT,
     tipo_buff VARCHAR(50),
     duracao_buff INT,
     nome_item VARCHAR(100),
     descricao TEXT,
     custo_item INT,
-    FOREIGN KEY (id_pergaminho) REFERENCES CONSUMIVEL(id_item)
+
+    CONSTRAINT PERGAMINHO_PK PRIMARY KEY (id_pergaminho),
+    CONSTRAINT PERGAMINHO_CONSUMIVEL_FK FOREIGN KEY (id_pergaminho) REFERENCES CONSUMIVEL (id_item)
 );
 ```
 
 ### Tabela `COMIDA`
 
 ```sql
-CREATE TABLE COMIDA(
-    id_comida INT PRIMARY KEY,
+CREATE TABLE COMIDA (
+    id_comida INT,
     tipo_bonus_atributo CHAR(20),
     bonus_atributo INT,
     bonus_atributo_duracao INT,
     nome_item VARCHAR(100),
     descricao TEXT,
     custo_item INT,
-    FOREIGN KEY (id_comida) REFERENCES CONSUMIVEL(id_item)
+
+    CONSTRAINT COMIDA_PK PRIMARY KEY (id_comida),
+    CONSTRAINT COMIDA_CONSUMIVEL_FK FOREIGN KEY (id_comida) REFERENCES CONSUMIVEL (id_item)
 );
 ```
 
@@ -352,10 +389,12 @@ CREATE TABLE COMIDA(
 
 ```sql
 CREATE TABLE ARMADURA (
-    id_item INT PRIMARY KEY,
+    id_item INT,
     tipo_armadura VARCHAR(20) NOT NULL,
-    FOREIGN KEY (id_item) REFERENCES ITEM(id_item),
-    CONSTRAINT tipo_armadura_ck CHECK (tipo_armadura IN ('CAPACETE', 'BOTA', 'ACESSORIO', 'CAPA', 'ESCUDO', 'PEITORAL'))
+
+    CONSTRAINT ARMADURA_PK (id_item),
+    CONSTRAINT ARMADURA_ITEM_FK FOREIGN KEY (id_item) REFERENCES ITEM (id_item),
+    CONSTRAINT tipo_armadura_CK CHECK (tipo_armadura IN ('CAPACETE', 'BOTA', 'ACESSORIO', 'CAPA', 'ESCUDO', 'PEITORAL'))
 );
 ```
 
@@ -365,7 +404,7 @@ As estruturas acima seguem padrão semelhante da tabela `CAPACETE`:
 
 ```sql
 CREATE TABLE CAPACETE (
-    id_armadura INT PRIMARY KEY,
+    id_armadura INT,
     nome_item VARCHAR(20) NOT NULL,
     descricao TEXT NOT NULL,
     custo_item INT NOT NULL,
@@ -373,7 +412,8 @@ CREATE TABLE CAPACETE (
     defesa_magica INT,
     bonus_vida INT,
 
-    FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
+    CONSTRAINT CAPACETE_PK PRIMARY KEY (id_armadura),
+    CONSTRAINT CAPACETE_ARMADURA_FK FOREIGN KEY (id_armadura) REFERENCES ARMADURA (id_item)
 );
 -- Estrutura semelhante para BOTA, ACESSORIO, CAPA, ESCUDO, PEITORAL
 ```
