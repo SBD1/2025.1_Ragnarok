@@ -1,9 +1,5 @@
 name: Test deployment
 
-defaults:
-  run:
-    working-directory: ./docs
-
 on:
   pull_request:
     branches:
@@ -15,6 +11,10 @@ jobs:
   test-deploy:
     name: Test deployment
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./docs
     steps:
       - uses: actions/checkout@v4
         with:
