@@ -1,7 +1,3 @@
-# DML DO PROJETO
-
-Este DML serve apenas para podermos observar que o DDL está funcional, todas as tabelas se conectam como deveriam, por meio do DQL demonstraremos como as consultas deverão funcionar.
-
 -- 1. Inserindo Classes
 INSERT INTO public.classe (nome_classe, descricao) VALUES
 ('Guerreiro', 'Especialista em combate corpo a corpo com alta defesa'),

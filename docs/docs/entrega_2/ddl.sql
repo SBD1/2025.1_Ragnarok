@@ -110,7 +110,7 @@ CREATE TABLE MISSAO (
     requisito_level INT DEFAULT 1,
     xp_base INT NOT NULL,
     xp_classe INT NOT NULL,
-    descricao TEXT),
+    descricao TEXT,
     objetivo VARCHAR(100),
     dinheiro DECIMAL NOT NULL,
 
