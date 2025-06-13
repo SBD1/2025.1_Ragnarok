@@ -2,7 +2,7 @@ name: Test deployment
 
 defaults:
   run:
-    working-directory: ./scripts
+    working-directory: ./docs
 
 on:
   pull_request:
