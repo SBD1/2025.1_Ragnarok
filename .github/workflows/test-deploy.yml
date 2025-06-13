@@ -11,11 +11,9 @@ jobs:
   test-deploy:
     name: Test deployment
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: ./docs
     steps:
+      - name: Executar em /docs
+        working-directory: /docs
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
