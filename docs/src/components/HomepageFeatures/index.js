@@ -26,7 +26,7 @@ const FeatureList = [
     Svg: require('@site/static/img/terminal.svg').default,
     description: (
       <>
-        MUD (Multi-User Dungeon) é um tipo de jogo online interativo e colaborativo onde os jogadores exploram um ambiente virtual, geralmente de fantasia, em tempo real. É uma mistura de jogo de aventura e combate onde a comunicação entre os jogadores e a exploração do mundo acontecem através de comandos de texto.
+        MUD (Multi-User Dungeon) é um tipo de jogo interativo e colaborativo. É uma mistura de aventura e combate onde a comunicação entre os jogadores e a exploração do mundo acontecem através de comandos de texto.
       </>
     ),
   },

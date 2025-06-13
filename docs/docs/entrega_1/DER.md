@@ -26,7 +26,7 @@ O DER criado para o nosso jogo *Ragnarok - MUD* é representado abaixo pela Figu
 
 |  Versão  |     Data     | Descrição | Autor(es) | Revisor(es) |
 | :------: | :----------: | :-----------: | :---------: | :---------: |
-| `1.0` | 29/04/2024 | Criação de documento | [Danilo Naves](https://github.com/DaniloNavesS) | [Cauã Araujo](https://github.com/caua08) |
-| `1.1` | 01/05/2024 | Primeira versão de entrega - DER | [Cauã Araujo](https://github.com/caua08), [Danilo Naves](https://github.com/DaniloNavesS), [Ian Costa](https://github.com/iancostag),  [Kauã Richard](https://github.com/rich4rd1)| [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4) |
+| `1.0` | 29/04/2025 | Criação de documento | [Danilo Naves](https://github.com/DaniloNavesS) | [Cauã Araujo](https://github.com/caua08) |
+| `1.1` | 01/05/2025 | Primeira versão de entrega - DER | [Cauã Araujo](https://github.com/caua08), [Danilo Naves](https://github.com/DaniloNavesS), [Ian Costa](https://github.com/iancostag),  [Kauã Richard](https://github.com/rich4rd1)| [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4) |
 | `1.2` | 02/05/2025 | Correção no diagrama e na padronização do documento | [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4), [Cauã Araujo](https://github.com/caua08) | [Ian Costa](https://github.com/iancostag) |
 
