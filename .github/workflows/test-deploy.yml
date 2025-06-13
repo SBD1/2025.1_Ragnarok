@@ -12,8 +12,6 @@ jobs:
     name: Test deployment
     runs-on: ubuntu-latest
     steps:
-      - name: Executar em /docs
-        working-directory: /docs
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -23,6 +21,8 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        working-directory: ./docs
         run: npm ci
       - name: Test build website
+        working-directory: ./docs
         run: npm build
