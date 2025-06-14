@@ -37,7 +37,7 @@ CREATE TABLE NPC (
     id_sala INT,
     nome VARCHAR(20) NOT NULL,
     descricao TEXT,
-    dialogo VARCHAR(1000),
+    dialogo TEXT,
 
     CONSTRAINT NPC_PK PRIMARY KEY (id_npc),
     CONSTRAINT NPC_SALA_FK FOREIGN KEY (id_sala) REFERENCES SALA (id_sala)
@@ -73,15 +73,10 @@ CREATE TABLE INSTANCIA_NPC_COMBATENTE (
 CREATE TABLE ITEM (
     id_item SERIAL,
     id_npc_combatente INT,
-    nome VARCHAR(20) NOT NULL,
-    tipo VARCHAR(15) NOT NULL,
-    descricao TEXT NOT NULL,
-    atributos_bonus INT,
-    custo DECIMAL NOT NULL,
+    tipo_item VARCHAR(15) NOT NULL,
 
     CONSTRAINT ITEM_PK PRIMARY KEY (id_item),
     CONSTRAINT ITEM_NPC_COMBATENTE FOREIGN KEY (id_npc_combatente) REFERENCES NPC_COMBATENTE (id_npc_combatente),
-    CONSTRAINT ITEM_nome_UK UNIQUE KEY (nome),
     CONSTRAINT ITEM_tipo_CK CHECK (tipo IN ('CONSUMIVEL', 'ARMADURA', 'ARMA'))
 );
 
@@ -103,6 +98,7 @@ CREATE TABLE NPC_VENDEDOR (
 CREATE TABLE vende_ESTOQUE_ITEM (
     id_estoque INT,
     id_item INT,
+
     CONSTRAINT vende_ESTOQUE_ITEM_PK PRIMARY KEY (id_estoque, id_item),
     CONSTRAINT vende_ESTOQUE_ITEM_ESTOQUE_FK FOREIGN KEY (id_estoque) REFERENCES ESTOQUE (id_estoque),
     CONSTRAINT vende_ESTOQUE_ITEM_ITEM_FK FOREIGN KEY (id_item) REFERENCES ITEM (id_item)
@@ -205,11 +201,11 @@ CREATE TABLE CONSUMIVEL (
     CONSTRAINT tipo_consumivel_CK CHECK (tipo_consumivel IN ('POCAO', 'PERGAMINHO', 'COMIDA'))
 );
 
-CREATE TABLE POCAO (
+CREATE TABLE POCAO(
     id_consumivel INT,
-    tipo_bonus_atributo CHAR(20),
-    bonus_atributo INT,
-    bonus_atributo_duracao INT,
+    tipo_bonus_atributo VARCHAR(20),
+    recupera_vida INT,
+    recupera_mana INT,
     nome_item VARCHAR(100),
     descricao TEXT,
     custo_item INT,
@@ -232,7 +228,7 @@ CREATE TABLE PERGAMINHO (
 
 CREATE TABLE COMIDA (
     id_consumivel INT,
-    tipo_bonus_atributo CHAR(20),
+    tipo_bonus_atributo VARCHAR(20),
     bonus_atributo INT,
     bonus_atributo_duracao INT,
     nome_item VARCHAR(100),
@@ -266,20 +262,21 @@ CREATE TABLE CAPACETE (
 );
 
 CREATE TABLE BOTA (
-    id_armadura INT PRIMARY KEY,
-    nome_item VARCHAR(20) NOT NULL,
+    id_armadura INT
+    nome_item VARCHAR(100) NOT NULL,
     descricao TEXT NOT NULL,
     custo_item INT NOT NULL,
     defesa INT NOT NULL,
     defesa_magica INT,
     bonus_velocidade INT ,
     
-    FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
+    CONSTRAINT BOTA_PK PRIMARY KEY (id_armadura),
+    CONSTRAINT BOTA_ARMADURA_FK FOREIGN KEY (id_armadura) REFERENCES ARMADURA (id_item)
 );
 
 CREATE TABLE ACESSORIO (
     id_armadura INT PRIMARY KEY,
-    nome_item VARCHAR(20) NOT NULL,
+    nome_item VARCHAR(100) NOT NULL,
     descricao TEXT NOT NULL,
     custo_item DECIMAL NOT NULL,
     defesa INT NOT NULL,
@@ -288,12 +285,13 @@ CREATE TABLE ACESSORIO (
     bonus_esquiva INT ,
     bonus_mana INT ,
     
-    FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
+    CONSTRAINT ACESSORIO_PK PRIMARY KEY (id_armadura),
+    CONSTRAINT ACESSORIO_ARMADURA_FK FOREIGN KEY (id_armadura) REFERENCES ARMADURA (id_item)
 );
 
 CREATE TABLE CAPA (
     id_armadura INT PRIMARY KEY,
-    nome_item VARCHAR(20) NOT NULL,
+    nome_item VARCHAR(100) NOT NULL,
     descricao TEXT NOT NULL,
     custo_item DECIMAL NOT NULL,
     defesa INT NOT NULL,
@@ -301,12 +299,13 @@ CREATE TABLE CAPA (
     bonus_critico INT ,
     bonus_vida INT ,
     
-    FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
+    CONSTRAINT CAPA_PK PRIMARY KEY (id_armadura),
+    CONSTRAINT CAPA_ARMADURA_FK FOREIGN KEY (id_armadura) REFERENCES ARMADURA (id_item)
 );
 
 CREATE TABLE ESCUDO (
     id_armadura INT PRIMARY KEY,
-    nome_item VARCHAR(20) NOT NULL,
+    nome_item VARCHAR(100) NOT NULL,
     descricao TEXT NOT NULL,
     custo_item DECIMAL NOT NULL,
     defesa INT NOT NULL,
@@ -314,12 +313,13 @@ CREATE TABLE ESCUDO (
     bonus_vida INT ,
     bonus_defesa INT ,
     
-    FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
+    CONSTRAINT ESCUDO_PK PRIMARY KEY (id_armadura),
+    CONSTRAINT ESCUDO_ARMADURA_FK FOREIGN KEY (id_armadura) REFERENCES ARMADURA (id_item)
 );
 
 CREATE TABLE PEITORAL (
     id_armadura INT PRIMARY KEY,
-    nome_item VARCHAR(20) NOT NULL,
+    nome_item VARCHAR(100) NOT NULL,
     descricao TEXT,
     custo_item INT NOT NULL,
     defesa INT NOT NULL,
@@ -327,5 +327,47 @@ CREATE TABLE PEITORAL (
     bonus_vida INT ,
     bonus_defesa INT ,
     
-    FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
+    CONSTRAINT PEITORAL_PK PRIMARY KEY (id_armadura),
+    CONSTRAINT PEITORAL_ARMADURA_FK FOREIGN KEY (id_armadura) REFERENCES ARMADURA (id_item)
+);
+
+CREATE TABLE ARMA(
+    id_item INT,
+    tipo_arma VARCHAR(15),
+    dano_base INT,
+    bonus_danos INT,
+    descricao TEXT,
+    nome_item VARCHAR(100) NOT NULL,
+    custo_item INT,
+
+    CONSTRAINT ARMA_PK PRIMARY KEY (id_item),
+    CONSTRAINT ARMA_ITEM_FK FOREIGN KEY (id_item) REFERENCES ITEM (id_item)
+);
+
+CREATE TABLE LONGO_ALCANCE(
+    id_arma INT,
+    tipo_projetil VARCHAR(30),
+    quantidade_projetil INT,
+    descricao TEXT,
+    nome_item VARCHAR(100),
+    dano_base INT,
+    bonus_dano INT,
+    custo_item INT,
+
+    CONSTRAINT LONGO_ALCANCE_PK PRIMARY KEY (id_arma),
+    CONSTRAINT LONGO_ALCANCE_ARMA_FK FOREIGN KEY (id_arma) REFERENCES ARMA(id_item)
+);
+
+CREATE TABLE MAGICA(
+    id_arma INT,
+    tipo_magia VARCHAR(30),
+    efeito_magico VARCHAR(30),
+    descricao TEXT,
+    nome_item VARCHAR(100),
+    custo_item INT,
+    dano_base INT,
+    bonus_dano INT,
+
+    CONSTRAINT MAGICA_PK PRIMARY KEY (id_arma),
+    CONSTRAINT MAGICA_ARMA_FK FOREIGN KEY (id_arma) REFERENCES ARMA (id_item)
 );
