@@ -39,12 +39,6 @@ CREATE TABLE NPC (
     FOREIGN KEY (id_sala) REFERENCES SALA(id_sala)
 );
 
-CREATE TABLE NPC_QUEST (
-    id_npc INT PRIMARY KEY,
-
-    FOREIGN KEY (id_npc) REFERENCES NPC(id_npc)
-);
-
 CREATE TABLE NPC_COMBATENTE (
     id_npc_combatente INT PRIMARY KEY,
     tamanho VARCHAR(15) NOT NULL,
@@ -76,7 +70,7 @@ CREATE TABLE ITEM (
     tipo_item CHAR(15) NOT NULL,
 
     FOREIGN KEY (id_npc_combatente) REFERENCES NPC_COMBATENTE(id_npc_combatente),
-    CONSTRAINT tipo_ck CHECK (tipo IN ('CONSUMIVEL', 'ARMADURA', 'ARMA'))
+    CONSTRAINT tipo_ck CHECK (tipo_item IN ('CONSUMIVEL', 'ARMADURA', 'ARMA'))
 );
 
 CREATE TABLE ESTOQUE (
@@ -106,7 +100,7 @@ CREATE TABLE MISSAO (
     requisito_level INT DEFAULT 1,
     xp_base INT NOT NULL,
     xp_classe INT NOT NULL,
-    descricao TEXT),
+    descricao TEXT,
     objetivo VARCHAR(100),
     dinheiro DECIMAL NOT NULL,
 
@@ -217,7 +211,7 @@ CREATE TABLE PERGAMINHO(
 
 CREATE TABLE COMIDA(
     id_comida INT PRIMARY KEY,
-    tipo_bonus_atributo VARHAR(20),
+    tipo_bonus_atributo VARCHAR(20),
     bonus_atributo INT,
     bonus_atributo_duracao INT,
     nome_item VARCHAR(100),
@@ -314,7 +308,7 @@ CREATE TABLE PEITORAL (
 
 CREATE TABLE ARMA(
     id_item INT PRIMARY KEY,
-    tipo_arma VARCHAR(15)
+    tipo_arma VARCHAR(15),
     dano_base INT,
     bonus_danos INT,
     descricao TEXT,
