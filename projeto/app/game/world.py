@@ -1,10 +1,30 @@
 from db.db_utils import execute_query
 from utils.display import limpar_tela, exibir_mensagem
-from game.player import get_character_details, update_character_room # Importa as funções do player
+from game.player import get_character_details, update_character_room  # Importa as funções do player
 
 def get_room_details(room_id):
     """Busca os detalhes de uma sala no banco de dados."""
-    query = "SELECT id_sala, id_direita, id_esquerda, id_baixo, id_cima, nome_sala, descricao_sala FROM SALA WHERE id_sala = %s;"
+    query = """
+    SELECT 
+        S.id_sala,
+        S.id_direita,
+        S.id_esquerda,
+        S.id_baixo,
+        S.id_cima,
+        S.nome_sala,
+        S.descricao_sala,
+        SD.nome_sala AS nome_direita,
+        SE.nome_sala AS nome_esquerda,
+        SB.nome_sala AS nome_baixo,
+        SC.nome_sala AS nome_cima
+    FROM 
+        SALA S
+    LEFT JOIN SALA SD ON S.id_direita = SD.id_sala
+    LEFT JOIN SALA SE ON S.id_esquerda = SE.id_sala
+    LEFT JOIN SALA SB ON S.id_baixo = SB.id_sala
+    LEFT JOIN SALA SC ON S.id_cima = SC.id_sala
+    WHERE S.id_sala = %s
+    """
     room_data = execute_query(query, (room_id,), fetch_one=True)
     
     if room_data:
@@ -15,7 +35,11 @@ def get_room_details(room_id):
             "id_baixo": room_data[3],
             "id_cima": room_data[4],
             "nome_sala": room_data[5],
-            "descricao_sala": room_data[6]
+            "descricao_sala": room_data[6],
+            "nome_direita": room_data[7],
+            "nome_esquerda": room_data[8],
+            "nome_baixo": room_data[9],
+            "nome_cima": room_data[10],
         }
     else:
         exibir_mensagem(f"Sala com ID {room_id} não encontrada no banco de dados.", tipo="erro")
@@ -33,31 +57,30 @@ def display_room(room_data, character_name):
     print("+" + "=" * 48 + "+")
     print(f"\nVocê é {character_name}.") 
     print("\n" + room_data['descricao_sala'])
-    print("\n--- Saídas Disponíveis ---")
+    print("\n--- Locais Disponíveis ---")
 
     saidas = []
     if room_data['id_cima']:
-        saidas.append("Cima (C)")
+        saidas.append(f"Insira 1 - {room_data['nome_cima']}")
     if room_data['id_baixo']:
-        saidas.append("Baixo (B)")
+        saidas.append(f"Insira 2 - {room_data['nome_baixo']}")
     if room_data['id_esquerda']:
-        saidas.append("Esquerda (E)")
+        saidas.append(f"Insira 3 - {room_data['nome_esquerda']}")
     if room_data['id_direita']:
-        saidas.append("Direita (D)")
-    
+        saidas.append(f"Insira 4 - {room_data['nome_direita']}")
+
     if saidas:
-        print(", ".join(saidas))
+        print("\n".join(saidas))
     else:
         print("Nenhuma saída aparente desta sala.")
     print("-" * 50)
 
 def iniciar_jogo(id_personagem_selecionado):
     """Inicia o loop principal do jogo para o personagem selecionado."""
-    
     character_data = get_character_details(id_personagem_selecionado)
     if not character_data:
         exibir_mensagem("Erro: Não foi possível carregar os detalhes do personagem.", tipo="erro")
-        return # Volta ao menu de seleção de personagem
+        return  # Volta ao menu de seleção de personagem
 
     current_room_id = character_data['id_sala']
     character_name = character_data['nome']
@@ -71,18 +94,18 @@ def iniciar_jogo(id_personagem_selecionado):
         display_room(room_data, character_name)
 
         print("\nO que você quer fazer?")
-        print("Mover (Cima/C, Baixo/B, Esquerda/E, Direita/D) | Sair do Jogo (S)")
+        print("Mover (1, 2, 3, 4) | Sair do Jogo (S)")
         
         escolha = input("> ").strip().upper()
 
         nova_sala_id = None
-        if escolha == 'C' and room_data['id_cima']:
+        if escolha == '1' and room_data['id_cima']:
             nova_sala_id = room_data['id_cima']
-        elif escolha == 'B' and room_data['id_baixo']:
+        elif escolha == '2' and room_data['id_baixo']:
             nova_sala_id = room_data['id_baixo']
-        elif escolha == 'E' and room_data['id_esquerda']:
+        elif escolha == '3' and room_data['id_esquerda']:
             nova_sala_id = room_data['id_esquerda']
-        elif escolha == 'D' and room_data['id_direita']:
+        elif escolha == '4' and room_data['id_direita']:
             nova_sala_id = room_data['id_direita']
         elif escolha == 'S':
             exibir_mensagem("Saindo do jogo atual e voltando ao menu inicial.", tipo="info")
@@ -94,8 +117,8 @@ def iniciar_jogo(id_personagem_selecionado):
             if get_room_details(nova_sala_id):
                 if update_character_room(id_personagem_selecionado, nova_sala_id):
                     current_room_id = nova_sala_id
-                   
-                    exibir_mensagem(f"Você se moveu para {get_room_details(nova_sala_id)['nome_sala']}.", tipo="sucesso")
+                    nova_sala = get_room_details(nova_sala_id)
+                    exibir_mensagem(f"Você se moveu para {nova_sala['nome_sala']}.", tipo="sucesso")
                 else:
                     exibir_mensagem("Erro ao atualizar a sala do personagem no banco de dados.", tipo="erro")
             else:
