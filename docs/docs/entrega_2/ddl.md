@@ -73,7 +73,7 @@ CREATE TABLE INSTANCIA_NPC_COMBATENTE (
 CREATE TABLE ITEM (
     id_item SERIAL PRIMARY KEY,
     id_npc_combatente INT,
-    tipo CHAR(15) NOT NULL,
+    tipo_item CHAR(15) NOT NULL,
 
     FOREIGN KEY (id_npc_combatente) REFERENCES NPC_COMBATENTE(id_npc_combatente),
     CONSTRAINT tipo_ck CHECK (tipo IN ('CONSUMIVEL', 'ARMADURA', 'ARMA'))
@@ -194,11 +194,11 @@ CREATE TABLE CONSUMIVEL(
 CREATE TABLE POCAO(
     id_consumivel INT PRIMARY KEY,
     tipo_bonus_atributo VARCHAR(20),
-    bonus_atributo INT,
-    bonus_atributo_duracao INT,
+    recupera_vida INT,
+    recupera_mana INT,
     nome_item VARCHAR(100),
     descricao TEXT,
-    custo_iem INT,
+    custo_item INT,
 
     FOREIGN KEY (id_consumivel) REFERENCES CONSUMIVEL(id_item)
 );
@@ -314,38 +314,38 @@ CREATE TABLE PEITORAL (
 
 CREATE TABLE ARMA(
     id_item INT PRIMARY KEY,
-    tipoArma VARCHAR(15)
-    danoBase INT,
-    bonusDanos INT,
+    tipo_arma VARCHAR(15)
+    dano_base INT,
+    bonus_danos INT,
     descricao TEXT,
-    nomeItem VARCHAR(100) NOT NULL,
-    custoItem INT,
+    nome_item VARCHAR(100) NOT NULL,
+    custo_item INT,
 
     FOREIGN KEY (id_item) REFERENCES ITEM(id_item)
 );
 
 CREATE TABLE LONGO_ALCANCE(
     id_arma INT PRIMARY KEY,
-    tipoProjetil VARCHAR(30),
-    quantidadeProjetil INT,
+    tipo_projetil VARCHAR(30),
+    quantidade_projetil INT,
     descricao TEXT,
-    nomeItem VARCHAR(100),
-    danoBase INT,
-    bonusDano INT,
-    custoItem INT,
+    nome_item VARCHAR(100),
+    dano_base INT,
+    bonus_dano INT,
+    custo_item INT,
 
     FOREIGN KEY (id_arma) REFERENCES ARMA(id_item)
 );
 
 CREATE TABLE MAGICA(
     id_arma INT PRIMARY KEY,
-    tipoMagia VARCHAR(30),
-    efeitoMagico VARCHAR(30),
+    tipo_magia VARCHAR(30),
+    efeito_magico VARCHAR(30),
     descricao TEXT,
-    nomeItem VARCHAR(100),
-    custoItem INT,
-    danoBase INT,
-    bonusDano INT,
+    nome_item VARCHAR(100),
+    custo_item INT,
+    dano_base INT,
+    bonus_dano INT,
 
     FOREIGN KEY(id_arma) REFERENCES ARMA(id_item)
 )
