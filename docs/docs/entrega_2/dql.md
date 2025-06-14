@@ -79,8 +79,8 @@ WHERE P.id_personagem = $(id_personagem) -- Exemplo: Personagem de ID = 5
 ### Mostrar qual NPC dá uma missão específica
 
 ```sql
-SELECT NPC_QUEST.nome FROM NPC_QUEST
-INNER JOIN MISSAO M ON M.id_npc = NPC_QUEST.id_npc
+SELECT NPC.nome FROM NPC
+INNER JOIN MISSAO M ON M.id_npc = NPC.id_npc
 WHERE M.id_missao = $(id_missao) -- Exemplo: Missão de ID = 6
 ```
 
