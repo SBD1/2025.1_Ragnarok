@@ -4,7 +4,7 @@
 
 # Apresentação do Módulo 1
 
-A apresentação referente ao módulo 1 foi realizada individualmente e em duplas. Para acessar a gravação, segue o link abaixo: 
+A apresentação referente ao módulo 1 foi realizada na plataforma **Teams**. Para acessar a gravação, segue o link abaixo: 
 
 <!-- [Módulo 1 - Gravação da apresentação](https://youtu.be/0g3IyhfRMTM) -->
 
