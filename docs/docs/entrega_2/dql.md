@@ -244,3 +244,12 @@ WHERE II.id_sala = $(id_sala) AND II.id_inventario IS NULL ORDER BY it.nome; -- 
 ```
 
 - Exibe os itens que estão no chão de uma sala com ID fornecido.
+
+## Histórico de Versão
+
+|  Versão  |     Data     | Descrição | Autor(es) | Revisor(es) |
+| :------: | :----------: | :-----------: | :---------: | :---------: |
+| `1.0` | 12/06/2025 | Criação do documento e primeira versão do DQL | [Ian Costa](https://github.com/iancostag), [Cauã Araujo](https://github.com/caua08) | [Danilo Naves](https://github.com/DaniloNavesS) |
+| `1.1` | 13/06/2025 | Ajustes de formatação markdown e correção de código | [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4) | [Ian Costa](https://github.com/iancostag) |
+
+
