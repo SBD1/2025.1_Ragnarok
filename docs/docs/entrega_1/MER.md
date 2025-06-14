@@ -62,7 +62,7 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 - **ITEM**(<ins>`idItem`</ins>,  `idNpcCombatente`, `nomeItem`, `tipoItem`, `descricao`, `custoItem`)
 <!-- removi taxa drop e adicionei a fk idNpcCombatente-->
 
-  - **ARMA**(<ins>`idItem`</ins>,`velocidadeAtaque`, `danoBase`,`bonusDano`, `categoriaArma`)
+  - **ARMA**(<ins>`idItem`</ins>, `danoBase`,`bonusDano`, `categoriaArma`)
     - **LONGO_ALCANCE**(<ins>`idArma`</ins>, `tipoProjetil`, `quantidadeProjetil`)
     - **MAGICA**(<ins>`idArma`</ins>, `idArma`, `tipoMagia`, `efeitoMagico`) 
     
