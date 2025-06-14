@@ -46,7 +46,13 @@ def create_character(id_jogador, nome):
 
 def get_characters_by_player_id(id_jogador):
     """Retorna uma lista de personagens de um jogador."""
-    query = "SELECT id_personagem, nome, nivel, id_sala FROM PERSONAGEM WHERE id_jogador = %s ORDER BY nome;"
+    query = """
+    SELECT id_personagem, P.nome, P.nivel, S.nome_sala 
+    FROM PERSONAGEM P
+    INNER JOIN SALA S 
+        ON S.id_sala = P.id_sala 
+    WHERE id_jogador = %s 
+    ORDER BY nome;"""
     return execute_query(query, (id_jogador,), fetch_one=False)
 
 def get_character_details(id_personagem):

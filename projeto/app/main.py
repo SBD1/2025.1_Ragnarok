@@ -69,9 +69,9 @@ def exibir_menu_personagens(id_jogador):
 
         if personagens:
             print("\nSeus Personagens:")
-            for i, p in enumerate(personagens):
+            for i, p in enumerate(personagens): 
                 # p[0] é id_personagem, p[1] é nome, p[2] é nivel, p[3] é id_sala
-                print(f"  {i+1}. {p[1]} (Nível {p[2]}, Sala ID: {p[3]})")
+                print(f"  {i+1}. {p[1]} (Nível {p[2]}, Mapa Atual: {p[3]})")
             print("-----------------------------")
         else:
             print("\nVocê ainda não tem personagens.")
