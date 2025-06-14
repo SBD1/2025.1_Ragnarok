@@ -39,12 +39,6 @@ CREATE TABLE NPC (
     FOREIGN KEY (id_sala) REFERENCES SALA(id_sala)
 );
 
-CREATE TABLE NPC_QUEST (
-    id_npc INT PRIMARY KEY,
-
-    FOREIGN KEY (id_npc) REFERENCES NPC(id_npc)
-);
-
 CREATE TABLE NPC_COMBATENTE (
     id_npc_combatente INT PRIMARY KEY,
     tamanho VARCHAR(15) NOT NULL,
