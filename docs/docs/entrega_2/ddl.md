@@ -105,22 +105,6 @@ CREATE TABLE NPC (
     - `descricao`: Descrição do NPC.
     - `dialogo`: Diálogos do NPC.
 
-### Tabela `NPC_QUEST`
-
-A tabela `NPC_QUEST` refere-se ao personagem não jogável do tipo requisitante de missões.
-
-```sql
-CREATE TABLE NPC_QUEST (
-    id_npc INT,
-
-    CONSTRAINT NPC_QUEST PRIMARY KEY (id_npc),
-    CONSTRAINT NPC_QUEST_NPC_FK FOREIGN KEY (id_npc) REFERENCES NPC (id_npc)
-);
-```
-
-- Colunas:
-    - `id_npc`: Identificador único do NPC quest que refencia o NPC (chave primária e chave estrangeira referenciando `NPC`). 
-
 ### Tabela `NPC_COMBATENTE`
 
 A tabela `NPC_COMBATENTE` refere-se ao personagem não jogável do tipo combatente do sistema.
@@ -247,7 +231,7 @@ CREATE TABLE NPC_VENDEDOR (
 A tabela `vende_ESTOQUE_ITEM` refere-se ao item vendido a partir do estoque.
 
 ```sql
-CREATE TABLE VENDE_ESTOQUE_ITEM (
+CREATE TABLE vende_ESTOQUE_ITEM (
     id_estoque INT,
     id_item INT,
     CONSTRAINT vende_ESTOQUE_ITEM_PK PRIMARY KEY (id_estoque, id_item),
@@ -276,7 +260,7 @@ CREATE TABLE MISSAO (
     dinheiro DECIMAL NOT NULL,
 
     CONSTRAINT MISSAO_PK PRIMARY KEY (id_missao),
-    CONSTRAINT MISSAO_NPC_QUEST_FK FOREIGN KEY (id_npc) REFERENCES NPC_QUEST (id_npc)
+    CONSTRAINT MISSAO_NPC_FK FOREIGN KEY (id_npc) REFERENCES NPC (id_npc)
 );
 ```
 
