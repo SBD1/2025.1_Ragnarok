@@ -25,6 +25,8 @@ O Modelo Relacional (MREL) é a representação lógica do banco de dados, basea
     <strong>Fonte:</strong> Autores
 </p>
 
+- Pela extensão do arquivo, recomenda-se abrir também o [PDF](../../static/img/_MREL%20v2.0.pdf) do MREL. 
+
 <details>
 
 <summary> 
