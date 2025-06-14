@@ -466,7 +466,9 @@ CREATE TABLE POCAO (
     nome_item VARCHAR(100),
     descricao TEXT,
     custo_item INT,
-    FOREIGN KEY (id_consumivel) REFERENCES CONSUMIVEL(id_item)
+
+    CONSTRAINT POCAO_PK PRIMARY KEY (id_consumivel),
+    CONSTRAINT POCAO_CONSUMIVEL_FK FOREIGN KEY (id_consumivel) REFERENCES CONSUMIVEL(id_item)
 );
 ```
 

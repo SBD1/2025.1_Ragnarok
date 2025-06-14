@@ -41,7 +41,7 @@ INNER JOIN MISSAO M ON M.id_npc = NPC_QUEST.id_npc
 --Mostrar para o jogador a descrição Completa da Missão
 SELECT M.descricao AS "Descrição", M.objetivo AS "Objetivo da Missão", NPC.nome AS "Requisitante" FROM MISSAO m
 INNER JOIN NPC ON NPC.id_npc = M.id_npc
-INNER JOIN PERSONAGEM P ON P.id_missao = M.id_missao 
+INNER JOIN PERSONAGEM P ON P.id_missao = M.id_missao
 
 
 
