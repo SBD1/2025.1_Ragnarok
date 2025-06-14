@@ -64,7 +64,7 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 
   - **ARMA**(<ins>`idItem`</ins>, `danoBase`,`bonusDano`, `categoriaArma`)
     - **LONGO_ALCANCE**(<ins>`idArma`</ins>, `tipoProjetil`, `quantidadeProjetil`)
-    - **MAGICA**(<ins>`idArma`</ins>, `idArma`, `tipoMagia`, `efeitoMagico`) 
+    - **MAGICA**(<ins>`idArma`</ins>, `tipoMagia`, `efeitoMagico`) 
     
   <!-- remoção da especialização curto_alcance e adição de categoriaArma em Arma -->
 
@@ -80,8 +80,8 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
   <!-- remoção de atributos e fk -->
 
   - **CONSUMIVEL**(<ins>`idItem`</ins>, `tipoConsumivel`)
-    - **COMIDA**(<ins>`idConsumivel`</ins>,`bonusAtributo`, `bonusAtributoDuracao`)
-    - **POCAO**(<ins>`idConsumivel`</ins>, `recuperaVida`, `recuperaMana`)
+    - **COMIDA**(<ins>`idConsumivel`</ins>, `tipoBonusAtributo`, `bonusAtributo`, `bonusAtributoDuracao`)
+    - **POCAO**(<ins>`idConsumivel`</ins>, `tipoBonusAtributo`, `recuperaVida`, `recuperaMana`)
     - **PERGAMINHO**(<ins>`idConsumivel`</ins>, `tipoBuff`, `duracaoBuff`)
   <!-- remoção de fk e adição de atributos faltantes -->
   <!-- troquei alguns nomes pq ta confuso ok! -->
