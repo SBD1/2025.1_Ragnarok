@@ -8,13 +8,14 @@ A DQL, Data Query Language, é uma das partes da SQL voltada especificamente par
 
 ## Consultas de tabelas
 
-### Listar todas as salas e descrições
+### Listar todas as salas
 
 ```sql
 SELECT S.nome_sala, S.descricao_sala 
 FROM SALA S 
 ORDER BY S.nome_sala;
 ```
+- Exibe todas as salas e suas descrições do sistema.
 
 ### Selecionar todos personagens que pertencem a um jogador
 
