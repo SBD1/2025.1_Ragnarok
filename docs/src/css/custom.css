@@ -44,3 +44,7 @@ table th {
 [data-theme='dark'] table th {
   background-color: var(--ifm-color-primary); /* Cor de fundo mais vibrante para o cabeçalho */
 }
+
+p { 
+  text-align: justify;
+}

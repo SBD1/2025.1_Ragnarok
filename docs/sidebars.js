@@ -23,7 +23,7 @@ const sidebars = {
     'intro',
     {
       type: 'category',
-      label: 'Entrega 1',
+      label: 'Módulo 1',
       items: [
         {
           type: 'doc',
@@ -46,6 +46,27 @@ const sidebars = {
           label: '4. Dicionário de Dados',
         },
       ],
+    },
+    {
+      type: 'category',
+      label: 'Módulo 2',
+      items: [
+        {
+          type: 'doc',
+          id: 'entrega_2/ddl',
+          label: '1. Data Definition Language'
+        },
+        {
+          type: 'doc',
+          id: 'entrega_2/dml',
+          label: '2. Data Manipulation Language'
+        },
+        {
+          type: 'doc',
+          id: 'entrega_2/dql',
+          label: '3. Data Query Language'
+        },
+      ]
     },
     {
       type: 'category',
