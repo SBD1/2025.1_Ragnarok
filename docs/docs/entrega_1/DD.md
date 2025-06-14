@@ -3,7 +3,6 @@
 ---
 
 # Ragnarok MUD - Dicionário de Dados
-
 O Dicionário de Dados é uma fonte que descreve de forma detalhada todos os elementos de dados de um banco de dados, como tabelas, campos, tipos de dados, restrições, relacionamentos e índices. Ele funciona como uma documentação técnica que padroniza e organiza as informações estruturais do banco, servindo tanto para o desenvolvimento quanto para a manutenção do sistema. Sua principal função é garantir a consistência e a integridade dos dados, além de facilitar a comunicação entre desenvolvedores e analistas.
 
 ## Entidade: JOGADOR
@@ -297,7 +296,6 @@ O Dicionário de Dados é uma fonte que descreve de forma detalhada todos os ele
 |idEstoque|INT|Identificador único do estoque.|1 - 100|Não|Sim. Chave primária|-|
 
 # Atributos de Relacionamentos
-
 ## RELACIONAMENTO: possui_ESTOQUE_ITEM
 |Variável|Tipo|Descrição|Valores permitidos|Permite valores nulos?|É chave?|Outras restrições|
 |:---|:---|:---|:---|:---|:---|:---|
@@ -321,3 +319,10 @@ O Dicionário de Dados é uma fonte que descreve de forma detalhada todos os ele
 |:---|:---|:---|:---|:---|:---|:---|
 |idMissao|INT|Referência a Missão.|1 - 100|Não|Sim. Chave primária e chave estrangeira.|-|
 |idDependencia|INT|Referência á Dependência.|1 - 100|Não|Sim. Chave primária e chave estrangeira.|-|
+
+# Histórico de Versão
+|  Versão  |     Data     | Descrição | Autor(es) | Revisor(es) |
+| :------: | :----------: | :-----------: | :---------: | :---------: |
+| `1.0` | 02/05/2025 | Criação de documento e primeira versão do DD | [Cauã Araujo](https://github.com/caua08) | [Ian Costa](https://github.com/iancostag) |
+| `2.0` | 11/06/2025 | Segunda versão do DD | [Cauã Araujo](https://github.com/caua08) | [Amanda Cruz](https://github.com/mandicrz) |
+| `3.0` | 14/06/2025 | Terceira versão do DD | [Cauã Araujo](https://github.com/caua08) | [Amanda Cruz](https://github.com/mandicrz) |

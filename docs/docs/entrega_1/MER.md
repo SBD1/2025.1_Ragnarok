@@ -38,7 +38,6 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 - **NPC**
   - **NPC_COMBATENTE**
   - **INSTANCIA_NPC_COMBATENTE**
-  - **NPC_QUEST**
   - **NPC_VENDEDOR**
   <!-- retirada de instancia_npc_vendedor -->
 - **MISSAO**
@@ -91,8 +90,6 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 
 - **NPC**(<ins>`idNpc`</ins>, `idSala`, `nome`, `descricao`, `dialogo`)
 <!-- adicionei dialogo em Npc e retirei de Npc_Quest -->
-
-  - **NPC_QUEST**(<ins>`idNpc`</ins>)
  
   - **NPC_VENDEDOR**(<ins>`idNpc`</ins>, `idEstoque`)
   <!-- remoção de Instancia_Npc_Vendedor e tipoLoja -->
@@ -101,7 +98,7 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 
   - **INSTANCIA_NPC_COMBATENTE**(<ins>`idInstanciaNpcCombatente`</ins>, <ins>`idNpc`</ins>, `vidaAtual`, `status`, `agressivo`)
 
-- **MISSAO**(<ins>`idMissao`</ins>, `idNpcQuest`, `idItem`, `requisitoLevel`, `xpBase`, `xpClasse`, `descricao`, `objetivo`, `dinheiroMissao`)
+- **MISSAO**(<ins>`idMissao`</ins>, `idNpc`, `idItem`, `requisitoLevel`, `xpBase`, `xpClasse`, `descricao`, `objetivo`, `dinheiroMissao`)
 
 - **ESTOQUE**(<ins>`idEstoque`</ins>)
 
@@ -188,9 +185,9 @@ O **Modelo Entidade-Relacionamento** (MER) é uma técnica utilizada para repres
 
 <!-- removido DROP -->
 
-- NPC_QUEST - **designa** - MISSAO
+- NPC - **designa** - MISSAO
 
-  - Um **NPC_QUEST** designa uma ou mais **MISSAO**s (1,n), mas uma **MISSAO** é desginada por apenas um **NPC_QUEST** (1,1)
+  - Um **NPC** designa uma ou mais **MISSAO**s (1,n), mas uma **MISSAO** é desginada por apenas um **NPC** (1,1)
   - Cardinalidade: (1:n)
 
 - MISSAO - **depende** - MISSAO
