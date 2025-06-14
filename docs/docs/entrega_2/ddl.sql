@@ -323,15 +323,15 @@ CREATE TABLE PEITORAL (
     descricao TEXT,
     custo_item INT NOT NULL,
     defesa INT NOT NULL,
-    defesa_magica INT ,
-    bonus_vida INT ,
-    bonus_defesa INT ,
+    defesa_magica INT,
+    bonus_vida INT,
+    bonus_defesa INT,
     
     CONSTRAINT PEITORAL_PK PRIMARY KEY (id_armadura),
     CONSTRAINT PEITORAL_ARMADURA_FK FOREIGN KEY (id_armadura) REFERENCES ARMADURA (id_item)
 );
 
-CREATE TABLE ARMA(
+CREATE TABLE ARMA (
     id_item INT,
     tipo_arma VARCHAR(15),
     dano_base INT,
@@ -344,7 +344,7 @@ CREATE TABLE ARMA(
     CONSTRAINT ARMA_ITEM_FK FOREIGN KEY (id_item) REFERENCES ITEM (id_item)
 );
 
-CREATE TABLE LONGO_ALCANCE(
+CREATE TABLE LONGO_ALCANCE (
     id_arma INT,
     tipo_projetil VARCHAR(30),
     quantidade_projetil INT,
@@ -358,7 +358,7 @@ CREATE TABLE LONGO_ALCANCE(
     CONSTRAINT LONGO_ALCANCE_ARMA_FK FOREIGN KEY (id_arma) REFERENCES ARMA(id_item)
 );
 
-CREATE TABLE MAGICA(
+CREATE TABLE MAGICA (
     id_arma INT,
     tipo_magia VARCHAR(30),
     efeito_magico VARCHAR(30),
