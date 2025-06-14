@@ -335,7 +335,7 @@ CREATE TABLE ARMA (
     id_item INT,
     tipo_arma VARCHAR(15),
     dano_base INT,
-    bonus_danos INT,
+    bonus_dano INT,
     descricao TEXT,
     nome_item VARCHAR(100) NOT NULL,
     custo_item INT,

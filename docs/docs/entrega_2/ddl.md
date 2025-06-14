@@ -533,9 +533,9 @@ CREATE TABLE ARMADURA (
     - `id_item`: Identificador único de armadura que referencia o item (chave primária e chave estrangeira referenciando `ITEM`).
     - `tipo_armadura`: Tipo de armadura (restrições entre `CAPACETE`, `BOTA`, `ACESSORIO`, `CAPA`, `ESCUDO`).
 
-### Tabelas `CAPACETE`,  `BOTA`,  `ACESSORIO`,  `CAPA`,  `ESCUDO`,  `PEITORAL`
+### Tabelas `CAPACETE`
 
-As tabela acima, como `CAPACETE` refere-se aos itens de armadura do tipo CAPACETE. As seguintes possuem um padrão semelhante a ela:
+As tabela `CAPACETE` refere-se aos itens de armadura do tipo CAPACETE. 
 
 ```sql
 CREATE TABLE CAPACETE (
@@ -554,12 +554,12 @@ CREATE TABLE CAPACETE (
 
 - Colunas:
     - `id_armadura`: Identificador único de capacete que referencia a armadura (chave primária e estrangeira referenciando `ARMADURA`).
-    - `nome_item`: Nome da armadura do tipo capacete.
-    - `descricao`: Descrição da armadura do tipo capacete.
-    - `custo_item`: Custo da armadura do tipo capacete.
-    - `defesa`: Defesa física da armadura do tipo capacete.
-    - `defesa_magica`: Defesa mágica da armadura do tipo capacete.
-    - `bonus_vida`: Quantidade de bônus de vida da armadura do tipo capacete.
+    - `nome_item`: Nome do capacete.
+    - `descricao`: Descrição do capacete.
+    - `custo_item`: Custo do capacete.
+    - `defesa`: Defesa física do capacete.
+    - `defesa_magica`: Defesa mágica do capacete.
+    - `bonus_vida`: Quantidade de bônus de vida do capacete.
 
 ### Tabela `BOTA`
 
@@ -579,10 +579,18 @@ CREATE TABLE BOTA (
     CONSTRAINT BOTA_ARMADURA_FK FOREIGN KEY (id_armadura) REFERENCES ARMADURA (id_item)
 );
 ```
+- Colunas:
+    - `id_armadura`: Identificador único de bota que referencia a armadura (chave primária e estrangeira referenciando `ARMADURA`).
+    - `nome_item`: Nome da bota.
+    - `descricao`: Descrição da bota.
+    - `custo_item`: Custo da bota.
+    - `defesa`: Defesa física da bota.
+    - `defesa_magica`: Defesa mágica da bota.
+    - `bonus_velocidade`: Quantidade de bônus de velocidade da bota.
 
 ### Tabela `ACESSORIO`
 
-A tabela `ACESSORIO` refere-se aos itens de armadura do tipo acessorio.
+A tabela `ACESSORIO` refere-se aos itens de armadura do tipo acessório.
 
 ```sql
 CREATE TABLE ACESSORIO (
@@ -600,6 +608,17 @@ CREATE TABLE ACESSORIO (
     CONSTRAINT ACESSORIO_ARMADURA_FK FOREIGN KEY (id_armadura) REFERENCES ARMADURA (id_item)
 );
 ```
+
+- Colunas:
+    - `id_armadura`: Identificador único de acessório que referencia a armadura (chave primária e estrangeira referenciando `ARMADURA`).
+    - `nome_item`: Nome do acessório.
+    - `descricao`: Descrição do acessório.
+    - `custo_item`: Custo do acessório.
+    - `defesa`: Defesa física do acessório.
+    - `defesa_magica`: Defesa mágica do acessório.
+    - `bonus_vida`: Quantidade de bônus de vida do acessório.
+    - `bonus_esquiva`: Quantidade de bônus de esquivo do acessório.
+    - `bonus_mana`: Quantidade de bônus de mana do acessório.
 
 ### Tabela `CAPA`
 
@@ -621,6 +640,17 @@ CREATE TABLE CAPA (
 );
 ```
 
+- Colunas:
+    - `id_armadura`: Identificador único de capa que referencia a armadura (chave primária e estrangeira referenciando `ARMADURA`).
+    - `nome_item`: Nome da capa.
+    - `descricao`: Descrição da capa.
+    - `custo_item`: Custo da capa.
+    - `defesa`: Defesa física da capa.
+    - `defesa_magica`: Defesa mágica da capa.
+    - `bonus_critico`: Quantidade de bônus de crítico da capa.
+    - `bonus_vida`: Quantidade de bônus de vida da capa.
+
+
 ### Tabela `ESCUDO`
 
 A tabela `ESCUDO` refere-se aos itens de armadura do tipo escudo.
@@ -640,6 +670,17 @@ CREATE TABLE ESCUDO (
     CONSTRAINT ESCUDO_ARMADURA_FK FOREIGN KEY (id_armadura) REFERENCES ARMADURA (id_item)
 );
 ```
+
+- Colunas:
+    - `id_armadura`: Identificador único de escudo que referencia a armadura (chave primária e estrangeira referenciando `ARMADURA`).
+    - `nome_item`: Nome do escudo.
+    - `descricao`: Descrição do escudo.
+    - `custo_item`: Custo do escudo.
+    - `defesa`: Defesa física do escudo.
+    - `defesa_magica`: Defesa mágica do escudo.
+    - `bonus_vida`: Quantidade de bônus de vida do escudo.
+    - `bonus_defesa`: Quantidade de bônus de defesa do escudo.
+
 
 ### Tabela `PEITORAL`
 
@@ -661,6 +702,16 @@ CREATE TABLE PEITORAL (
 );
 ```
 
+- Colunas:
+    - `id_armadura`: Identificador único de peitoral que referencia a armadura (chave primária e estrangeira referenciando `ARMADURA`).
+    - `nome_item`: Nome do peitoral.
+    - `descricao`: Descrição do peitoral.
+    - `custo_item`: Custo do peitoral.
+    - `defesa`: Defesa física do peitoral.
+    - `defesa_magica`: Defesa mágica do peitoral.
+    - `bonus_vida`: Quantidade de bônus de vida do peitoral.
+    - `bonus_defesa`: Quantidade de bônus de defesa do peitoral.
+
 ### Tabela `ARMA` e Subtipos
 
 A tabela `ARMA` refere-se aos itens do tipo arma.
@@ -670,7 +721,7 @@ CREATE TABLE ARMA (
     id_item INT,
     tipo_arma VARCHAR(15),
     dano_base INT,
-    bonus_danos INT,
+    bonus_dano INT,
     descricao TEXT,
     nome_item VARCHAR(100) NOT NULL,
     custo_item INT,
@@ -679,6 +730,15 @@ CREATE TABLE ARMA (
     CONSTRAINT ARMA_ITEM_FK FOREIGN KEY (id_item) REFERENCES ITEM (id_item)
 );
 ```
+
+- Colunas:
+    - `id_item`: Identificador único de arma que referencia o item (chave primária e estrangeira referenciando `ITEM`).
+    - `tipo_arma`: Tipo da arma.
+    - `dano_base`: Dano base da arma.
+    - `bonus_dano`: Bônus de dano da arma.
+    - `descricao`: Descrição da arma.
+    - `nome_item`: Nome da arma.
+    - `custo_item`: Custo ou preço da arma.
 
 ### Tabela `LONGO_ALCANCE`
 
@@ -700,6 +760,15 @@ CREATE TABLE LONGO_ALCANCE (
 );
 ```
 
+- Colunas:
+    - `id_arma`: Identificador único da arma do tipo longo alcance que referencia a arma (chave primária e estrangeira referenciando `ARMA`).
+    - `tipo_projetil`: Tipo de projétil da arma do tipo longo alcance.
+    - `dano_base`: Dano base da arma do tipo longo alcance
+    - `bonus_dano`: Bônus de dano da arma do tipo longo alcance.
+    - `descricao`: Descrição da arma do tipo longo alcance.
+    - `nome_item`: Nome da da arma do tipo longo alcance.
+    - `custo_item`: Custo ou preço da arma do tipo longo alcance.
+
 ### Tabela `MAGICA`
 
 A tabela `MAGICA` refere-se aos itens de armadura do tipo magica.
@@ -719,6 +788,17 @@ CREATE TABLE MAGICA (
     CONSTRAINT MAGICA_ARMA_FK FOREIGN KEY (id_arma) REFERENCES ARMA (id_item)
 );
 ```
+
+- Colunas:
+    - `id_arma`: Identificador único da arma do tipo mágica que referencia a arma (chave primária e estrangeira referenciando `ARMA`).
+    - `tipo_magia`: Tipo de magia da arma do tipo mágica.
+    - `efeito_magico`: Efeito mágico da arma do tipo mágica.
+    - `descricao`: Descrição da arma do tipo mágica.
+    - `nome_item`: Nome da da arma do tipo mágica.
+    - `custo_item`: Custo ou preço da arma do tipo mágica.
+    - `dano_base`: Dano base da arma do tipo mágica
+    - `bonus_dano`: Bônus de dano da arma do tipo mágica.
+
 
 ---
 
