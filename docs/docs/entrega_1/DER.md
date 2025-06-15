@@ -15,15 +15,13 @@ O DER criado para o nosso jogo *Ragnarok - MUD* é representado abaixo, com suas
     <strong>Figura 2:</strong> DER 2.0 - Ragnarok
 </p>
 
-
-![Versão Final do DER](../../static/img/versao2-DER.png)
-
-- **[PDF do DER](../../static/img/DERv2.0-Ragnarok.pdf)**.
+![Versão Final do DER](../../static/img/DERv2.0-Ragnarok.png)
 
 <p align="center" font-size="14">
     <strong>Fonte:</strong> Autores
 </p>
 
+- Pela extensão do diagrama, recomenda-se abrir também o arquivo **[PDF](../../static/img/DERv2.0-Ragnarok.pdf)** do DER.
 
 <details>
 

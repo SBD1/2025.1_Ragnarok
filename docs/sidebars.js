@@ -66,6 +66,11 @@ const sidebars = {
           id: 'entrega_2/dql',
           label: '3. Data Query Language'
         },
+        {
+          type: 'doc',
+          id: 'entrega_2/algebra_relacional',
+          label: '4. Álgebra Relacional'
+        },
       ]
     },
     {
@@ -75,7 +80,12 @@ const sidebars = {
         {
           type: 'doc',
           id: 'entrega_1/apresentacao_1',
-          label: 'Módulo 1 - Apresentação'
+          label: 'Módulo 1'
+        },
+        {
+          type: 'doc',
+          id: 'entrega_2/apresentacao_2',
+          label: 'Módulo 2'
         }
       ]
     },
