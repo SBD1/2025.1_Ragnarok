@@ -1,42 +1,32 @@
--- 1. Inserindo Classes
-INSERT INTO public.classe (nome_classe, descricao) VALUES
-('Guerreiro', 'Especialista em combate corpo a corpo com alta defesa'),
-('Mago', 'Utiliza magias poderosas para atacar à distância'),
-('Arqueiro', 'Especialista em ataques à distância com arcos');
+-- 1. Inserindo Classes 
+INSERT INTO CLASSE (id_classe, nome_classe, descricao) VALUES
+(1, 'Espadachim', 'Especialista em combate corpo a corpo com alta defesa'),
+(2, 'Mago', 'Utiliza magias poderosas para atacar à distância'),
+(3, 'Arqueiro', 'Especialista em ataques à distância com arcos');
 
--- 2. Inserindo Habilidades
-INSERT INTO public.habilidade (id_classe, nome_habilidade, descricao, custo_mana, dano, nivel_requerido) VALUES
-(7, 'Espadada', 'Ataque básico com espada', 5, 15, 1),
-(7, 'Golpe Fulminante', 'Ataque forte que causa dano adicional', 15, 30, 3),
-(8, 'Lança de Fogo', 'Conjura lanças de fogo para queimar o inimigo', 20, 25, 1),
-(8, 'Lança de Gelo', 'Invoca lanças de gelo que perfuram o inimigo', 35, 40, 5),
-(9, 'Flecha Rápida', 'Dispara duas flechas com velocidade aumentada', 10, 20, 1),
-(9, 'Chuva de Flechas', 'Dispara múltiplas flechas contra vários inimigos que estejam próximos', 25, 35, 4);
+-- 2. Inserindo Habilidades 
+INSERT INTO HABILIDADE (id_classe, nome_habilidade, descricao, custo_mana, dano, nivel_requerido) VALUES
+(1, 'Espadada', 'Ataque básico com espada', 5, 15, 1),
+(1, 'Golpe Fulminante', 'Ataque forte que causa dano adicional', 15, 30, 3),
+(2, 'Lança de Fogo', 'Conjura lanças de fogo para queimar o inimigo', 20, 25, 1),
+(2, 'Lança de Gelo', 'Invoca lanças de gelo que perfuram o inimigo', 35, 40, 5),
+(3, 'Flecha Rápida', 'Dispara duas flechas com velocidade aumentada', 10, 20, 1),
+(3, 'Chuva de Flechas', 'Dispara múltiplas flechas contra vários inimigos que estejam próximos', 25, 35, 4);
 
--- 3. Inserindo Salas (criando um pequeno mapa)
--- Primeiro inserimos a sala inicial sem referências
-INSERT INTO public.sala (nome_sala, descricao_sala) VALUES
-('Praça Central de Prontera', 'Uma grande praça no centro da cidade, com muitos comerciantes e aventureiros');
-
--- Agora atualizamos a sala inicial para referenciar a si mesma (necessário para as constraints)
-UPDATE public.sala SET id_direita = 1, id_esquerda = 1, id_baixo = 1, id_cima = 1 WHERE id_sala = 1;
-
--- Inserindo mais salas
-INSERT INTO public.sala (nome_sala, descricao_sala, id_direita, id_esquerda, id_baixo, id_cima) VALUES
-('Floresta dos Lobos', 'Uma densa floresta habitada por lobos selvagens', 1, 1, 1,1),
-('Caverna do Tesouro', 'Uma caverna escura com lendas sobre tesouros escondidos', 1, 1, 1, 1),
-('Torre do Mago', 'Uma alta torre onde um poderoso mago realiza seus experimentos', 1, 1, 1, 1);
-
--- Atualizando as referências da sala inicial para apontar para as outras salas
-UPDATE public.sala SET 
-    id_direita = 5, 
-    id_esquerda = 6, 
-    id_baixo = 7, 
-    id_cima = 1 
-WHERE id_sala = 1;
+-- 3. Inserindo Salas 
+INSERT INTO SALA (id_sala, nome_sala, descricao_sala, id_direita, id_esquerda, id_baixo, id_cima) VALUES
+(1, 'Campo de Prontera', 'Um vasto campo verde nos arredores da capital, com suaves colinas e o canto dos Poring.', NULL, 9, 2, NULL),
+(2, 'Cidade de Prontera', 'A movimentada capital de Rune-Midgard. Lojas, aventureiros e a Ordem dos Cavaleiros te esperam.', NULL, NULL, 3, 1),
+(3, 'Caminho para Payon', 'Uma estrada poeirenta que leva à cidade arqueira de Payon.', NULL, NULL, 5, 2),
+(4, 'Guilda dos Aventureiros', 'Onde novos aventureiros se registram e buscam missões. Um cheiro de café e papel antigo paira no ar.', NULL, NULL, NULL, 2),
+(5, 'Cidade de Payon', 'Conhecida por seus arqueiros habilidosos e templos serenos. Flechas voam em campos de treinamento próximos.', NULL, 6, NULL, 3),
+(6, 'Floresta de Payon', 'Uma floresta densa e mística, lar de criaturas curiosas e rumores de tesouros ocultos.', NULL, 7, 5, NULL),
+(7, 'Entrada da Caverna de Payon', 'Uma abertura escura na montanha, de onde emana um ar úmido e um som distante de gotejamento.', 6, NULL, NULL, 8),
+(8, 'Caverna de Payon - Nível 1', 'O primeiro nível da caverna. Estalactites e estalagmites pontiagudas formam o ambiente. Cuidado com os Zumbis!', NULL, NULL, 7, NULL),
+(9, 'Campo de Geffen', 'Um campo tranquilo, mas com a grande Torre de Geffen no horizonte, emanando magia.', 1, NULL, NULL, NULL);
 
 -- 4. Inserindo NPCs
-INSERT INTO public.npc (id_sala, nome, descricao, dialogo) VALUES
+INSERT INTO NPC (id_sala, nome, descricao, dialogo) VALUES
 (1, 'Aldeão', 'Um simples morador da cidade', 'Bem-vindo a nossa cidade, aventureiro! Cuidado com os lobos na floresta.'),
 (1, 'Ferreiro', 'Um robusto ferreiro da cidade', 'Precisa de equipamentos? Tenho os melhores da região!'),
 (5, 'Lobo', 'Um lobo selvagem e agressivo', 'Grrrrrrr! rosna'),
@@ -44,94 +34,111 @@ INSERT INTO public.npc (id_sala, nome, descricao, dialogo) VALUES
 (7, 'Mago Arcanjo', 'Um poderoso mago', 'Interessado em aprender magias poderosas?');
 
 -- 5. Inserindo NPCs Combatentes
-INSERT INTO public.npc_combatente (id_npc_combatente, tamanho, raca, descricao, ataque, defesa, defesa_magica, nivel, precisao, esquiva) VALUES
+INSERT INTO NPC_COMBATENTE (id_npc_combatente, tamanho, raca, descricao, ataque, defesa, defesa_magica, nivel, precisao, esquiva) VALUES
 (3, 'Médio', 'Lobo', 'Lobo selvagem que ataca qualquer intruso', 20, 10, 5, 2, 70, 60);
 
--- 6. Inserindo Estoque para vendedores
-INSERT INTO public.estoque DEFAULT VALUES;
-INSERT INTO public.estoque DEFAULT VALUES;
+-- 6. Inserindo Instâncias de NPCs Combatentes
+INSERT INTO INSTANCIA_NPC_COMBATENTE (id_npc_combatente, vida_atual, status_npc, agressivo) VALUES
+(3, 100, 'VIVO', TRUE);
 
--- 7. Inserindo NPCs Vendedores
-INSERT INTO public.npc_vendedor (id_npc_vendedor, id_estoque) VALUES
-(2, 1),
-(5, 2);
+-- 7. Inserindo Estoque para vendedores
+INSERT INTO ESTOQUE (id_estoque) VALUES (1), (2);
 
--- 8. Inserindo Itens
-INSERT INTO public.item (nome, tipo, descricao, atributos_bonus, custo, id_npc_combatente) VALUES
-('Espada de Ferro', 'ARMA', 'Uma espada básica de ferro', 5, 100, NULL),
-('Cajado do Aprendiz', 'ARMA', 'Cajado básico para magos iniciantes', 3, 80, NULL),
-('Arco Curto', 'ARMA', 'Arco simples para treinamento', 4, 90, NULL),
-('Poção de Cura', 'CONSUMIVEL', 'Restaura 50 pontos de vida', 50, 30, NULL),
-('Pergaminho de Fogo', 'CONSUMIVEL', 'Libera uma explosão de fogo ao ser usado', 25, 50, NULL),
-('Peitoral de Couro', 'ARMADURA', 'Armadura básica de couro', 10, 120, NULL),
-('Garra de Lobo', 'CONSUMIVEL', 'Item dropado por lobos', NULL, 15, 3);
+-- 8. Inserindo NPCs Vendedores
+INSERT INTO NPC_VENDEDOR (id_npc_vendedor, id_estoque) VALUES
+(2, 1),  -- Ferreiro
+(5, 2);  -- Mago Arcanjo
 
--- 9. Inserindo Itens no estoque dos vendedores
-INSERT INTO public.vende_estoque_item (id_estoque, id_item) VALUES
+-- 9. Inserindo Itens 
+-- Primeiro inserimos os itens básicos
+INSERT INTO ITEM (tipo_item) VALUES 
+('ARMA'),  -- id_item = 1 (Espada de Ferro)
+('ARMA'),  -- id_item = 2 (Cajado do Aprendiz)
+('ARMA'),  -- id_item = 3 (Arco Curto)
+('CONSUMIVEL'),  -- id_item = 4 (Poção de Cura)
+('CONSUMIVEL'),  -- id_item = 5 (Pergaminho de Fogo)
+('ARMADURA'),  -- id_item = 6 (Peitoral de Couro)
+('CONSUMIVEL');  -- id_item = 7 (Garra de Lobo)
+
+-- 10. Inserindo Armaduras
+INSERT INTO ARMADURA (id_item, tipo_armadura) VALUES
+(6, 'PEITORAL');
+
+-- Detalhes do Peitoral
+INSERT INTO PEITORAL (id_armadura, nome_item, descricao, custo_item, defesa, defesa_magica, bonus_vida, bonus_defesa) VALUES
+(6, 'Peitoral de Couro', 'Proteção básica para o torso', 120, 15, 5, 20, 5);
+
+-- 11. Inserindo Armas 
+INSERT INTO ARMA (id_item, tipo_arma, dano_base, bonus_danos, descricao, nome_item, custo_item) VALUES
+(1, 'CORPO_A_CORPO', 15, 5, 'Uma espada básica de ferro', 'Espada de Ferro', 100),
+(2, 'MAGICA', 10, 3, 'Cajado básico para magos iniciantes', 'Cajado do Aprendiz', 80),
+(3, 'LONGO_ALCANCE', 12, 4, 'Arco simples para treinamento', 'Arco Curto', 90);
+
+-- Detalhes das armas específicas
+INSERT INTO LONGO_ALCANCE (id_arma, tipo_projetil, quantidade_projetil, descricao, nome_item, dano_base, bonus_dano, custo_item) VALUES
+(3, 'FLECHA', 20, 'Arco simples para treinamento', 'Arco Curto', 12, 4, 90);
+
+INSERT INTO MAGICA (id_arma, tipo_magia, efeito_magico, descricao, nome_item, custo_item, dano_base, bonus_dano) VALUES
+(2, 'ELEMENTAL', 'FOGO', 'Cajado básico para magos iniciantes', 'Cajado do Aprendiz', 80, 10, 3);
+
+-- 12. Inserindo Consumíveis
+INSERT INTO CONSUMIVEL (id_item, tipo_consumivel) VALUES
+(4, 'POCAO'),
+(5, 'PERGAMINHO'),
+(7, 'COMIDA');
+
+-- Detalhes da Poção
+INSERT INTO POCAO (id_consumivel, tipo_bonus_atributo, recupera_vida, recupera_mana, nome_item, descricao, custo_item) VALUES
+(4, 'VIDA', 50, 0, 'Poção de Cura', 'Restaura 50 pontos de vida', 30);
+
+-- Detalhes do Pergaminho
+INSERT INTO PERGAMINHO (id_pergaminho, tipo_buff, duracao_buff, nome_item, descricao, custo_item) VALUES
+(5, 'ATAQUE DE FOGO', 3, 'Pergaminho de Fogo', 'Ataques causam dano adicional de fogo por 3 turnos', 50);
+
+-- Detalhes da Comida
+INSERT INTO COMIDA (id_comida, tipo_bonus_atributo, bonus_atributo, bonus_atributo_duracao, nome_item, descricao, custo_item) VALUES
+(7, 'FORCA', 5, 10, 'Garra de Lobo', 'Aumenta força por 10 minutos', 15);
+
+-- 13. Associando itens aos estoques dos vendedores
+INSERT INTO VENDE_ESTOQUE_ITEM (id_estoque, id_item) VALUES
 (1, 1), -- Ferreiro vende Espada de Ferro
 (1, 6), -- Ferreiro vende Peitoral de Couro
 (2, 2), -- Mago vende Cajado do Aprendiz
 (2, 4), -- Mago vende Poção de Cura
 (2, 5); -- Mago vende Pergaminho de Fogo
 
--- 10. Inserindo Armaduras
-INSERT INTO public.armadura (id_item, tipo_armadura) VALUES
-(6, 'PEITORAL');
-
--- Inserindo detalhes do Peitoral
-INSERT INTO public.peitoral (id_armadura, nome_item, descricao, custo_item, defesa, defesa_magica, bonus_vida, bonus_defesa) VALUES
-(6, 'Peitoral de Couro', 'Proteção básica para o torso', 120, 15, 5, 20, 5);
-
--- 11. Inserindo Consumíveis
-INSERT INTO public.consumivel (id_item, tipo_consumivel) VALUES
-(4, 'POCAO'),
-(5, 'PERGAMINHO'),
-(7, 'COMIDA');
-
--- Inserindo detalhes da Poção
-INSERT INTO public.pocao (id_consumivel, tipo_bonus_atributo, bonus_atributo, bonus_atributo_duracao, nome_item, descricao, custo_iem) VALUES
-(4, 'VIDA', 50, 0, 'Poção de Cura', 'Restaura 50 pontos de vida', 30);
-
--- Inserindo detalhes do Pergaminho
-INSERT INTO public.pergaminho (id_pergaminho, tipo_buff, duracao_buff, nome_item, descricao, custo_item) VALUES
-(5, 'ATAQUE DE FOGO', 3, 'Pergaminho de Fogo', 'Ataques causam dano adicional de fogo por 3 turnos', 50);
-
--- Inserindo detalhes da Comida
-INSERT INTO public.comida (id_comida, tipo_bonus_atributo, bonus_atributo, bonus_atributo_duracao, nome_item, descricao, custo_item) VALUES
-(7, 'FORCA', 5, 10, 'Garra de Lobo', 'Aumenta força por 10 minutos', 15);
-
--- 12. Inserindo Jogador
-INSERT INTO public.jogador (usuario, email, senha) VALUES
+-- 14. Inserindo Jogadores
+INSERT INTO JOGADOR (usuario, email, senha) VALUES
 ('iancostag', 'iancostag@gmail.com', '123'),
 ('danilo', 'danilonaves@gmail.com', '456'),
 ('igris', 'richard@gmail.com', '789');
 
--- 13. Inserindo Personagens
-INSERT INTO public.personagem (id_jogador, id_sala, nome, mana, vida, vitalidade, inteligencia, agilidade, sorte, destreza, forca, ataque, ataque_magico, precisao, esquiva, defesa, defesa_magica, critico, velocidade, nivel, dinheiro) VALUES
-(1, 1, 'kamishiro', 50, 200, 10, 5, 8, 7, 9, 12, 20, 5, 70, 60, 15, 10, 10, 8, 1, 200),
-(2, 1, 'Patolino, O Mago', 100, 150, 5, 15, 6, 8, 7, 5, 8, 25, 65, 50, 8, 20, 5, 6, 1, 150),
-(3, 1, 'igris', 60, 180, 8, 7, 12, 10, 12, 8, 18, 8, 80, 70, 12, 12, 15, 10, 1, 180);
+-- 15. Inserindo Missões
+INSERT INTO MISSAO (id_npc, requisito_level, xp_base, xp_classe, descricao, objetivo, dinheiro) VALUES
+(3, 1, 100, 50, 'Derrote 5 lobos na floresta', 'Matar 5 lobos', 50),
+(4, 3, 200, 100, 'Encontre o tesouro perdido na caverna', 'Explorar a caverna', 100),
+(5, 5, 300, 150, 'Aprenda uma magia avançada', 'Falar com o mago', 150);
 
--- 14. Inserindo Classes dos Personagens
-INSERT INTO public.pertence_personagem_classe (id_personagem, id_classe) VALUES
-(1, 9), -- kamishiro é Arqueiro
-(2, 8), -- Patolino é Mago
-(3, 7); -- Igris é guerreiro
+-- 16. Inserindo Personagens
+INSERT INTO PERSONAGEM (id_jogador, id_sala, id_missao, nome, mana, vida, vitalidade, inteligencia, agilidade, sorte, destreza, forca, ataque, ataque_magico, precisao, esquiva, defesa, defesa_magica, critico, velocidade, nivel, dinheiro) VALUES
+(1, 1, 1, 'kamishiro', 50, 200, 10, 5, 8, 7, 9, 12, 20, 5, 70, 60, 15, 10, 10, 8, 1, 200),
+(2, 1, NULL, 'Patolino, O Mago', 100, 150, 5, 15, 6, 8, 7, 5, 8, 25, 65, 50, 8, 20, 5, 6, 1, 150),
+(3, 1, NULL, 'igris', 60, 180, 8, 7, 12, 10, 12, 8, 18, 8, 80, 70, 12, 12, 15, 10, 1, 180);
 
--- 15. Inserindo Inventários
-INSERT INTO public.inventario (id_personagem) VALUES
+-- 17. Associando classes aos personagens
+INSERT INTO PERTENCE_PERSONAGEM_CLASSE (id_personagem, id_classe) VALUES
+(1, 3), -- kamishiro é Arqueiro
+(2, 2), -- Patolino é Mago
+(3, 1); -- Igris é Espadachim
+
+-- 18. Inserindo Inventários
+INSERT INTO INVENTARIO (id_personagem) VALUES
 (1),
 (2),
 (3);
 
--- 16. Inserindo Instâncias de Itens nos Inventários
-INSERT INTO public.instancia_item (id_item, id_inventario) VALUES
+-- 19. Inserindo Instâncias de Itens nos Inventários
+INSERT INTO INSTANCIA_ITEM (id_item, id_inventario) VALUES
 (3, 1), -- kamishiro tem Arco Curto
 (2, 2), -- Patolino tem Cajado do Aprendiz
 (1, 3); -- Igris tem Espada de Ferro
-
--- 17. Inserindo Missões
-INSERT INTO public.missao (id_npc, requisito_level, xp_base, xp_classe, descricao, objetivo, dinheiro) VALUES
-(3, 1, 100, 50, 'Derrote 5 lobos na floresta', 'Matar 5 lobos', 50),
-(4, 3, 200, 100, 'Encontre o tesouro perdido na caverna', 'Explorar a caverna', 100),
-(5, 5, 300, 150, 'Aprenda uma magia avançada', 'Falar com o mago', 150);
