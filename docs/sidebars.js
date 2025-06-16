@@ -71,6 +71,11 @@ const sidebars = {
           id: 'entrega_2/algebra_relacional',
           label: '4. Álgebra Relacional'
         },
+        {
+          type: 'doc',
+          id: 'entrega_2/jogo_funcional',
+          label: '5. Desenvolvimento'
+        },
       ]
     },
     {
