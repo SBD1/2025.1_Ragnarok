@@ -21,7 +21,7 @@ O DER criado para o nosso jogo *Ragnarok - MUD* é representado abaixo, com suas
     <strong>Fonte:</strong> Autores
 </p>
 
-- Pela extensão do diagrama, recomenda-se abrir também o arquivo **[PDF](../../static/img/DERv2.0-Ragnarok.pdf)** do DER.
+- Pela extensão do diagrama, recomenda-se abrir também o arquivo **[PDF](../../static/img/ragnarok.drawio.pdf)** do DER.
 
 <details>
 
