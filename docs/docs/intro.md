@@ -101,7 +101,7 @@ python3 main.py
 | Módulo | Link da gravação | Data |
 | :----: | :--------------: | :--: |
 |   1    | [Apresentação 1](https://youtu.be/0g3IyhfRMTM?si=ifjVauHRSVdq8QY1) | 02/05/2025 |
-|   2    | [Apresentação 2](colocaaqui.com) | 16/06/2025 |
+|   2    | [Apresentação 2](https://youtu.be/2gFcsBq5W94?si=N_eF2v--Jv4oSN0B) | 16/06/2025 |
 
 ## Entregas
 
