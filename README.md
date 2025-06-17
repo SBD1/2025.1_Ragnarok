@@ -98,6 +98,7 @@ python3 main.py
 | Módulo | Link da gravação | Data |
 | :----: | :--------------: | :--: |
 |   1    | [Apresentação 1](https://youtu.be/0g3IyhfRMTM?si=ifjVauHRSVdq8QY1) | 02/05/2025 |
+|   2    | [Apresentação 2](colocaaqui.com) | 16/06/2025 |
 
 ## Entregas
 
@@ -108,11 +109,14 @@ python3 main.py
     - [Modelo Relacional](./docs/docs/entrega_1/MREL.md)
     
 - **Módulo 2**
-    - [Modelo Entidade-Relacionamento - ATUALIZADO](./docs/docs/entrega_1/MER.md)
-    - [Diagrama Entidade-Relacionamento - ATUALIZADO](./docs/docs/entrega_1/DER.md)
-    - [Dicionário de Dados - ATUALIZADO](./docs/docs/entrega_1/DD.md)
-    - [Modelo Relacional - ATUALIZADO](./docs/docs/entrega_1/MREL.md)
-    
+    - [Modelo Entidade-Relacionamento - ATUALIZAÇÃO](./docs/docs/entrega_1/MER.md)
+    - [Diagrama Entidade-Relacionamento - ATUALIZAÇÃO](./docs/docs/entrega_1/DER.md)
+    - [Dicionário de Dados - ATUALIZAÇÃO](./docs/docs/entrega_1/DD.md)
+    - [Modelo Relacional - ATUALIZAÇÃO](./docs/docs/entrega_1/MREL.md)
+    - [Data Definition Language](./docs/docs/entrega_2/ddl.md)
+    - [Data Manipulation Language](./docs/docs/entrega_2/dml.md)
+    - [Data Query Language](./docs/docs/entrega_2/dql.md)
+    - [Álgebra Relacional](./docs/docs/entrega_2/algebra_relacional.md)
 
 - **Módulo 3**
 
