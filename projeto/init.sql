@@ -396,6 +396,76 @@ INSERT INTO NPC_VENDEDOR (id_npc_vendedor, id_estoque) VALUES
 (5, 2);  -- Mago Arcanjo
 
 -- 9. Inserindo Itens 
+-- Cria o ITEM e devolve o id gerado
+CREATE OR REPLACE FUNCTION create_item(
+    _tipo_item  ITEM.tipo_item%TYPE
+) RETURNS INTEGER AS $$
+DECLARE
+    _new_id ITEM.id_item%TYPE;
+BEGIN
+    INSERT INTO ITEM (tipo_item)
+    VALUES (_tipo_item)
+    RETURNING id_item INTO _new_id;
+    RETURN _new_id;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- procedure do peitoral
+CREATE OR REPLACE FUNCTION add_armadura_peitoral (
+    _nome_item          TEXT,
+    _descricao          TEXT,
+    _custo_item         INTEGER,
+    _defesa             INTEGER,
+    _defesa_magica      INTEGER,
+    _bonus_vida         INTEGER,
+    _bonus_defesa       INTEGER
+) RETURNS INTEGER AS $$
+DECLARE
+    _id_item   INTEGER;
+BEGIN
+    -- 1) ITEM (tipo = 'ARMADURA')
+    _id_item := create_item('ARMADURA');
+
+    -- 2) ARMADURA (tipo_armadura = 'PEITORAL')
+    INSERT INTO ARMADURA (id_item, tipo_armadura)
+    VALUES (_id_item, 'PEITORAL');
+
+    -- 3) PEITORAL (detalhes)
+    INSERT INTO PEITORAL (
+        id_armadura,  nome_item, descricao, custo_item,
+        defesa, defesa_magica, bonus_vida, bonus_defesa
+    ) VALUES (
+        _id_item, _nome_item, _descricao, _custo_item,
+        _defesa, _defesa_magica, _bonus_vida, _bonus_defesa
+    );
+
+    RETURN _id_item;
+END;
+$$ LANGUAGE plpgsql;
+
+
+SELECT add_armadura_peitoral(
+    _nome_item      := 'Malha das Asas da Luz',
+    _descricao      := 'Vestimenta decorada com plumas brancas.',
+    _custo_item     := 2000,
+    _defesa         := 45,
+    _defesa_magica  := 5,
+    _bonus_vida     := 300,
+    _bonus_defesa   := 200
+);
+-- → devolve o novo id_item
+SELECT add_armadura_peitoral(
+    _nome_item := 'Peitoral de Couro',
+    _descricao := 'Peitoral feito de couro de animais silvestres comuns.',
+    _custo_item := 150,
+    _defesa := 5,
+    _defesa_magica := 0,
+    _bonus_vida := 20,
+    _bonus_defesa := 5
+
+)
+
 -- Primeiro inserimos os itens básicos
 INSERT INTO ITEM (tipo_item) VALUES 
 ('ARMA'),  -- id_item = 1 (Espada de Ferro)
@@ -403,16 +473,7 @@ INSERT INTO ITEM (tipo_item) VALUES
 ('ARMA'),  -- id_item = 3 (Arco Curto)
 ('CONSUMIVEL'),  -- id_item = 4 (Poção de Cura)
 ('CONSUMIVEL'),  -- id_item = 5 (Pergaminho de Fogo)
-('ARMADURA'),  -- id_item = 6 (Peitoral de Couro)
 ('CONSUMIVEL');  -- id_item = 7 (Garra de Lobo)
-
--- 10. Inserindo Armaduras
-INSERT INTO ARMADURA (id_item, tipo_armadura) VALUES
-(6, 'PEITORAL');
-
--- Detalhes do Peitoral
-INSERT INTO PEITORAL (id_armadura, nome_item, descricao, custo_item, defesa, defesa_magica, bonus_vida, bonus_defesa) VALUES
-(6, 'Peitoral de Couro', 'Proteção básica para o torso', 120, 15, 5, 20, 5);
 
 -- 11. Inserindo Armas 
 INSERT INTO ARMA (id_item, tipo_arma, dano_base, bonus_danos, descricao, nome_item, custo_item) VALUES
@@ -448,7 +509,6 @@ INSERT INTO COMIDA (id_comida, tipo_bonus_atributo, bonus_atributo, bonus_atribu
 -- 13. Associando itens aos estoques dos vendedores
 INSERT INTO VENDE_ESTOQUE_ITEM (id_estoque, id_item) VALUES
 (1, 1), -- Ferreiro vende Espada de Ferro
-(1, 6), -- Ferreiro vende Peitoral de Couro
 (2, 2), -- Mago vende Cajado do Aprendiz
 (2, 4), -- Mago vende Poção de Cura
 (2, 5); -- Mago vende Pergaminho de Fogo
