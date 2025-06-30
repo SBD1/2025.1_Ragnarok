@@ -13,9 +13,13 @@ DB_NAME := ragnarok
 
 all: help ## Exibe esta mensagem de ajuda.
 
-up: ## Sobe os containers em segundo plano (detached).
-	@echo "Subindo os containers Docker..."
+detached: ## Sobe os containers em segundo plano (detached).
+	@echo "Subindo os container Docker..."
 	$(DOCKER_COMPOSE_COMMAND) -f $(DOCKER_COMPOSE_FILE) up -d
+
+up: ## Sobe os containers.
+	@echo "Subindo os containers Docker..."
+	$(DOCKER_COMPOSE_COMMAND) -f $(DOCKER_COMPOSE_FILE) up
 
 down: ## Derruba os containers.
 	@echo "Derrubando os containers Docker..."
