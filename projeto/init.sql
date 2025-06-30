@@ -454,7 +454,8 @@ SELECT add_armadura_peitoral(
     _bonus_vida     := 300,
     _bonus_defesa   := 200
 );
--- → devolve o novo id_item
+
+-- devolve o novo id_item
 SELECT add_armadura_peitoral(
     _nome_item := 'Peitoral de Couro',
     _descricao := 'Peitoral feito de couro de animais silvestres comuns.',
@@ -463,8 +464,7 @@ SELECT add_armadura_peitoral(
     _defesa_magica := 0,
     _bonus_vida := 20,
     _bonus_defesa := 5
-
-)
+);
 
 -- Primeiro inserimos os itens básicos
 INSERT INTO ITEM (tipo_item) VALUES 
