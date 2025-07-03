@@ -1,3 +1,12 @@
+CREATE OR REPLACE FUNCTION bloquear_insercao_direta()
+RETURNS trigger AS $$
+BEGIN
+  IF pg_trigger_depth() = 0 THEN
+    RAISE EXCEPTION 'Inserções diretas não são permitidas nesta tabela. Use a função apropriada.';
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
 CREATE TABLE JOGADOR (
     id_jogador SERIAL PRIMARY KEY,
@@ -240,6 +249,10 @@ CREATE TABLE CAPACETE (
     
     FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
 );
+CREATE TRIGGER trg_bloquear_insert_capacete
+BEFORE INSERT ON CAPACETE
+FOR EACH ROW
+EXECUTE FUNCTION bloquear_insercao_direta();
 
 CREATE TABLE BOTA (
     id_armadura INT PRIMARY KEY,
@@ -305,6 +318,10 @@ CREATE TABLE PEITORAL (
     
     FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
 );
+CREATE TRIGGER trg_bloquear_insert_peitoral
+BEFORE INSERT ON PEITORAL
+FOR EACH ROW
+EXECUTE FUNCTION bloquear_insercao_direta();
 
 CREATE TABLE ARMA(
     id_item INT PRIMARY KEY,
@@ -464,6 +481,36 @@ SELECT add_armadura_peitoral(
     _defesa_magica := 0,
     _bonus_vida := 20,
     _bonus_defesa := 5
+);
+
+CREATE OR REPLACE FUNCTION add_armadura_capacete(
+    _nome_item VARCHAR(100),
+    _descricao TEXT,
+    _custo_item INT,
+    _defesa INT,
+    _defesa_magica INT,
+    _bonus_vida INT
+) RETURNS void AS $$
+DECLARE
+    _id_item INTEGER;
+BEGIN 
+    _id_item := create_item('ARMADURA');
+
+    INSERT INTO ARMADURA (id_item,tipo_armadura)
+    VALUES(_id_item,'CAPACETE');
+
+    INSERT INTO CAPACETE(id_armadura,nome_item,descricao,custo_item,defesa,defesa_magica,bonus_vida)
+    VALUES (_id_item,_nome_item,_descricao,_custo_item,_defesa,_defesa_magica,_bonus_vida);
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT add_armadura_capacete(
+    _nome_item := 'Capacete de Couro',
+    _descricao := 'Capacete feito de couro de animais silvestres comuns.',
+    _custo_item := 100,
+    _defesa := 3,
+    _defesa_magica := 0,
+    _bonus_vida := 10
 );
 
 -- Primeiro inserimos os itens básicos
