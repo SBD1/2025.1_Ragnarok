@@ -1,21 +1,25 @@
 import os
-import time # Para os atrasos da animação
-import sys  # Para forçar a impressão imediata
+import time 
+import sys 
 
 def limpar_tela():
-    """Limpa o console para uma melhor experiência."""
+    """Limpa o console."""
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def exibir_mensagem(mensagem, tipo="info"):
-    """Exibe mensagens formatadas para o usuário."""
-    if tipo == "sucesso":
-        print(f"\n✅ {mensagem}")
-    elif tipo == "erro":
-        print(f"\n❌ {mensagem}")
-    else: # info
-        print(f"\nℹ️ {mensagem}")
-    input("Pressione Enter para continuar...") # Pausa para o usuário ler a mensagem
-    limpar_tela()
+    """Exibe mensagens formatadas no console."""
+    cores = {
+        "info": "\033[94m",    # Azul
+        "sucesso": "\033[92m", # Verde
+        "erro": "\033[91m",    # Vermelho
+        "aviso": "\033[93m",   # Amarelo
+        "titulo": "\033[95m",  # Magenta
+        "perigo": "\033[91m",  # Vermelho
+        "reset": "\033[0m"     # Reseta a cor
+    }
+    
+    print(f"{cores.get(tipo, cores['reset'])}{mensagem}{cores['reset']}")
+    time.sleep(1.5) 
 
 def animate_logo(logo_string, delay_per_line=0.08):
     """
@@ -23,12 +27,10 @@ def animate_logo(logo_string, delay_per_line=0.08):
     :param logo_string: A string da logo ASCII Art completa.
     :param delay_per_line: O atraso em segundos entre a exibição de cada linha.
     """
-    limpar_tela() # Limpa a tela antes de começar a animação
+    limpar_tela() 
     lines = logo_string.split('\n')
     for line in lines:
         print(line)
-        sys.stdout.flush() # Garante que a linha seja exibida imediatamente
-        time.sleep(delay_per_line) # Espera um pouco antes de imprimir a próxima linha
-    time.sleep(0.5) # Um pequeno atraso no final para a logo permanecer visível
-    # Não limpa a tela aqui para permitir que o main.py imprima o menu logo em seguida.
-    # A limpeza será feita antes de cada interação do menu principal.
+        sys.stdout.flush()
+        time.sleep(delay_per_line)
+    time.sleep(1.5) 

@@ -1,6 +1,8 @@
 from db.db_utils import execute_query
 from utils.display import limpar_tela, exibir_mensagem
-from game.player import get_character_details, update_character_room  # Importa as funções do player
+from game.player import get_character_details, update_character_room
+from game.map import gerar_mapa_local_opcao2
+from game.combat import iniciar_combate
 
 def get_room_details(room_id):
     """Busca os detalhes de uma sala no banco de dados."""
@@ -57,8 +59,14 @@ def display_room(room_data, character_name):
     print("+" + "=" * 48 + "+")
     print(f"\nVocê é {character_name}.") 
     print("\n" + room_data['descricao_sala'])
-    print("\n--- Locais Disponíveis ---")
 
+   
+    print("\n--- Mapa Local ---")
+   
+    mapa = gerar_mapa_local_opcao2(room_data['id_sala']) 
+    print(mapa)
+
+    print("\n--- Locais Disponíveis ---")
     saidas = []
     if room_data['id_cima']:
         saidas.append(f"Insira 1 - {room_data['nome_cima']}")
@@ -80,7 +88,7 @@ def iniciar_jogo(id_personagem_selecionado):
     character_data = get_character_details(id_personagem_selecionado)
     if not character_data:
         exibir_mensagem("Erro: Não foi possível carregar os detalhes do personagem.", tipo="erro")
-        return  # Volta ao menu de seleção de personagem
+        return
 
     current_room_id = character_data['id_sala']
     character_name = character_data['nome']
@@ -93,8 +101,18 @@ def iniciar_jogo(id_personagem_selecionado):
 
         display_room(room_data, character_name)
 
+       
+        inimigos_presentes = execute_query("""
+            SELECT 1 FROM INSTANCIA_NPC_COMBATENTE i
+            JOIN NPC n ON i.id_npc_combatente = n.id_npc
+            WHERE i.status_npc = 'VIVO' AND n.id_sala = %s
+            LIMIT 1;
+        """, (current_room_id,), fetch_one=True)
+
         print("\nO que você quer fazer?")
         print("Mover (1, 2, 3, 4) | Sair do Jogo (S)")
+        if inimigos_presentes:
+            print("Combater (C)")
         
         escolha = input("> ").strip().upper()
 
@@ -107,6 +125,15 @@ def iniciar_jogo(id_personagem_selecionado):
             nova_sala_id = room_data['id_esquerda']
         elif escolha == '4' and room_data['id_direita']:
             nova_sala_id = room_data['id_direita']
+        elif escolha == 'C' and inimigos_presentes: 
+            iniciar_combate(id_personagem_selecionado)
+        
+            character_data = get_character_details(id_personagem_selecionado)
+            if not character_data: 
+                exibir_mensagem("Seu personagem foi redefinido após a derrota. Retornando ao menu.", tipo="info")
+                break 
+            current_room_id = character_data['id_sala'] 
+            continue 
         elif escolha == 'S':
             exibir_mensagem("Saindo do jogo atual e voltando ao menu inicial.", tipo="info")
             break
@@ -114,7 +141,8 @@ def iniciar_jogo(id_personagem_selecionado):
             exibir_mensagem("Comando ou direção inválida.", tipo="erro")
         
         if nova_sala_id:
-            if get_room_details(nova_sala_id):
+            
+            if get_room_details(nova_sala_id): 
                 if update_character_room(id_personagem_selecionado, nova_sala_id):
                     current_room_id = nova_sala_id
                     nova_sala = get_room_details(nova_sala_id)
