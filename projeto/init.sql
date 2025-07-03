@@ -381,11 +381,11 @@ INSERT INTO NPC (id_sala, nome, descricao, dialogo) VALUES
 
 -- 5. Inserindo NPCs Combatentes
 INSERT INTO NPC_COMBATENTE (id_npc_combatente, tamanho, raca, descricao, ataque, defesa, defesa_magica, nivel, precisao, esquiva) VALUES
-(3, 'Médio', 'Lobo', 'Lobo selvagem que ataca qualquer intruso', 20, 10, 5, 2, 70, 60);
+(3, 'Médio', 'Lobo', 'Lobo selvagem que ataca qualquer intruso', 17, 3, 5, 2, 70, 60);
 
 -- 6. Inserindo Instâncias de NPCs Combatentes
 INSERT INTO INSTANCIA_NPC_COMBATENTE (id_npc_combatente, vida_atual, status_npc, agressivo) VALUES
-(3, 100, 'VIVO', TRUE);
+(3, 30, 'VIVO', TRUE);
 
 -- 7. Inserindo Estoque para vendedores
 INSERT INTO ESTOQUE (id_estoque) VALUES (1), (2);
@@ -528,7 +528,7 @@ INSERT INTO MISSAO (id_npc, requisito_level, xp_base, xp_classe, descricao, obje
 -- 16. Inserindo Personagens
 INSERT INTO PERSONAGEM (id_jogador, id_sala, id_missao, nome, mana, vida, vitalidade, inteligencia, agilidade, sorte, destreza, forca, ataque, ataque_magico, precisao, esquiva, defesa, defesa_magica, critico, velocidade, nivel, dinheiro) VALUES
 (1, 1, 1, 'kamishiro', 50, 200, 10, 5, 8, 7, 9, 12, 20, 5, 70, 60, 15, 10, 10, 8, 1, 200),
-(2, 1, NULL, 'Patolino, O Mago', 100, 150, 5, 15, 6, 8, 7, 5, 8, 25, 65, 50, 8, 20, 5, 6, 1, 150),
+(2, 1, NULL, 'Patolino, O Mago', 100, 150, 5, 15, 6, 8, 7, 10, 8, 25, 65, 50, 8, 20, 5, 6, 1, 150),
 (3, 1, NULL, 'igris', 60, 180, 8, 7, 12, 10, 12, 8, 18, 8, 80, 70, 12, 12, 15, 10, 1, 180);
 
 -- 17. Associando classes aos personagens

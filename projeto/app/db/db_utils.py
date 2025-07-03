@@ -31,16 +31,16 @@ def close_db_connection():
         conn.close()
     exibir_mensagem("Conexão com o PostgreSQL fechada.", tipo="info")
 
-def execute_query(query, params=None, fetch_one=False, commit=False):
+def execute_query(query, params=None, fetch_one=False, fetch_all=False, commit=False):
     """
-    Executa uma query no banco de dados.
-    :param query: A string da query SQL.
-    :param params: Uma tupla de parâmetros para a query (usar %s).
-    :param fetch_one: Se True, tenta retornar apenas uma linha.
-                      Se False, tenta retornar todas as linhas.
-                      Usado para SELECTs e para queries com RETURNING.
-    :param commit: Se True, faz commit da transação (para INSERT, UPDATE, DELETE).
-    :return: Os resultados da query (se houver e for solicitada a busca) ou True/False para DMLs.
+    Executa uma query no banco de dados PostgreSQL.
+    
+    :param query: String da query SQL com placeholders %s.
+    :param params: Tupla de parâmetros a serem passados para a query.
+    :param fetch_one: Se True, retorna apenas uma linha do resultado.
+    :param fetch_all: Se True, retorna todas as linhas do resultado.
+    :param commit: Se True, realiza o commit da transação.
+    :return: Resultado(s) da consulta SELECT, ou True/False em comandos DML.
     """
     global conn, cursor
     if not conn or not cursor:
@@ -48,16 +48,18 @@ def execute_query(query, params=None, fetch_one=False, commit=False):
         return False
     try:
         cursor.execute(query, params)
+
         if commit:
             conn.commit()
 
-        
-        if fetch_one: 
+        if fetch_one:
             return cursor.fetchone()
-        elif query.strip().upper().startswith("SELECT"): 
+        elif fetch_all:
             return cursor.fetchall()
-        else: 
-            return True 
+        elif query.strip().upper().startswith("SELECT"):
+            return cursor.fetchall()  # Retorno padrão para SELECT se nenhum flag for passado
+        else:
+            return True  # Para INSERT, UPDATE, DELETE sem retorno
 
     except Error as e:
         if commit:
