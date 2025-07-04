@@ -280,6 +280,11 @@ CREATE TABLE ACESSORIO (
     FOREIGN KEY (id_armadura) REFERENCES ARMADURA(id_item)
 );
 
+CREATE TRIGGER trg_bloquer_insert_acessorio
+BEFORE INSERT ON ACESSORIO
+FOR EACH ROW
+EXECUTE FUNCTION bloquear_insercao_direta();
+
 CREATE TABLE CAPA (
     id_armadura INT PRIMARY KEY,
     nome_item VARCHAR(100) NOT NULL,
@@ -512,6 +517,40 @@ SELECT add_armadura_capacete(
     _defesa_magica := 0,
     _bonus_vida := 10
 );
+
+CREATE OR REPLACE FUNCTION add_armadura_acessorio(
+    _nome_item TEXT,
+    _descricao TEXT,
+    _custo_item INT,
+    _defesa INT,
+    _defesa_magica INT,
+    _bonus_vida INT ,
+    _bonus_esquiva INT ,
+    _bonus_mana INT 
+) RETURNS void AS $$
+DECLARE
+    _id_item INTEGER;
+BEGIN
+    _id_item := create_item('ARMADURA');
+
+    INSERT INTO ARMADURA (id_item,tipo_armadura)
+    VALUES(_id_item,'ACESSORIO');
+    
+    INSERT INTO ACESSORIO (id_armadura,nome_item,descricao,custo_item,defesa,defesa_magica,bonus_vida,bonus_esquiva,bonus_mana)
+    VALUES(_id_item,_nome_item,_descricao,_custo_item,_defesa,_defesa_magica,_bonus_vida,_bonus_esquiva,_bonus_mana);
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT add_armadura_acessorio(
+    _nome_item := 'Broche das Asas da Luz',
+    _descricao := 'Broche decorado com plumas brancas.',
+    _custo_item := 0,
+    _defesa := 0,
+    _defesa_magica := 0,
+    _bonus_vida := 0,
+    _bonus_esquiva := 20,
+    _bonus_mana := 10
+    );
 
 -- Primeiro inserimos os itens básicos
 INSERT INTO ITEM (tipo_item) VALUES 
