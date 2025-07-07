@@ -127,3 +127,39 @@ GROUP  BY I.id_item, I.tipo_item;
 		return result
 	else:
 		exibir_mensagem(f"Erro ao listar o inventário do personagem.", tipo="erro")
+
+def mostrar_descricao_item(item):
+	"""
+	Imprime um cartão com as características do item.
+	Espera um dicionário com: nome, emoji, tipo, raridade,
+	atributos (dano/defesa/etc), peso e descrição.
+	"""
+	BORDER_COLOR = "\033[33m"   # amarelo
+	TITLE_COLOR  = "\033[36m"   # ciano
+	RESET        = "\033[0m"
+	LINE         = "═" * 32      # ajuste o tamanho aqui
+	emoji = "🗡️" if "ARMA" in item['tipo_item'] else ("🧪" if "CONSUMIVEL" in item['tipo_item'] else "🛡️")
+ 
+	limpar_tela()
+
+	# cabeçalho
+	print(f"{BORDER_COLOR}╔{LINE}╗{RESET}")
+	titulo = f"{emoji}  {item['nome'].upper()}"
+	print(f"{BORDER_COLOR}║{RESET} {TITLE_COLOR}{titulo:<30}{RESET}{BORDER_COLOR}║{RESET}")
+	print(f"{BORDER_COLOR}╠{LINE}╣{RESET}")
+
+	# atributos principais
+	print(f"{BORDER_COLOR}║{RESET} Tipo        : {item['tipo'].replace('_', ' ').lower():<17}{BORDER_COLOR}║{RESET}")
+	print(f"{BORDER_COLOR}║{RESET} Quantidade  : {item['qtd']:<17}{BORDER_COLOR}║{RESET}")
+
+	if "ARMA" in item['tipo_item']:
+		print(f"{BORDER_COLOR}║{RESET} Dano        : {item['dano']:<17}{BORDER_COLOR}║{RESET}")
+
+	if "POCAO" in item['tipo']:
+		print(f"{BORDER_COLOR}║{RESET} {item['efeito'].replace(':', '        :'):<17}{BORDER_COLOR}║{RESET}")
+
+	# rodapé
+	print(f"{BORDER_COLOR}╚{LINE}╝{RESET}")
+	print(f"📜 Descrição:\n\n  {item['descricao']}\n")
+	input("Pressione ENTER para continuar...")
+    
