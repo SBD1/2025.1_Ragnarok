@@ -130,16 +130,21 @@ GROUP  BY I.id_item, I.tipo_item;
 						item = i
 
 				if not item:
-					print("Opção inválida! Aperte ENTER para continuar...")
+					print("\nOpção inválida! Aperte ENTER para continuar...")
 					input()
 				else:
 					mostrar_descricao_item(item)
+			elif opcao.startswith('D'):
+				print("\nOpção não implementada ainda.")
+				print("Pressione ENTER para continuar...")
+				input()
 			elif opcao == 'S':
 				break
-
-		return result
-	else:
-		exibir_mensagem(f"Erro ao listar o inventário do personagem.", tipo="erro")
+			else:
+				print("\nOpção inválida! Aperte ENTER para continuar...")
+				input()
+		else:
+			exibir_mensagem(f"Erro ao listar o inventário do personagem.", tipo="erro")
 
 def mostrar_descricao_item(item):
 	"""
@@ -150,29 +155,27 @@ def mostrar_descricao_item(item):
 	BORDER_COLOR = "\033[33m"   # amarelo
 	TITLE_COLOR  = "\033[36m"   # ciano
 	RESET        = "\033[0m"
-	LINE         = "═" * 32      # ajuste o tamanho aqui
+	LINE         = "═" * 32
 	emoji = "🗡️" if "ARMA" in item['tipo_item'] else ("🧪" if "CONSUMIVEL" in item['tipo_item'] else "🛡️")
  
 	limpar_tela()
 
 	# cabeçalho
-	print(f"{BORDER_COLOR}╔{LINE}╗{RESET}")
 	titulo = f"{emoji}  {item['nome'].upper()}"
-	print(f"{BORDER_COLOR}║{RESET} {TITLE_COLOR}{titulo:<30}{RESET}{BORDER_COLOR}║{RESET}")
-	print(f"{BORDER_COLOR}╠{LINE}╣{RESET}")
+	print(f"{BORDER_COLOR}║{RESET} {TITLE_COLOR}{titulo}{RESET}")
+	print(f"{BORDER_COLOR}║{RESET}")
 
 	# atributos principais
-	print(f"{BORDER_COLOR}║{RESET} Tipo        : {item['tipo'].replace('_', ' ').lower():<17}{BORDER_COLOR}║{RESET}")
-	print(f"{BORDER_COLOR}║{RESET} Quantidade  : {item['qtd']:<17}{BORDER_COLOR}║{RESET}")
+	print(f"{BORDER_COLOR}║{RESET} Tipo        : {item['tipo'].replace('_', ' ').lower()}")
+	print(f"{BORDER_COLOR}║{RESET} Quantidade  : {item['qtd']}")
 
 	if "ARMA" in item['tipo_item']:
-		print(f"{BORDER_COLOR}║{RESET} Dano        : {item['dano']:<17}{BORDER_COLOR}║{RESET}")
+		print(f"{BORDER_COLOR}║{RESET} Dano        : {item['dano']}")
 
 	if "POCAO" in item['tipo']:
-		print(f"{BORDER_COLOR}║{RESET} {item['efeito'].replace(':', '        :'):<17}{BORDER_COLOR}║{RESET}")
+		print(f"{BORDER_COLOR}║{RESET} {item['efeito'].replace(':', '        :')}")
 
 	# rodapé
-	print(f"{BORDER_COLOR}╚{LINE}╝{RESET}")
-	print(f"📜 Descrição:\n\n  {item['descricao']}\n")
+	print(f"\n📜 Descrição:\n\n  {item['descricao']}\n")
 	input("Pressione ENTER para continuar...")
     
