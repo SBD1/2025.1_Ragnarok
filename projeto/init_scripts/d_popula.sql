@@ -126,4 +126,5 @@ INSERT INTO INSTANCIA_ITEM (id_item, id_inventario) VALUES
 (6, 2), -- Patolino tem Cajado do Aprendiz
 (5, 3), -- Igris tem Espada de Ferro
 (5, 3), -- Igris tem Espada de Ferro
-(8, 3);
+(8, 3), -- Igris tem Poção de cura
+(8, 3); -- Igris tem Poção de cura

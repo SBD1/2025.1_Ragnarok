@@ -106,16 +106,25 @@ GROUP  BY I.id_item, I.tipo_item;
 				print(f"Capacidade do inventário: {result[0]}/{result[1]}\n")
 
 			print("--> O que você quer fazer? <--")
-			print("\n  C. Usar um consumível")
+			print("\n  C [número]. Usar o consumível selecionado")
 			print("  [número]. Ver detalhes do item selecionado")
-			print("\n  D [número]. Deletar o item selecionado")
-			print("  S. Sair do inventário")
+			print("\n  S. Sair do inventário")
 
 			opcao = input("\n> ").strip().upper()
-			if opcao == 'C':
-				print("\nOpção não implementada ainda.")
-				print("Pressione ENTER para continuar...")
-				input()
+			if opcao.startswith('C'):
+				numero = opcao.split(' ')
+				achou = False
+				for i in numero:
+					if i.isdigit():
+						for item in consumiveis:
+							if item['id'] == int(i):
+								achou = True
+								consumir_item(id_personagem, item)
+								break
+				if not achou:
+					print("\nOpção não implementada ainda.")
+					print("Pressione ENTER para continuar...")
+					input()
 			elif opcao.isdigit():
 				item = None
 
@@ -134,10 +143,6 @@ GROUP  BY I.id_item, I.tipo_item;
 					input()
 				else:
 					mostrar_descricao_item(item)
-			elif opcao.startswith('D'):
-				print("\nOpção não implementada ainda.")
-				print("Pressione ENTER para continuar...")
-				input()
 			elif opcao == 'S':
 				break
 			else:
@@ -178,4 +183,67 @@ def mostrar_descricao_item(item):
 	# rodapé
 	print(f"\n📜 Descrição:\n\n  {item['descricao']}\n")
 	input("Pressione ENTER para continuar...")
-    
+
+def consumir_item(id_personagem, item):
+	consumir = """
+WITH alvo AS (
+    SELECT ii.id_instancia_item
+    FROM   INSTANCIA_ITEM  AS ii
+    JOIN   INVENTARIO      AS inv
+           ON inv.id_inventario = ii.id_inventario
+    WHERE  inv.id_personagem = %s
+      AND  ii.id_item        = %s
+    ORDER BY ii.id_instancia_item
+    LIMIT 1
+)
+DELETE FROM INSTANCIA_ITEM
+WHERE id_instancia_item IN (SELECT id_instancia_item FROM alvo);
+"""
+
+	print(f"\nDeseja mesmo consumir um(a) {item['nome']}? (S/n)")
+
+	escolha = input("> ").strip().upper()
+
+	if escolha == 'N':
+		return
+	elif escolha != 'S':
+		print("\nOpção inválida! Pressione ENTER para continuar...")
+		input()
+		return
+	
+	if 'POCAO' in item['tipo']:
+		if 'Cura' in item['efeito']:
+			query = """
+UPDATE PERSONAGEM
+	SET vida = vida + %s
+WHERE id_personagem = %s
+"""
+			vida = str(item['efeito']).split(' ')
+			for i in vida:
+				if i.isdigit():
+					vida = int(i)
+					break
+			execute_query(query, (vida, id_personagem,))
+			execute_query(consumir, (id_personagem, int(item['id']),))
+			print(f"Curado {vida} de vida com sucesso!")
+			input("Pressione ENTER para continuar...")
+		elif 'Mana' in item['efeito']:
+			query = """
+UPDATE PERSONAGEM
+	SET mana = mana + %s
+WHERE id_personagem = %s
+"""
+			mana = str(item['efeito']).split(' ')
+			for i in mana:
+				if i.isdigit():
+					mana = int(i)
+					break
+			execute_query(query, (mana, id_personagem))
+			execute_query(consumir, (id_personagem, int(item['id']),))
+			print(f"Recuperada {mana} de mana com sucesso!")
+			input("Pressione ENTER para continuar...")
+	else:
+		print("Somente possível consumir poções por enquanto!")
+		input("Pressione ENTER para continuar...")
+		
+
