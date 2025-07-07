@@ -45,3 +45,34 @@ WHERE  INV.id_personagem = %s
 GROUP  BY I.id_item, I.tipo_item;
 
 """
+	
+	result = execute_query(query, (id_personagem,), fetch_all=True)
+	armas = []
+	consumiveis = []
+	armaduras = []
+	
+	if result:
+
+		for item in result:
+			if "ARMA" in item[1]:
+				armas.append({"id": item[0], "tipo_item": item[1], "nome": item[2], "tipo": item[3], "qtd": item[12], "dano": f"{item[4]}-{item[4]+item[5]}", "descricao": item[11]})
+			elif "CONSUMIVEL" in item[1]:
+				efeito = (f"Cura: {item[8]}" if "VIDA" in item[7] else f"Mana: {item[9]}") if "POCAO" in item[6] else None
+				consumiveis.append({"id": item[0], "tipo_item": item[1], "nome": item[2], "tipo": item[6], "qtd": item[12], "efeito": efeito, "descricao": item[11]})
+			elif "ARMADURA" in item[1]:
+				armaduras.append({"id": item[0], "tipo_item": item[1], "nome": item[2], "tipo": item[10], "qtd": item[12], "descricao": item[11]})
+		
+		while True:
+			limpar_tela()
+			print("╔═══════════════════════╗")
+			print("║     🧭 INVENTÁRIO     ║")
+			print("╚═══════════════════════╝\n")
+
+			print("🗡️ ARMAS:")
+			if len(armas) == 0:
+				print()
+				print("  Você não possui armas 😅")
+			else:
+				for item in armas:
+					print(f"  {item['id']}. {item['nome']:<18} x{item['qtd']}  | Dano: {item['dano']}")
+			print()
