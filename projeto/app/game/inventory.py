@@ -76,3 +76,54 @@ GROUP  BY I.id_item, I.tipo_item;
 				for item in armas:
 					print(f"  {item['id']}. {item['nome']:<18} x{item['qtd']}  | Dano: {item['dano']}")
 			print()
+
+			print("🧪 CONSUMÍVEIS:")
+			if len(consumiveis) == 0:
+				print()
+				print("  Você não possui consumíveis 😅")
+			else:
+				for item in consumiveis:
+					print(f"  {item['id']}. {item['nome']:<18} x{item['qtd']}  | {item['efeito']}")
+			print()
+
+			print("🛡️ ARMADURAS:")
+			if len(armaduras) == 0:
+				print()
+				print("  Você não possui armaduras 😅")
+			else:
+				for item in armaduras:
+					print(f"  {item['id']}. {item['nome']:<18} x{item['qtd']}  | ")
+			print()
+
+			print("--> O que você quer fazer? <--")
+			print("C. Usar um consumível")
+			print("[número]. Ver detalhes do item selecionado")
+			print("\nD [número]. Deletar o item selecionado")
+			print("\nS. Sair do inventário")
+
+			opcao = input("\n> ").strip().upper()
+			if opcao == 'C':
+				print("\nOpção não implementada ainda.")
+			elif opcao.isdigit():
+				item = None
+
+				for i in armas:
+					if str(i['id']) == opcao:
+						item = i
+				for i in consumiveis:
+					if str(i['id']) == opcao:
+						item = i
+				for i in armaduras:
+					if str(i['id']) == opcao:
+						item = i
+
+				if not item:
+					print("Opção inválida! Aperte ENTER para continuar...")
+				else:
+					mostrar_descricao_item(item)
+			elif opcao == 'S':
+				break
+
+		return result
+	else:
+		exibir_mensagem(f"Erro ao listar o inventário do personagem.", tipo="erro")
