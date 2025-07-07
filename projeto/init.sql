@@ -153,6 +153,21 @@ CREATE TABLE INVENTARIO(
     FOREIGN KEY (id_personagem) REFERENCES PERSONAGEM(id_personagem)
 
 );
+
+CREATE OR REPLACE FUNCTION criar_inventario_automatico()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO INVENTARIO (id_personagem)
+    VALUES (NEW.id_personagem);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_criar_inventario
+AFTER INSERT ON PERSONAGEM
+FOR EACH ROW
+EXECUTE FUNCTION criar_inventario_automatico();
+
 CREATE TABLE INSTANCIA_ITEM (
     id_instancia_item SERIAL ,
     id_item INT,
@@ -207,19 +222,19 @@ CREATE TABLE POCAO(
 );
 
 CREATE TABLE PERGAMINHO(
-    id_pergaminho INT PRIMARY KEY,
+    id_consumivel INT PRIMARY KEY,
     tipo_buff VARCHAR(50),
     duracao_buff INT,
     nome_item VARCHAR(100),
     descricao TEXT,
     custo_item INT,
 
-    FOREIGN KEY (id_pergaminho) REFERENCES CONSUMIVEL(id_item)
+    FOREIGN KEY (id_consumivel) REFERENCES CONSUMIVEL(id_item)
 
 );
 
 CREATE TABLE COMIDA(
-    id_comida INT PRIMARY KEY,
+    id_consumivel INT PRIMARY KEY,
     tipo_bonus_atributo VARCHAR(20),
     bonus_atributo INT,
     bonus_atributo_duracao INT,
@@ -227,7 +242,7 @@ CREATE TABLE COMIDA(
     descricao TEXT,
     custo_item INT,
 
-    FOREIGN KEY (id_comida) REFERENCES CONSUMIVEL(id_item)
+    FOREIGN KEY (id_consumivel) REFERENCES CONSUMIVEL(id_item)
 );
 
 CREATE TABLE ARMADURA (
@@ -332,7 +347,7 @@ CREATE TABLE ARMA(
     id_item INT PRIMARY KEY,
     tipo_arma VARCHAR(15),
     dano_base INT,
-    bonus_danos INT,
+    bonus_dano INT,
     descricao TEXT,
     nome_item VARCHAR(100) NOT NULL,
     custo_item INT,
@@ -554,50 +569,50 @@ SELECT add_armadura_acessorio(
 
 -- Primeiro inserimos os itens básicos
 INSERT INTO ITEM (tipo_item) VALUES 
-('ARMA'),  -- id_item = 1 (Espada de Ferro)
-('ARMA'),  -- id_item = 2 (Cajado do Aprendiz)
-('ARMA'),  -- id_item = 3 (Arco Curto)
-('CONSUMIVEL'),  -- id_item = 4 (Poção de Cura)
-('CONSUMIVEL'),  -- id_item = 5 (Pergaminho de Fogo)
-('CONSUMIVEL');  -- id_item = 7 (Garra de Lobo)
+('ARMA'),  -- id_item = 5 (Espada de Ferro)
+('ARMA'),  -- id_item = 6 (Cajado do Aprendiz)
+('ARMA'),  -- id_item = 7 (Arco Curto)
+('CONSUMIVEL'),  -- id_item = 8 (Poção de Cura)
+('CONSUMIVEL'),  -- id_item = 9 (Pergaminho de Fogo)
+('CONSUMIVEL');  -- id_item = 10 (Garra de Lobo)
 
 -- 11. Inserindo Armas 
-INSERT INTO ARMA (id_item, tipo_arma, dano_base, bonus_danos, descricao, nome_item, custo_item) VALUES
-(1, 'CORPO_A_CORPO', 15, 5, 'Uma espada básica de ferro', 'Espada de Ferro', 100),
-(2, 'MAGICA', 10, 3, 'Cajado básico para magos iniciantes', 'Cajado do Aprendiz', 80),
-(3, 'LONGO_ALCANCE', 12, 4, 'Arco simples para treinamento', 'Arco Curto', 90);
+INSERT INTO ARMA (id_item, tipo_arma, dano_base, bonus_dano, descricao, nome_item, custo_item) VALUES
+(5, 'CORPO_A_CORPO', 15, 5, 'Uma espada básica de ferro', 'Espada de Ferro', 100),
+(6, 'MAGICA', 10, 3, 'Cajado básico para magos iniciantes', 'Cajado do Aprendiz', 80),
+(7, 'LONGO_ALCANCE', 12, 4, 'Arco simples para treinamento', 'Arco Curto', 90);
 
 -- Detalhes das armas específicas
 INSERT INTO LONGO_ALCANCE (id_arma, tipo_projetil, quantidade_projetil, descricao, nome_item, dano_base, bonus_dano, custo_item) VALUES
-(3, 'FLECHA', 20, 'Arco simples para treinamento', 'Arco Curto', 12, 4, 90);
+(7, 'FLECHA', 20, 'Arco simples para treinamento', 'Arco Curto', 12, 4, 90);
 
 INSERT INTO MAGICA (id_arma, tipo_magia, efeito_magico, descricao, nome_item, custo_item, dano_base, bonus_dano) VALUES
-(2, 'ELEMENTAL', 'FOGO', 'Cajado básico para magos iniciantes', 'Cajado do Aprendiz', 80, 10, 3);
+(6, 'ELEMENTAL', 'FOGO', 'Cajado básico para magos iniciantes', 'Cajado do Aprendiz', 80, 10, 3);
 
 -- 12. Inserindo Consumíveis
 INSERT INTO CONSUMIVEL (id_item, tipo_consumivel) VALUES
-(4, 'POCAO'),
-(5, 'PERGAMINHO'),
-(7, 'COMIDA');
+(8, 'POCAO'),
+(9, 'PERGAMINHO'),
+(10, 'COMIDA');
 
 -- Detalhes da Poção
 INSERT INTO POCAO (id_consumivel, tipo_bonus_atributo, recupera_vida, recupera_mana, nome_item, descricao, custo_item) VALUES
-(4, 'VIDA', 50, 0, 'Poção de Cura', 'Restaura 50 pontos de vida', 30);
+(8, 'VIDA', 50, 0, 'Poção de Cura', 'Restaura 50 pontos de vida', 30);
 
 -- Detalhes do Pergaminho
-INSERT INTO PERGAMINHO (id_pergaminho, tipo_buff, duracao_buff, nome_item, descricao, custo_item) VALUES
-(5, 'ATAQUE DE FOGO', 3, 'Pergaminho de Fogo', 'Ataques causam dano adicional de fogo por 3 turnos', 50);
+INSERT INTO PERGAMINHO (id_consumivel, tipo_buff, duracao_buff, nome_item, descricao, custo_item) VALUES
+(9, 'ATAQUE DE FOGO', 3, 'Pergaminho de Fogo', 'Ataques causam dano adicional de fogo por 3 turnos', 50);
 
 -- Detalhes da Comida
-INSERT INTO COMIDA (id_comida, tipo_bonus_atributo, bonus_atributo, bonus_atributo_duracao, nome_item, descricao, custo_item) VALUES
-(7, 'FORCA', 5, 10, 'Garra de Lobo', 'Aumenta força por 10 minutos', 15);
+INSERT INTO COMIDA (id_consumivel, tipo_bonus_atributo, bonus_atributo, bonus_atributo_duracao, nome_item, descricao, custo_item) VALUES
+(10, 'FORCA', 5, 10, 'Garra de Lobo', 'Aumenta força por 10 minutos', 15);
 
 -- 13. Associando itens aos estoques dos vendedores
 INSERT INTO VENDE_ESTOQUE_ITEM (id_estoque, id_item) VALUES
-(1, 1), -- Ferreiro vende Espada de Ferro
-(2, 2), -- Mago vende Cajado do Aprendiz
-(2, 4), -- Mago vende Poção de Cura
-(2, 5); -- Mago vende Pergaminho de Fogo
+(1, 5), -- Ferreiro vende Espada de Ferro
+(2, 6), -- Mago vende Cajado do Aprendiz
+(2, 8), -- Mago vende Poção de Cura
+(2, 9); -- Mago vende Pergaminho de Fogo
 
 -- 14. Inserindo Jogadores
 INSERT INTO JOGADOR (usuario, email, senha) VALUES
@@ -623,14 +638,10 @@ INSERT INTO PERTENCE_PERSONAGEM_CLASSE (id_personagem, id_classe) VALUES
 (2, 2), -- Patolino é Mago
 (3, 1); -- Igris é Espadachim
 
--- 18. Inserindo Inventários
-INSERT INTO INVENTARIO (id_personagem) VALUES
-(1),
-(2),
-(3);
-
 -- 19. Inserindo Instâncias de Itens nos Inventários
 INSERT INTO INSTANCIA_ITEM (id_item, id_inventario) VALUES
-(3, 1), -- kamishiro tem Arco Curto
-(2, 2), -- Patolino tem Cajado do Aprendiz
-(1, 3); -- Igris tem Espada de Ferro
+(7, 1), -- kamishiro tem Arco Curto
+(6, 2), -- Patolino tem Cajado do Aprendiz
+(5, 3), -- Igris tem Espada de Ferro
+(5, 3), -- Igris tem Espada de Ferro
+(8, 3);

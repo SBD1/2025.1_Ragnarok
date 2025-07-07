@@ -3,6 +3,7 @@ from utils.display import limpar_tela, exibir_mensagem
 from game.player import get_character_details, update_character_room
 from game.map import gerar_mapa_local_opcao2
 from game.combat import iniciar_combate
+from game.inventory import listar_inventario
 
 def get_room_details(room_id):
     """Busca os detalhes de uma sala no banco de dados."""
@@ -111,6 +112,7 @@ def iniciar_jogo(id_personagem_selecionado):
 
         print("\nO que você quer fazer?")
         print("Mover (1, 2, 3, 4) | Sair do Jogo (S)")
+        print("I. Listar inventário")
         if inimigos_presentes:
             print("Combater (C)")
         
@@ -133,7 +135,12 @@ def iniciar_jogo(id_personagem_selecionado):
                 exibir_mensagem("Seu personagem foi redefinido após a derrota. Retornando ao menu.", tipo="info")
                 break 
             current_room_id = character_data['id_sala'] 
-            continue 
+            continue
+        elif escolha == 'I':
+            limpar_tela()
+            # print(listar_inventario(id_personagem_selecionado))
+            listar_inventario(id_personagem_selecionado)
+            escolha = input("Pressione ENTER para continuar...")
         elif escolha == 'S':
             exibir_mensagem("Saindo do jogo atual e voltando ao menu inicial.", tipo="info")
             break
