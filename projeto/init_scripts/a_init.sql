@@ -308,7 +308,7 @@ CREATE TABLE PEITORAL (
 );
 
 
-CREATE TABLE ARMA(
+CREATE TABLE ARMA (
     id_item INT PRIMARY KEY,
     tipo_arma VARCHAR(15),
     dano_base INT,
@@ -320,7 +320,7 @@ CREATE TABLE ARMA(
     FOREIGN KEY (id_item) REFERENCES ITEM(id_item)
 );
 
-CREATE TABLE LONGO_ALCANCE(
+CREATE TABLE LONGO_ALCANCE (
     id_arma INT PRIMARY KEY,
     tipo_projetil VARCHAR(30),
     quantidade_projetil INT,
@@ -333,7 +333,7 @@ CREATE TABLE LONGO_ALCANCE(
     FOREIGN KEY (id_arma) REFERENCES ARMA(id_item)
 );
 
-CREATE TABLE MAGICA(
+CREATE TABLE MAGICA (
     id_arma INT PRIMARY KEY,
     tipo_magia VARCHAR(30),
     efeito_magico VARCHAR(30),

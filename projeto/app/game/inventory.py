@@ -2,8 +2,9 @@ from db.db_utils import execute_query
 from utils.display import exibir_mensagem, limpar_tela 
 
 def listar_inventario(id_personagem):
-	""" Listar itens do inventário do personagem """
-	query = """
+	while True:
+		""" Listar itens do inventário do personagem """
+		query = """
 SELECT I.id_item, I.tipo_item,
   COALESCE(
   	MAX(A.nome_item),
@@ -25,7 +26,9 @@ SELECT I.id_item, I.tipo_item,
     MAX(CA.descricao), MAX(BO.descricao), MAX(AC.descricao),
     MAX(CAPA.descricao), MAX(ES.descricao), MAX(PEIT.descricao)
   ) AS descricao,
-  COUNT(*) AS qtd
+  COUNT(*) AS qtd,
+  MAX(INV.capacidade_slots),
+  MAX(INV.slots_usados)
 FROM   INVENTARIO      INV
 JOIN   INSTANCIA_ITEM  II  ON II.id_inventario  = INV.id_inventario
 JOIN   ITEM            I   ON I.id_item         = II.id_item
@@ -46,23 +49,22 @@ GROUP  BY I.id_item, I.tipo_item;
 
 """
 	
-	result = execute_query(query, (id_personagem,), fetch_all=True)
-	armas = []
-	consumiveis = []
-	armaduras = []
-	
-	if result:
-
-		for item in result:
-			if "ARMA" in item[1]:
-				armas.append({"id": item[0], "tipo_item": item[1], "nome": item[2], "tipo": item[3], "qtd": item[12], "dano": f"{item[4]}-{item[4]+item[5]}", "descricao": item[11]})
-			elif "CONSUMIVEL" in item[1]:
-				efeito = (f"Cura: {item[8]}" if "VIDA" in item[7] else f"Mana: {item[9]}") if "POCAO" in item[6] else None
-				consumiveis.append({"id": item[0], "tipo_item": item[1], "nome": item[2], "tipo": item[6], "qtd": item[12], "efeito": efeito, "descricao": item[11]})
-			elif "ARMADURA" in item[1]:
-				armaduras.append({"id": item[0], "tipo_item": item[1], "nome": item[2], "tipo": item[10], "qtd": item[12], "descricao": item[11]})
+		result = execute_query(query, (id_personagem,), fetch_all=True)
+		armas = []
+		consumiveis = []
+		armaduras = []
 		
-		while True:
+		if result:
+
+			for item in result:
+				if "ARMA" in item[1]:
+					armas.append({"id": item[0], "tipo_item": item[1], "nome": item[2], "tipo": item[3], "qtd": item[12], "dano": f"{item[4]}-{item[4]+item[5]}", "descricao": item[11]})
+				elif "CONSUMIVEL" in item[1]:
+					efeito = (f"Cura: {item[8]}" if "VIDA" in item[7] else f"Mana: {item[9]}") if "POCAO" in item[6] else None
+					consumiveis.append({"id": item[0], "tipo_item": item[1], "nome": item[2], "tipo": item[6], "qtd": item[12], "efeito": efeito, "descricao": item[11]})
+				elif "ARMADURA" in item[1]:
+					armaduras.append({"id": item[0], "tipo_item": item[1], "nome": item[2], "tipo": item[10], "qtd": item[12], "descricao": item[11]})
+			
 			limpar_tela()
 			print("╔═══════════════════════╗")
 			print("║     🧭 INVENTÁRIO     ║")
@@ -95,15 +97,25 @@ GROUP  BY I.id_item, I.tipo_item;
 					print(f"  {item['id']}. {item['nome']:<18} x{item['qtd']}  | ")
 			print()
 
+			result = execute_query(
+						"SELECT slots_usados, capacidade_slots FROM INVENTARIO WHERE id_personagem = %s",
+						(id_personagem,),
+						fetch_one=True
+					)
+			if result:
+				print(f"Capacidade do inventário: {result[0]}/{result[1]}\n")
+
 			print("--> O que você quer fazer? <--")
-			print("C. Usar um consumível")
-			print("[número]. Ver detalhes do item selecionado")
-			print("\nD [número]. Deletar o item selecionado")
-			print("\nS. Sair do inventário")
+			print("\n  C. Usar um consumível")
+			print("  [número]. Ver detalhes do item selecionado")
+			print("\n  D [número]. Deletar o item selecionado")
+			print("  S. Sair do inventário")
 
 			opcao = input("\n> ").strip().upper()
 			if opcao == 'C':
 				print("\nOpção não implementada ainda.")
+				print("Pressione ENTER para continuar...")
+				input()
 			elif opcao.isdigit():
 				item = None
 
@@ -119,6 +131,7 @@ GROUP  BY I.id_item, I.tipo_item;
 
 				if not item:
 					print("Opção inválida! Aperte ENTER para continuar...")
+					input()
 				else:
 					mostrar_descricao_item(item)
 			elif opcao == 'S':

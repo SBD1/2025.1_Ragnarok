@@ -140,7 +140,6 @@ def iniciar_jogo(id_personagem_selecionado):
             limpar_tela()
             # print(listar_inventario(id_personagem_selecionado))
             listar_inventario(id_personagem_selecionado)
-            escolha = input("Pressione ENTER para continuar...")
         elif escolha == 'S':
             exibir_mensagem("Saindo do jogo atual e voltando ao menu inicial.", tipo="info")
             break
