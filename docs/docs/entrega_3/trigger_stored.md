@@ -6,7 +6,10 @@ As Triggers (gatilhos) são procedimentos que são executados automaticamente em
 Já as Stored Procedures (procedimentos armazenados) consistem em blocos de comandos SQL armazenados no próprio banco, que podem ser executados sob demanda para realizar tarefas mais complexas, como garantir a integridade em estruturas com generalizações e especializações.
 Quando usados em conjunto, esses recursos fortalecem a lógica do sistema e tornam o banco de dados mais robusto, seguro e confiável.
 
-#### Todos podem ser encontrados no arquivo [**ARQUIVO**](../../../Modulo3/triggers.sql).
+#### Todos podem ser encontrados no arquivo:
+1. [**TRIGGER**](../../../projeto/init_scripts/b_triggers.sql)
+
+2. [**PROCEDURES**](../../../projeto/init_scripts/c_procedures.sql)
 
 ### Atualiza automaticamente o contador de slots do inventário ao inserir, remover ou mover itens, impedindo que ultrapasse a capacidade:
 
