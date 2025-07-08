@@ -72,7 +72,7 @@ make logs
 1. Crie um ambiente virtual
 
 ```shell
-python -m venv .venv
+python3 -m venv .venv
 ```
 2. Ative o ambiente criado no passo anterior:
 ```shell
@@ -119,6 +119,9 @@ python3 main.py
     - [Álgebra Relacional](./docs/docs/entrega_2/algebra_relacional.md)
 
 - **Módulo 3**
+
+    - [Trigger e Stored Procedure](./docs/docs/entrega_3/trigger_stored.md)
+    - [Jogo Finaliszado](./docs/docs/entrega_3/jogo.md)
 
 ## Equipe
 
