@@ -74,12 +74,12 @@ INSERT INTO PERTENCE_PERSONAGEM_CLASSE (id_personagem, id_classe) VALUES
 
 -- 14. Inserindo Instâncias de Itens nos Inventários
 INSERT INTO INSTANCIA_ITEM (id_item, id_inventario) VALUES
-(7, 1),
-(6, 2),
-(5, 3),
-(5, 3),
-(8, 3),
-(8, 3);
+(41, 1), -- kamishiro tem Arco Curto
+(35, 2), -- Patolino tem Cajado do Aprendiz
+(31, 3), -- Igris tem Espada de Ferro
+(31, 3), -- Igris tem Espada de Ferro
+(11, 3), -- Igris tem Poção de cura
+(11, 3); -- Igris tem Poção de cura
 
 
 --  Lobo 
