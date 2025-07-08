@@ -330,6 +330,8 @@ A tabela `INVENTARIO` refere-se ao inventário do jogador.
 CREATE TABLE INVENTARIO (
     id_inventario SERIAL,
     id_personagem INT,
+    capacidade_slots INT, 
+    slots_usados INT
     
     CONSTRAINT INVENTARIO_PK PRIMARY KEY (id_inventario),
     CONSTRAINT INVENTARIO_PERSONAGEM_FK FOREIGN KEY (id_personagem) REFERENCES PERSONAGEM (id_personagem)
@@ -808,5 +810,6 @@ CREATE TABLE MAGICA (
 | :------: | :----------: | :-----------: | :---------: | :---------: |
 | `1.0` | 11/06/2025 | Criação do documento e primeira versão do DDL | [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4), [Ian Costa](https://github.com/iancostag), [Kauã Richard](https://github.com/r1ch4rd1) | [Danilo Naves](https://github.com/DaniloNavesS) |
 | `1.1` | 11/06/2025 | Ajustes de formatação e código | [Amanda Cruz](https://github.com/mandicrz), [Felipe Motta](https://github.com/M0tt1nh4), [Ian Costa](https://github.com/iancostag), [Kauã Richard](https://github.com/r1ch4rd1) | [Danilo Naves](https://github.com/DaniloNavesS) |
+| `1.2` | 06/07/2025 | Adicionando atributo faltante | [Amanda Cruz](https://github.com/mandicrz) | [Felipe Motta](https://github.com/M0tt1nh4)|
 
 

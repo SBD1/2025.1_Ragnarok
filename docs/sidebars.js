@@ -80,6 +80,22 @@ const sidebars = {
     },
     {
       type: 'category',
+      label: 'Módulo 3',
+      items: [
+        {
+          type: 'doc',
+          id: 'entrega_3/trigger_stored',
+          label: '1. Triggers e Stored Procedure'
+        },
+        {
+          type: 'doc',
+          id: 'entrega_3/jogo',
+          label: '2. Jogo Finalizado'
+        },
+      ]
+    },
+    {
+      type: 'category',
       label: 'Apresentações',
       items: [
         {
@@ -91,6 +107,11 @@ const sidebars = {
           type: 'doc',
           id: 'entrega_2/apresentacao_2',
           label: 'Módulo 2'
+        },
+        {
+          type: 'doc',
+          id: 'entrega_3/apresentacao_3',
+          label: 'Módulo 3'
         }
       ]
     },

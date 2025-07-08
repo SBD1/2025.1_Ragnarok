@@ -76,7 +76,7 @@ GROUP  BY I.id_item, I.tipo_item;
 				print("  Você não possui armas 😅")
 			else:
 				for item in armas:
-					print(f"  {item['id']}. {item['nome']:<18} x{item['qtd']}  | Dano: {item['dano']}")
+					print(f"  {item['id']}. {item['nome']:<30} x{item['qtd']}  | Dano: {item['dano']}")
 			print()
 
 			print("🧪 CONSUMÍVEIS:")
@@ -85,7 +85,7 @@ GROUP  BY I.id_item, I.tipo_item;
 				print("  Você não possui consumíveis 😅")
 			else:
 				for item in consumiveis:
-					print(f"  {item['id']}. {item['nome']:<18} x{item['qtd']}  | {item['efeito']}")
+					print(f"  {item['id']}. {item['nome']:<30} x{item['qtd']}  | {item['efeito']}")
 			print()
 
 			print("🛡️ ARMADURAS:")
