@@ -75,4 +75,4 @@ FOR EACH ROW EXECUTE FUNCTION incrementar_slots_usados();
 
 |  Versão  |     Data     | Descrição | Autor(es) | Revisor(es) |
 | :------: | :----------: | :-----------: | :---------: | :---------: |
-| `1.0` | 06/07/2025 | Criação do documento | [Cauã Araujo](https://github.com/caua08) | [Amanda Cruz Lima](https://github.com/mandicrz) |
+| `1.0` | 06/07/2025 | Criação do documento | [Cauã Araujo](https://github.com/caua08) | [Danilo Naves](https://github.com/DaniloNavesS) |
