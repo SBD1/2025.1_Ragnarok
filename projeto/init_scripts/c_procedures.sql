@@ -584,3 +584,72 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+
+
+-- comprar_item
+CREATE OR REPLACE FUNCTION comprar_item(
+    _id_personagem INT,
+    _id_item INT,
+    _id_npc_vendedor INT
+) RETURNS TEXT AS $$
+DECLARE
+    _preco INT;
+    _id_inventario INT;
+    _id_estoque INT;
+    _dinheiro_atual INT;
+BEGIN
+    SELECT id_estoque INTO _id_estoque
+    FROM NPC_VENDEDOR
+    WHERE id_npc_vendedor = _id_npc_vendedor;
+
+    IF NOT FOUND THEN
+        RETURN 'NPC vendedor inválido.';
+    END IF;
+
+    IF NOT EXISTS (
+        SELECT 1 FROM VENDE_ESTOQUE_ITEM
+        WHERE id_estoque = _id_estoque AND id_item = _id_item
+    ) THEN
+        RETURN 'Este NPC não vende esse item.';
+    END IF;
+
+    SELECT COALESCE(
+        (SELECT custo_item FROM ARMA WHERE id_item = _id_item),
+        (SELECT custo_item FROM POCAO WHERE id_consumivel = _id_item),
+        (SELECT custo_item FROM PERGAMINHO WHERE id_consumivel = _id_item),
+        (SELECT custo_item FROM COMIDA WHERE id_consumivel = _id_item),
+        (SELECT custo_item FROM CAPACETE WHERE id_armadura = _id_item),
+        (SELECT custo_item FROM BOTA WHERE id_armadura = _id_item),
+        (SELECT custo_item FROM ACESSORIO WHERE id_armadura = _id_item),
+        (SELECT custo_item FROM CAPA WHERE id_armadura = _id_item),
+        (SELECT custo_item FROM ESCUDO WHERE id_armadura = _id_item),
+        (SELECT custo_item FROM PEITORAL WHERE id_armadura = _id_item),
+        0
+    ) INTO _preco;
+
+    IF _preco IS NULL THEN
+        RETURN 'Não foi possível determinar o preço do item.';
+    END IF;
+
+    SELECT dinheiro INTO _dinheiro_atual
+    FROM PERSONAGEM
+    WHERE id_personagem = _id_personagem;
+
+    IF _dinheiro_atual < _preco THEN
+        RETURN 'Dinheiro insuficiente.';
+    END IF;
+
+    SELECT id_inventario INTO _id_inventario
+    FROM INVENTARIO
+    WHERE id_personagem = _id_personagem;
+
+    INSERT INTO INSTANCIA_ITEM (id_item, id_inventario)
+    VALUES (_id_item, _id_inventario);
+
+    UPDATE PERSONAGEM
+    SET dinheiro = dinheiro - _preco
+    WHERE id_personagem = _id_personagem;
+
+    RETURN 'Compra realizada com sucesso!';
+END;
+$$ LANGUAGE plpgsql;

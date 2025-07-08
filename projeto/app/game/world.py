@@ -4,6 +4,7 @@ from game.player import get_character_details, update_character_room
 from game.map import gerar_mapa_local_opcao2
 from game.combat import iniciar_combate
 from game.inventory import listar_inventario
+from game.shop import comprar_item
 
 def get_room_details(room_id):
     """Busca os detalhes de uma sala no banco de dados."""
@@ -102,7 +103,6 @@ def iniciar_jogo(id_personagem_selecionado):
 
         display_room(room_data, character_name)
 
-       
         inimigos_presentes = execute_query("""
             SELECT 1 FROM INSTANCIA_NPC_COMBATENTE i
             JOIN NPC n ON i.id_npc_combatente = n.id_npc
@@ -110,11 +110,20 @@ def iniciar_jogo(id_personagem_selecionado):
             LIMIT 1;
         """, (current_room_id,), fetch_one=True)
 
+        vendedores_presentes = execute_query("""
+            SELECT 1 FROM NPC_VENDEDOR nv
+            JOIN NPC n ON n.id_npc = nv.id_npc_vendedor
+            WHERE n.id_sala = %s
+            LIMIT 1;
+        """, (current_room_id,), fetch_one=True)
+
         print("\nO que você quer fazer?")
         print("Mover (1, 2, 3, 4) | Sair do Jogo (S)")
         print("I. Listar inventário")
         if inimigos_presentes:
-            print("Combater (C)")
+            print("C. Combater")
+        if vendedores_presentes:
+            print("V. Comprar de vendedor")
         
         escolha = input("> ").strip().upper()
 
@@ -129,7 +138,6 @@ def iniciar_jogo(id_personagem_selecionado):
             nova_sala_id = room_data['id_direita']
         elif escolha == 'C' and inimigos_presentes: 
             iniciar_combate(id_personagem_selecionado)
-        
             character_data = get_character_details(id_personagem_selecionado)
             if not character_data: 
                 exibir_mensagem("Seu personagem foi redefinido após a derrota. Retornando ao menu.", tipo="info")
@@ -138,16 +146,17 @@ def iniciar_jogo(id_personagem_selecionado):
             continue
         elif escolha == 'I':
             limpar_tela()
-            # print(listar_inventario(id_personagem_selecionado))
             listar_inventario(id_personagem_selecionado)
+        elif escolha == 'V' and vendedores_presentes:
+            limpar_tela()
+            comprar_item(id_personagem_selecionado)
         elif escolha == 'S':
             exibir_mensagem("Saindo do jogo atual e voltando ao menu inicial.", tipo="info")
             break
         else:
             exibir_mensagem("Comando ou direção inválida.", tipo="erro")
-        
+
         if nova_sala_id:
-            
             if get_room_details(nova_sala_id): 
                 if update_character_room(id_personagem_selecionado, nova_sala_id):
                     current_room_id = nova_sala_id
