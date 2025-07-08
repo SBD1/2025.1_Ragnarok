@@ -102,6 +102,7 @@ python3 main.py
 | :----: | :--------------: | :--: |
 |   1    | [Apresentação 1](https://youtu.be/0g3IyhfRMTM?si=ifjVauHRSVdq8QY1) | 02/05/2025 |
 |   2    | [Apresentação 2](https://youtu.be/2gFcsBq5W94?si=N_eF2v--Jv4oSN0B) | 16/06/2025 |
+|   3    | [Apresentação 2]() | 07/07/2025 |
 
 ## Entregas
 
@@ -122,7 +123,9 @@ python3 main.py
     - [Álgebra Relacional](../docs/entrega_2/algebra_relacional.md)
 
 - **Módulo 3**
-
+    - [Trigger e Stored Procedure](../docs/entrega_3/trigger_stored.md)
+    - [Jogo Finalizado](../docs/entrega_3/jogo.md)
+    
 ## Equipe
 
 <div class="md-typeset__scrollwrap"><div class="md-typeset__table"><table>

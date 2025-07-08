@@ -33,11 +33,10 @@ Este guia detalha os passos para configurar e iniciar o ambiente de desenvolvime
 
 ### 2. Pré-requisitos
 
-Docker Desktop (para Windows/macOS) ou Docker Engine e Docker Compose (para Linux): Essencial para rodar o banco de dados em um container.
-
-`Python 3.8+`: A linguagem principal do projeto.
-`pip`: Gerenciador de pacotes do Python (geralmente vem com o Python).
-`make`: Utilizado para orquestrar os comandos Docker Compose de forma conveniente.
+- Docker Desktop (para Windows/macOS) ou Docker Engine e Docker Compose (para Linux): Essencial para rodar o banco de dados em um container.
+- `Python 3.8+`: A linguagem principal do projeto.
+- `pip`: Gerenciador de pacotes do Python (geralmente vem com o Python).
+- `make`: Utilizado para orquestrar os comandos Docker Compose de forma conveniente.
 
 ### 3. Configuração de banco de dados
 
