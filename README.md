@@ -72,7 +72,7 @@ make logs
 1. Crie um ambiente virtual
 
 ```shell
-python -m venv .venv
+python3 -m venv .venv
 ```
 2. Ative o ambiente criado no passo anterior:
 ```shell
