@@ -36,7 +36,7 @@ INSERT INTO ESTOQUE (id_estoque) VALUES (1), (2);
 
 INSERT INTO NPC_VENDEDOR (id_npc_vendedor, id_estoque) VALUES
 (2, 1),  -- Ferreiro
-(5, 2);  -- Mago Arcanjo
+(4, 2);  -- Mago Arcanjo
 
 -- 9. Associando itens aos estoques
 INSERT INTO VENDE_ESTOQUE_ITEM (id_estoque, id_item) VALUES
@@ -56,9 +56,9 @@ INSERT INTO JOGADOR (usuario, email, senha) VALUES
 
 -- 11. Inserindo Missões
 INSERT INTO MISSAO (id_npc, requisito_level, xp_base, xp_classe, descricao, objetivo, dinheiro) VALUES
-(3, 1, 100, 50, 'Derrote 5 lobos na floresta', 'Matar 5 lobos', 50),
-(4, 3, 200, 100, 'Encontre o tesouro perdido na caverna', 'Explorar a caverna', 100),
-(5, 5, 300, 150, 'Aprenda uma magia avançada', 'Falar com o mago', 150);
+(2, 1, 100, 50, 'Derrote 5 lobos na floresta', 'Matar 5 lobos', 50),
+(3, 3, 200, 100, 'Encontre o tesouro perdido na caverna', 'Explorar a caverna', 100),
+(4, 5, 300, 150, 'Aprenda uma magia avançada', 'Falar com o mago', 150);
 
 -- 12. Inserindo Personagens
 INSERT INTO PERSONAGEM (id_jogador, id_sala, id_missao, nome, mana, vida, vitalidade, inteligencia, agilidade, sorte, destreza, forca, ataque, ataque_magico, precisao, esquiva, defesa, defesa_magica, critico, velocidade, nivel, dinheiro) VALUES
