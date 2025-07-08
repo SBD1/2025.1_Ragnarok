@@ -25,106 +25,241 @@ INSERT INTO SALA (id_sala, nome_sala, descricao_sala, id_direita, id_esquerda, i
 (8, 'Caverna de Payon - Nível 1', 'O primeiro nível da caverna. Estalactites e estalagmites pontiagudas formam o ambiente. Cuidado com os Zumbis!', NULL, NULL, 7, NULL),
 (9, 'Campo de Geffen', 'Um campo tranquilo, mas com a grande Torre de Geffen no horizonte, emanando magia.', 1, NULL, NULL, NULL);
 
--- 4. Inserindo NPCs
+SELECT add_npc_combatente(
+    _id_sala := 5,
+    _nome := 'Lobo',
+    _descricao := 'Um lobo selvagem e agressivo',
+    _dialogo := 'Grrrrrrr! rosna',
+    _tamanho := 'Médio',
+    _raca := 'Lobo',
+    _desc_combatente := 'Lobo selvagem que ataca qualquer intruso',
+    _vida := 100,
+    _ataque := 17,
+    _defesa := 3,
+    _defesa_magica := 5,
+    _nivel := 2,
+    _precisao := 70,
+    _esquiva := 60
+);
+
+
 INSERT INTO NPC (id_sala, nome, descricao, dialogo) VALUES
 (1, 'Aldeão', 'Um simples morador da cidade', 'Bem-vindo a nossa cidade, aventureiro! Cuidado com os lobos na floresta.'),
 (1, 'Ferreiro', 'Um robusto ferreiro da cidade', 'Precisa de equipamentos? Tenho os melhores da região!'),
-(5, 'Lobo', 'Um lobo selvagem e agressivo', 'Grrrrrrr! rosna'),
 (6, 'Velho Sábio', 'Um ancião cheio de conhecimento', 'Dizem que há um tesouro escondido nas profundezas desta caverna...'),
 (7, 'Mago Arcanjo', 'Um poderoso mago', 'Interessado em aprender magias poderosas?');
 
--- 5. Inserindo NPCs Combatentes
-INSERT INTO NPC_COMBATENTE (id_npc_combatente, tamanho, raca, descricao, ataque, defesa, defesa_magica, nivel, precisao, esquiva) VALUES
-(3, 'Médio', 'Lobo', 'Lobo selvagem que ataca qualquer intruso', 17, 3, 5, 2, 70, 60);
-
--- 6. Inserindo Instâncias de NPCs Combatentes
-INSERT INTO INSTANCIA_NPC_COMBATENTE (id_npc_combatente, vida_atual, status_npc, agressivo) VALUES
-(3, 30, 'VIVO', TRUE);
-
--- 7. Inserindo Estoque para vendedores
+-- 7. Inserindo Estoques
 INSERT INTO ESTOQUE (id_estoque) VALUES (1), (2);
 
--- 8. Inserindo NPCs Vendedores
 INSERT INTO NPC_VENDEDOR (id_npc_vendedor, id_estoque) VALUES
 (2, 1),  -- Ferreiro
 (5, 2);  -- Mago Arcanjo
 
--- Primeiro inserimos os itens básicos
-INSERT INTO ITEM (tipo_item) VALUES 
-('ARMA'),  -- id_item = 5 (Espada de Ferro)
-('ARMA'),  -- id_item = 6 (Cajado do Aprendiz)
-('ARMA'),  -- id_item = 7 (Arco Curto)
-('CONSUMIVEL'),  -- id_item = 8 (Poção de Cura)
-('CONSUMIVEL'),  -- id_item = 9 (Pergaminho de Fogo)
-('CONSUMIVEL');  -- id_item = 10 (Garra de Lobo)
-
--- 11. Inserindo Armas 
-INSERT INTO ARMA (id_item, tipo_arma, dano_base, bonus_dano, descricao, nome_item, custo_item) VALUES
-(5, 'CORPO_A_CORPO', 15, 5, 'Uma espada básica de ferro', 'Espada de Ferro', 100),
-(6, 'MAGICA', 10, 3, 'Cajado básico para magos iniciantes', 'Cajado do Aprendiz', 80),
-(7, 'LONGO_ALCANCE', 12, 4, 'Arco simples para treinamento', 'Arco Curto', 90);
-
--- Detalhes das armas específicas
-INSERT INTO LONGO_ALCANCE (id_arma, tipo_projetil, quantidade_projetil, descricao, nome_item, dano_base, bonus_dano, custo_item) VALUES
-(7, 'FLECHA', 20, 'Arco simples para treinamento', 'Arco Curto', 12, 4, 90);
-
-INSERT INTO MAGICA (id_arma, tipo_magia, efeito_magico, descricao, nome_item, custo_item, dano_base, bonus_dano) VALUES
-(6, 'ELEMENTAL', 'FOGO', 'Cajado básico para magos iniciantes', 'Cajado do Aprendiz', 80, 10, 3);
-
--- 12. Inserindo Consumíveis
-INSERT INTO CONSUMIVEL (id_item, tipo_consumivel) VALUES
-(8, 'POCAO'),
-(9, 'PERGAMINHO'),
-(10, 'COMIDA');
-
--- Detalhes da Poção
-INSERT INTO POCAO (id_consumivel, tipo_bonus_atributo, recupera_vida, recupera_mana, nome_item, descricao, custo_item) VALUES
-(8, 'VIDA', 50, 0, 'Poção de Cura', 'Restaura 50 pontos de vida', 30);
-
--- Detalhes do Pergaminho
-INSERT INTO PERGAMINHO (id_consumivel, tipo_buff, duracao_buff, nome_item, descricao, custo_item) VALUES
-(9, 'ATAQUE DE FOGO', 3, 'Pergaminho de Fogo', 'Ataques causam dano adicional de fogo por 3 turnos', 50);
-
--- Detalhes da Comida
-INSERT INTO COMIDA (id_consumivel, tipo_bonus_atributo, bonus_atributo, bonus_atributo_duracao, nome_item, descricao, custo_item) VALUES
-(10, 'FORCA', 5, 10, 'Garra de Lobo', 'Aumenta força por 10 minutos', 15);
-
--- 13. Associando itens aos estoques dos vendedores
+-- 9. Associando itens aos estoques
 INSERT INTO VENDE_ESTOQUE_ITEM (id_estoque, id_item) VALUES
-(1, 5), -- Ferreiro vende Espada de Ferro
-(2, 6), -- Mago vende Cajado do Aprendiz
-(2, 8), -- Mago vende Poção de Cura
-(2, 9); -- Mago vende Pergaminho de Fogo
+(1, 29),
+(1, 30),
+(2, 6),
+(2, 35),
+(2, 36),
+(2, 11),
+(2, 12);
 
--- 14. Inserindo Jogadores
+-- 10. Inserindo Jogadores
 INSERT INTO JOGADOR (usuario, email, senha) VALUES
 ('iancostag', 'iancostag@gmail.com', '123'),
 ('danilo', 'danilonaves@gmail.com', '456'),
 ('igris', 'richard@gmail.com', '789');
 
--- 15. Inserindo Missões
+-- 11. Inserindo Missões
 INSERT INTO MISSAO (id_npc, requisito_level, xp_base, xp_classe, descricao, objetivo, dinheiro) VALUES
 (3, 1, 100, 50, 'Derrote 5 lobos na floresta', 'Matar 5 lobos', 50),
 (4, 3, 200, 100, 'Encontre o tesouro perdido na caverna', 'Explorar a caverna', 100),
 (5, 5, 300, 150, 'Aprenda uma magia avançada', 'Falar com o mago', 150);
 
--- 16. Inserindo Personagens
+-- 12. Inserindo Personagens
 INSERT INTO PERSONAGEM (id_jogador, id_sala, id_missao, nome, mana, vida, vitalidade, inteligencia, agilidade, sorte, destreza, forca, ataque, ataque_magico, precisao, esquiva, defesa, defesa_magica, critico, velocidade, nivel, dinheiro) VALUES
 (1, 1, 1, 'kamishiro', 50, 200, 10, 5, 8, 7, 9, 12, 20, 5, 70, 60, 15, 10, 10, 8, 1, 200),
 (2, 1, NULL, 'Patolino, O Mago', 100, 150, 5, 15, 6, 8, 7, 10, 8, 25, 65, 50, 8, 20, 5, 6, 1, 150),
 (3, 1, NULL, 'igris', 60, 180, 8, 7, 12, 10, 12, 8, 18, 8, 80, 70, 12, 12, 15, 10, 1, 180);
 
--- 17. Associando classes aos personagens
+-- 13. Associando Classes aos Personagens
 INSERT INTO PERTENCE_PERSONAGEM_CLASSE (id_personagem, id_classe) VALUES
-(1, 3), -- kamishiro é Arqueiro
-(2, 2), -- Patolino é Mago
-(3, 1); -- Igris é Espadachim
+(1, 3),
+(2, 2),
+(3, 1);
 
--- 19. Inserindo Instâncias de Itens nos Inventários
+-- 14. Inserindo Instâncias de Itens nos Inventários
 INSERT INTO INSTANCIA_ITEM (id_item, id_inventario) VALUES
-(7, 1), -- kamishiro tem Arco Curto
-(6, 2), -- Patolino tem Cajado do Aprendiz
-(5, 3), -- Igris tem Espada de Ferro
-(5, 3), -- Igris tem Espada de Ferro
-(8, 3), -- Igris tem Poção de cura
-(8, 3); -- Igris tem Poção de cura
+(7, 1),
+(6, 2),
+(5, 3),
+(5, 3),
+(8, 3),
+(8, 3);
+
+
+--  Lobo 
+DO $$
+DECLARE
+    _id_lobo INT;
+BEGIN
+    _id_lobo := add_npc_combatente(
+        _id_sala := 5,
+        _nome := 'Lobo',
+        _descricao := 'Um lobo selvagem e agressivo',
+        _dialogo := 'Grrrrrrr! rosna',
+        _tamanho := 'Médio',
+        _raca := 'Lobo',
+        _desc_combatente := 'Lobo selvagem que ataca qualquer intruso',
+        _vida := 100,
+        _ataque := 17,
+        _defesa := 3,
+        _defesa_magica := 5,
+        _nivel := 2,
+        _precisao := 70,
+        _esquiva := 60
+    );
+    PERFORM add_instancia_npc_combatente(_id_lobo);
+    PERFORM add_instancia_npc_combatente(_id_lobo);
+    PERFORM add_instancia_npc_combatente(_id_lobo);
+    PERFORM add_instancia_npc_combatente(_id_lobo);
+    PERFORM add_instancia_npc_combatente(_id_lobo);
+END;
+$$;
+
+--  Poring 
+DO $$
+DECLARE
+    _id_poring INT;
+BEGIN
+    _id_poring := add_npc_combatente(
+        _id_sala := 1,
+        _nome := 'Poring',
+        _descricao := 'Uma geleia rosa saltitante e inofensiva.',
+        _dialogo := 'Puuuu~',
+        _tamanho := 'Pequeno',
+        _raca := 'Slime',
+        _desc_combatente := 'Criatura gelatinosa fraca, mas comum.',
+        _vida := 40,
+        _ataque := 5,
+        _defesa := 1,
+        _defesa_magica := 2,
+        _nivel := 1,
+        _precisao := 40,
+        _esquiva := 10
+    );
+    PERFORM add_instancia_npc_combatente(_id_poring);
+    PERFORM add_instancia_npc_combatente(_id_poring);
+    PERFORM add_instancia_npc_combatente(_id_poring);
+    PERFORM add_instancia_npc_combatente(_id_poring);
+    PERFORM add_instancia_npc_combatente(_id_poring);
+END;
+$$;
+
+--  Lunático 
+DO $$
+DECLARE
+    _id_lunatico INT;
+BEGIN
+    _id_lunatico := add_npc_combatente(
+        _id_sala := 1,
+        _nome := 'Lunático',
+        _descricao := 'Um coelho com olhos vermelhos e comportamento estranho.',
+        _dialogo := 'Squeek!',
+        _tamanho := 'Pequeno',
+        _raca := 'Coelho',
+        _desc_combatente := 'Coelho agressivo que vive nos campos.',
+        _vida := 50,
+        _ataque := 6,
+        _defesa := 2,
+        _defesa_magica := 1,
+        _nivel := 1,
+        _precisao := 45,
+        _esquiva := 15
+    );
+    PERFORM add_instancia_npc_combatente(_id_lunatico);
+    PERFORM add_instancia_npc_combatente(_id_lunatico);
+    PERFORM add_instancia_npc_combatente(_id_lunatico);
+END;
+$$;
+
+--  Fabre 
+DO $$
+DECLARE
+    _id_fabre INT;
+BEGIN
+    _id_fabre := add_npc_combatente(
+        _id_sala := 2,
+        _nome := 'Fabre',
+        _descricao := 'Uma larva de inseto com casco duro.',
+        _dialogo := 'clack clack',
+        _tamanho := 'Pequeno',
+        _raca := 'Inseto',
+        _desc_combatente := 'Inseto que ataca quem chega perto.',
+        _vida := 60,
+        _ataque := 7,
+        _defesa := 3,
+        _defesa_magica := 2,
+        _nivel := 2,
+        _precisao := 50,
+        _esquiva := 10
+    );
+    PERFORM add_instancia_npc_combatente(_id_fabre);
+    PERFORM add_instancia_npc_combatente(_id_fabre);
+    PERFORM add_instancia_npc_combatente(_id_fabre);
+END;
+$$;
+
+-- Aranha da Floresta 
+DO $$
+DECLARE
+    _id_aranha INT;
+BEGIN
+    _id_aranha := add_npc_combatente(
+        _id_sala := 6,
+        _nome := 'Aranha da Floresta',
+        _descricao := 'Uma aranha gigante que patrulha a floresta.',
+        _dialogo := '*chiado sinistro*',
+        _tamanho := 'Médio',
+        _raca := 'Aracnídeo',
+        _desc_combatente := 'Predador silencioso das árvores.',
+        _vida := 120,
+        _ataque := 18,
+        _defesa := 6,
+        _defesa_magica := 4,
+        _nivel := 4,
+        _precisao := 60,
+        _esquiva := 20
+    );
+    PERFORM add_instancia_npc_combatente(_id_aranha);
+    PERFORM add_instancia_npc_combatente(_id_aranha);
+END;
+$$;
+
+--  Esqueleto de Payon 
+DO $$
+DECLARE
+    _id_esqueleto INT;
+BEGIN
+    _id_esqueleto := add_npc_combatente(
+        _id_sala := 7,
+        _nome := 'Esqueleto de Payon',
+        _descricao := 'Um guerreiro morto-vivo com espada enferrujada.',
+        _dialogo := '... *ossos estalam* ...',
+        _tamanho := 'Médio',
+        _raca := 'Morto-vivo',
+        _desc_combatente := 'Criatura ressuscitada por magia sombria.',
+        _vida := 150,
+        _ataque := 22,
+        _defesa := 10,
+        _defesa_magica := 8,
+        _nivel := 5,
+        _precisao := 70,
+        _esquiva := 15
+    );
+    PERFORM add_instancia_npc_combatente(_id_esqueleto);
+    PERFORM add_instancia_npc_combatente(_id_esqueleto);
+END;
+$$;

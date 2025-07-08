@@ -41,6 +41,7 @@ CREATE TABLE NPC (
 CREATE TABLE NPC_COMBATENTE (
     id_npc_combatente INT PRIMARY KEY,
     tamanho VARCHAR(15) NOT NULL,
+    vida INT NOT NULL,
     raca VARCHAR(15) NOT NULL,
     descricao TEXT NOT NULL,
     ataque INT NOT NULL,
@@ -56,7 +57,7 @@ CREATE TABLE NPC_COMBATENTE (
 CREATE TABLE INSTANCIA_NPC_COMBATENTE (
     id_instancia SERIAL PRIMARY KEY,
     id_npc_combatente INT,
-    vida_atual INT NOT NULL DEFAULT 100,
+    vida_atual INT NOT NULL,
     status_npc VARCHAR(15) NOT NULL,
     agressivo BOOLEAN NOT NULL,
 
