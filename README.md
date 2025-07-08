@@ -33,11 +33,10 @@ Este guia detalha os passos para configurar e iniciar o ambiente de desenvolvime
 
 ### 2. Pré-requisitos
 
-Docker Desktop (para Windows/macOS) ou Docker Engine e Docker Compose (para Linux): Essencial para rodar o banco de dados em um container.
-
-`Python 3.8+`: A linguagem principal do projeto.
-`pip`: Gerenciador de pacotes do Python (geralmente vem com o Python).
-`make`: Utilizado para orquestrar os comandos Docker Compose de forma conveniente.
+- Docker Desktop (para Windows/macOS) ou Docker Engine e Docker Compose (para Linux): Essencial para rodar o banco de dados em um container.
+- `Python 3.8+`: A linguagem principal do projeto.
+- `pip`: Gerenciador de pacotes do Python (geralmente vem com o Python).
+- `make`: Utilizado para orquestrar os comandos Docker Compose de forma conveniente.
 
 ### 3. Configuração de banco de dados
 
@@ -99,6 +98,7 @@ python3 main.py
 | :----: | :--------------: | :--: |
 |   1    | [Apresentação 1](https://youtu.be/0g3IyhfRMTM?si=ifjVauHRSVdq8QY1) | 02/05/2025 |
 |   2    | [Apresentação 2](https://youtu.be/2gFcsBq5W94?si=N_eF2v--Jv4oSN0B) | 16/06/2025 |
+|   3    | [Apresentação 3](https://youtu.be/InwL7sLZ8yI) | 07/07/2025 |
 
 ## Entregas
 
@@ -119,9 +119,8 @@ python3 main.py
     - [Álgebra Relacional](./docs/docs/entrega_2/algebra_relacional.md)
 
 - **Módulo 3**
-
     - [Trigger e Stored Procedure](./docs/docs/entrega_3/trigger_stored.md)
-    - [Jogo Finaliszado](./docs/docs/entrega_3/jogo.md)
+    - [Jogo Finalizado](./docs/docs/entrega_3/jogo.md)
 
 ## Equipe
 
