@@ -120,6 +120,9 @@ python3 main.py
 
 - **Módulo 3**
 
+    - [Trigger e Stored Procedure](./docs/docs/entrega_3/trigger_stored.md)
+    - [Jogo Finaliszado](./docs/docs/entrega_3/jogo.md)
+
 ## Equipe
 
 <center>

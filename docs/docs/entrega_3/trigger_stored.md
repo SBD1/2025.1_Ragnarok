@@ -7,9 +7,9 @@ Já as Stored Procedures (procedimentos armazenados) consistem em blocos de coma
 Quando usados em conjunto, esses recursos fortalecem a lógica do sistema e tornam o banco de dados mais robusto, seguro e confiável.
 
 #### Todos podem ser encontrados no arquivo:
-1. [**TRIGGER**](../../../projeto/init_scripts/b_triggers.sql)
+1. [**TRIGGER**](https://github.com/SBD1/2025.1_Ragnarok/blob/main/projeto/init_scripts/b_triggers.sql)
 
-2. [**PROCEDURES**](../../../projeto/init_scripts/c_procedures.sql)
+2. [**PROCEDURES**](https://github.com/SBD1/2025.1_Ragnarok/blob/main/projeto/init_scripts/c_procedures.sql)
 
 ### Atualiza automaticamente o contador de slots do inventário ao inserir, remover ou mover itens, impedindo que ultrapasse a capacidade:
 
