@@ -25,24 +25,6 @@ INSERT INTO SALA (id_sala, nome_sala, descricao_sala, id_direita, id_esquerda, i
 (8, 'Caverna de Payon - Nível 1', 'O primeiro nível da caverna. Estalactites e estalagmites pontiagudas formam o ambiente. Cuidado com os Zumbis!', NULL, NULL, 7, NULL),
 (9, 'Campo de Geffen', 'Um campo tranquilo, mas com a grande Torre de Geffen no horizonte, emanando magia.', 1, NULL, NULL, NULL);
 
-SELECT add_npc_combatente(
-    _id_sala := 5,
-    _nome := 'Lobo',
-    _descricao := 'Um lobo selvagem e agressivo',
-    _dialogo := 'Grrrrrrr! rosna',
-    _tamanho := 'Médio',
-    _raca := 'Lobo',
-    _desc_combatente := 'Lobo selvagem que ataca qualquer intruso',
-    _vida := 100,
-    _ataque := 17,
-    _defesa := 3,
-    _defesa_magica := 5,
-    _nivel := 2,
-    _precisao := 70,
-    _esquiva := 60
-);
-
-
 INSERT INTO NPC (id_sala, nome, descricao, dialogo) VALUES
 (1, 'Aldeão', 'Um simples morador da cidade', 'Bem-vindo a nossa cidade, aventureiro! Cuidado com os lobos na floresta.'),
 (1, 'Ferreiro', 'Um robusto ferreiro da cidade', 'Precisa de equipamentos? Tenho os melhores da região!'),
@@ -144,7 +126,7 @@ BEGIN
         _desc_combatente := 'Criatura gelatinosa fraca, mas comum.',
         _vida := 40,
         _ataque := 5,
-        _defesa := 1,
+        _defesa := 1,                                   
         _defesa_magica := 2,
         _nivel := 1,
         _precisao := 40,
@@ -160,7 +142,7 @@ $$;
 
 --  Lunático 
 DO $$
-DECLARE
+DECLARE                                 
     _id_lunatico INT;
 BEGIN
     _id_lunatico := add_npc_combatente(
