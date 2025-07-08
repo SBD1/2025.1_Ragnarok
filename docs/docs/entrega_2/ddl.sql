@@ -152,6 +152,8 @@ CREATE TABLE PERSONAGEM (
 CREATE TABLE INVENTARIO (
     id_inventario SERIAL,
     id_personagem INT,
+    capacidade_slots INT, 
+    slots_usados INT
     
     CONSTRAINT INVENTARIO_PK PRIMARY KEY (id_inventario),
     CONSTRAINT INVENTARIO_PERSONAGEM_FK FOREIGN KEY (id_personagem) REFERENCES PERSONAGEM (id_personagem)
