@@ -37,6 +37,47 @@ BEFORE INSERT ON PEITORAL
 FOR EACH ROW
 EXECUTE FUNCTION bloquear_insercao_direta();
 
+CREATE TRIGGER trg_bloquear_insert_bota
+BEFORE INSERT ON BOTA
+FOR EACH ROW
+EXECUTE FUNCTION bloquear_insercao_direta();
+
+CREATE TRIGGER trg_bloquear_insert_capa
+BEFORE INSERT ON CAPA
+FOR EACH ROW
+EXECUTE FUNCTION bloquear_insercao_direta();
+
+CREATE TRIGGER trg_bloquear_insert_escudo
+BEFORE INSERT ON ESCUDO
+FOR EACH ROW
+EXECUTE FUNCTION bloquear_insercao_direta();
+
+CREATE TRIGGER trg_bloquear_insert_magica
+BEFORE INSERT ON MAGICA
+FOR EACH ROW
+EXECUTE FUNCTION bloquear_insercao_direta();
+
+CREATE TRIGGER trg_bloquear_insert_longo_alcance
+BEFORE INSERT ON LONGO_ALCANCE
+FOR EACH ROW
+EXECUTE FUNCTION bloquear_insercao_direta();
+
+CREATE TRIGGER trg_bloquear_insert_pocao
+BEFORE INSERT ON POCAO
+FOR EACH ROW
+EXECUTE FUNCTION bloquear_insercao_direta();
+
+CREATE TRIGGER trg_bloquear_insert_pergaminho
+BEFORE INSERT ON PERGAMINHO
+FOR EACH ROW
+EXECUTE FUNCTION bloquear_insercao_direta();
+
+CREATE TRIGGER trg_bloquear_insert_comida
+BEFORE INSERT ON COMIDA
+FOR EACH ROW
+EXECUTE FUNCTION bloquear_insercao_direta();
+
+
 CREATE OR REPLACE FUNCTION incrementar_slots_usados()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -91,3 +132,11 @@ FOR EACH ROW EXECUTE FUNCTION incrementar_slots_usados();
 CREATE TRIGGER trg_updt_slots_inventario
 AFTER UPDATE ON INSTANCIA_ITEM
 FOR EACH ROW EXECUTE FUNCTION incrementar_slots_usados();
+
+CREATE TRIGGER trg_block_insert_npc_combatente
+BEFORE INSERT ON NPC_COMBATENTE
+FOR EACH ROW EXECUTE FUNCTION bloquear_insercao_direta();
+
+CREATE TRIGGER trg_block_insert_instancia_npc_combatente
+BEFORE INSERT ON INSTANCIA_NPC_COMBATENTE
+FOR EACH ROW EXECUTE FUNCTION bloquear_insercao_direta();
